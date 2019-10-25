@@ -1,0 +1,148 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Kubernetes &#8212; Cloud Notes 0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Cloud Shell" href="cloud-shell.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="kubernetes">
+<h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setting-up-k8s-from-the-gui">
+<h2>Setting up K8s from the GUI<a class="headerlink" href="#setting-up-k8s-from-the-gui" title="Permalink to this headline">¶</a></h2>
+<p>GCP has made setting up kubernetes (K8s) a simple procedure:</p>
+<ul class="simple">
+<li>Let’s make a K8 cluster on the GCP:</li>
+</ul>
+<p>GCP&gt; Kubernetes&gt; Clusters&gt; create cluster</p>
+<ul class="simple">
+<li>choose the number of nodes (for test purposes 1 is the cheapest option)</li>
+</ul>
+<p>and create your cluster.</p>
+<p>Done!</p>
+</div>
+<div class="section" id="setting-up-k8s-from-the-cli-in-cloud-shell">
+<h2>Setting up K8s from the CLI in cloud shell<a class="headerlink" href="#setting-up-k8s-from-the-cli-in-cloud-shell" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Set up an environment variable with your cluster name:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CLUSTER_NAME</span><span class="o">=</span>hipster-app
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Set the zone you want to work in:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
+</pre></div>
+</div>
+<p>Notice how the first command uses bash, whilst the second is a GCP command.</p>
+<ol class="arabic simple" start="3">
+<li>Create the cluster with auto scaling enabled:</li>
+</ol>
+<p>NB the warning messages may be ignored.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Cloud Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-k8s-from-the-gui">Setting up K8s from the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-k8s-from-the-cli-in-cloud-shell">Setting up K8s from the CLI in cloud shell</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="cloud-shell.html" title="previous chapter">Cloud Shell</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, masterbunny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/kubernetes.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
