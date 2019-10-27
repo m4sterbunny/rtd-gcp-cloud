@@ -4,7 +4,7 @@
 Accounts & Billing
 ==================
 
-.. topic:: today's Princess Bride extended quote (adapted)
+.. topic:: today's Princess Bride quote (adapted)
 
 	You told me to go back to the beginning. ... So it's the beginning, and I'm staying till I understand ...
 
@@ -92,8 +92,7 @@ All services and resources are associated with a project. The default IAM for al
 
 .. topic:: Create a Project
 
-
-GCP > IAM & > Manage Resources > Create
+	GCP > IAM & > Manage Resources > Create
 
 
 Organisation Policies
