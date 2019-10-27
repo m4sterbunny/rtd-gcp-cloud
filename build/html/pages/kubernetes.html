@@ -35,25 +35,26 @@
             
   <div class="section" id="kubernetes">
 <h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="learning-to-love-k8s">
+<h2>Learning to love K8s<a class="headerlink" href="#learning-to-love-k8s" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="setting-up-k8s-from-the-gui">
-<h2>Setting up K8s from the GUI<a class="headerlink" href="#setting-up-k8s-from-the-gui" title="Permalink to this headline">¶</a></h2>
+<h3>Setting up K8s from the GUI<a class="headerlink" href="#setting-up-k8s-from-the-gui" title="Permalink to this headline">¶</a></h3>
 <p>GCP has made setting up kubernetes (K8s) a simple procedure:</p>
 <ul class="simple">
 <li>Let’s make a K8 cluster on the GCP:</li>
 </ul>
-<p>GCP&gt; Kubernetes&gt; Clusters&gt; create cluster</p>
-<ul class="simple">
-<li>choose the number of nodes (for test purposes 1 is the cheapest option)</li>
-</ul>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Make a cluster
+<a href="#id3"><span class="problematic" id="id4">|</span></a>GCP&gt; Kubernetes&gt; Clusters&gt; create cluster
+<a href="#id5"><span class="problematic" id="id6">|</span></a>choose the number of nodes (1 for test purposes)</p>
 <p>and create your cluster.</p>
-<p>Done!</p>
+<p><strong>Done!</strong></p>
 </div>
 <div class="section" id="setting-up-k8s-from-the-cli-in-cloud-shell">
-<h2>Setting up K8s from the CLI in cloud shell<a class="headerlink" href="#setting-up-k8s-from-the-cli-in-cloud-shell" title="Permalink to this headline">¶</a></h2>
+<h3>Setting up K8s from the CLI in cloud shell<a class="headerlink" href="#setting-up-k8s-from-the-cli-in-cloud-shell" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Set up an environment variable with your cluster name:</li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CLUSTER_NAME</span><span class="o">=</span>hipster-app
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CLUSTER_NAME</span><span class="o">=</span>my-hip-app
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
@@ -62,11 +63,26 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
 </pre></div>
 </div>
-<p>Notice how the first command uses bash, whilst the second is a GCP command.</p>
+<p>Notice how the first command uses bash, whilst the second is gcp’s SDK command.</p>
 <ol class="arabic simple" start="3">
 <li>Create the cluster with auto scaling enabled:</li>
 </ol>
-<p>NB the warning messages may be ignored.</p>
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    gcloud container clusters create <span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span> <span class="se">\</span>
+--machine-type<span class="o">=</span>n1-standard-2 <span class="se">\</span>
+--num-nodes<span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+--enable-autoscaling --min-nodes <span class="m">1</span> --max-nodes <span class="m">3</span> <span class="se">\</span>
+--no-enable-legacy-authorization
+</pre></div>
+</td></tr></table></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The warning messages may be ignored.</p>
+</div>
+</div>
 </div>
 </div>
 
@@ -91,8 +107,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#setting-up-k8s-from-the-gui">Setting up K8s from the GUI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setting-up-k8s-from-the-cli-in-cloud-shell">Setting up K8s from the CLI in cloud shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#learning-to-love-k8s">Learning to love K8s</a></li>
 </ul>
 </li>
 </ul>

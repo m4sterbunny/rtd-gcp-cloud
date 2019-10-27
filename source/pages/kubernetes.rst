@@ -2,6 +2,10 @@
 Kubernetes
 ===========
 
+
+Learning to love K8s
+====================
+
 Setting up K8s from the GUI
 ----------------------------
 
@@ -9,13 +13,14 @@ GCP has made setting up kubernetes (K8s) a simple procedure:
 
 - Let's make a K8 cluster on the GCP:
 
-GCP> Kubernetes> Clusters> create cluster
+|Make a cluster
+|\GCP> Kubernetes> Clusters> create cluster
+|choose the number of nodes (1 for test purposes)
 
-- choose the number of nodes (for test purposes 1 is the cheapest option)
 
 and create your cluster.
 
-Done!
+**Done!**
 
 
 Setting up K8s from the CLI in cloud shell
@@ -25,7 +30,7 @@ Setting up K8s from the CLI in cloud shell
 
 .. code-block:: bash
     
-    export CLUSTER_NAME=hipster-app
+    export CLUSTER_NAME=my-hip-app
 
 2. Set the zone you want to work in:
 
@@ -33,18 +38,19 @@ Setting up K8s from the CLI in cloud shell
     
     gcloud config set compute/zone us-central1-a
 
-Notice how the first command uses bash, whilst the second is a GCP command.
+Notice how the first command uses bash, whilst the second is gcp's SDK command.
 
 3. Create the cluster with auto scaling enabled:
 
 .. code-block:: bash
     :linenos:
+	
 	gcloud container clusters create ${CLUSTER_NAME} \
     --machine-type=n1-standard-2 \
-    --num-nodes=3 \
-    --enable-autoscaling --min-nodes 1 --max-nodes 5 \
+    --num-nodes=1 \
+    --enable-autoscaling --min-nodes 1 --max-nodes 3 \
     --no-enable-legacy-authorization
 
-NB the warning messages may be ignored.
+.. Note:: The warning messages may be ignored.
 
 
