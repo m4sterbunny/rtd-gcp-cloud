@@ -121,6 +121,14 @@ Think of IAM as the control over *who* can do things. While the policies determi
 Roles
 =====
 
+.. topic:: Manage Roles
+
+	GCP > IAM & > IAM > Roles 
+
+	Select project from drop-down on blue bar
+
+	You can add members and roles to a project
+
 A role is a collection of permissions.
 
 A user can be bound to a role.
@@ -138,18 +146,18 @@ Roles may be
 	
 	use pre-defined roles before making your own *custom* role. Consider these 3 and how many more are out there:
 
-.. code-block:: bash
-	:linenos:
+	.. code-block:: bash
+		:linenos:
 
-	appengine.appAdmin
+		appengine.appAdmin
 
-	.. which grants identities the ability to read, write, and modify all application settings
+	which grants identities the ability to read, write, and modify all application settings
 
 
-.. code-block:: bash
-	:linenos:
+		.. code-block:: bash
+			:linenos:
 
-	appengine.ServiceAdmin
+			appengine.ServiceAdmin
 
 	which grants read-only access to application settings and write-level access to module-level and version-level settings
 
@@ -161,5 +169,21 @@ Roles may be
 
 	which grants read-only access to applications
 
+
+Service Accounts
+=================
+
+
+.. topic:: Add a service account
+
+	GCP > IAM & > Service accounts
+	
+Typically we think of identities as belonging to users, that is a person. Sometimes we assign apps or VMs identities to utilise the same IAM system to determine what has accesss, rather than who.
+
+A service account can be created and then given access permissions. Because they are linked to a what, such as a VM, they may be considered a resources. On the other hand they may be as abstracted as providing a user access to a database via a service account that is associated with an app - in this instance it is behaving like a resource.
+
+You may create up to 100 user-defined service accounts.
+
+Service accounts are often created in the background. For example, if you create an App Engine app, then it is assigned a service account to control what it has access to. This service account will be assigned the editor roles for the project in which it is active.
 
 
