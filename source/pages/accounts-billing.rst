@@ -33,15 +33,15 @@ The GCP applies the following resource hierarchy:
 + Folder
 + Project
 
-Google offers Identity as a Service (IDaaS). By using a google identity through G Suite, you can create an organisation in your GCP hierarchy. If your company does not use G Suite, you can use Cloud Identity, Google’s other IDaaS offering.
+Google offers Identity as a Service (IDaaS). By using a Google identity through G Suite, you can create an organisation in your GCP hierarchy. If your company does not use G Suite, you can use Cloud Identity, Google’s other IDaaS offering.
 
 .. topic:: Go to:
 
 	GCP > IAM & admin > Identity & Organisation
 
-All users are assigned project creater and billing account creator by defailt- i.e. every user may initiate a service that creates costs.
+All users are assigned project creator and billing account creator by default - i.e. every user may initiate a service that creates costs.
 
-Futher reponsibilites may be assigned, for example a super-user position would have the Organisation Administrator IAM role assigned. These users can then assign that role to other selected users.
+Further responsibility may be assigned, for example a super-user position would have the Organisation Administrator IAM role assigned. These users can then assign that role to other selected users.
 
 The constraints that GCP supports include:
 
@@ -88,7 +88,7 @@ Organisation administrators may give users access to specific folders. A develop
 Projects
 ---------
 
-All services and resources are associated with a project. The default IAM for all users is that they have the resourcemanager.projects.create role assigned, the big G is in it to make money after all.
+All services and resources are associated with a project. A project can sit inside a folder, or directly below your organisation. The default IAM for all users is that they have the ``resourcemanager.projects.create`` role assigned, the big G is in it to make money after all.
 
 .. topic:: Create a Project
 
@@ -133,7 +133,7 @@ A role is a collection of permissions.
 
 A user can be bound to a role.
 
-A user has an indentity such as ab1@gmail.com. Roles are assigned to alice babel (of ab1@gmail.com fame). 
+A user has an identity such as ab1@gmail.com, which is how roles are assigned to Alice Babel (of ab1@gmail.com fame). 
 
 Roles may be
 
@@ -177,13 +177,62 @@ Service Accounts
 .. topic:: Add a service account
 
 	GCP > IAM & > Service accounts
-	
-Typically we think of identities as belonging to users, that is a person. Sometimes we assign apps or VMs identities to utilise the same IAM system to determine what has accesss, rather than who.
+
+Typically we think of identities as belonging to users, that is a person. Sometimes we assign apps or VMs identities to utilise the same IAM system to determine what has access, rather than who.
 
 A service account can be created and then given access permissions. Because they are linked to a what, such as a VM, they may be considered a resources. On the other hand they may be as abstracted as providing a user access to a database via a service account that is associated with an app - in this instance it is behaving like a resource.
 
 You may create up to 100 user-defined service accounts.
 
 Service accounts are often created in the background. For example, if you create an App Engine app, then it is assigned a service account to control what it has access to. This service account will be assigned the editor roles for the project in which it is active.
+
+
+Billing Accounts
+=================
+
+These are associated with a Project, allowing an Organisation to separate the financials for different activities.
+
+.. topic:: Manage Billing Accounts
+
+	GCP > Billing
+
+There are 2 types:
+	+ Invoiced
+	+ Self-serve (credit card)
+
+IAM, of course, controls who may do what where, and so there are various pre-defined roles that entities who require access may be assigned:
+	+ Billing Account Creator
+	+ Billing Account Admin
+	+ Billing Account User
+	+ Billing Account Viewer
+
+The super user will require account creation rights, whilst the accountant may require user and viewer roles.
+
+Alerts
+=======
+
+.. topic:: Setup Alerts
+
+	GCP > Billing > Budgets & alerts
+
+	There are 3 default alert positions for a budget:
+
+		+ 50%
+		+ 90%
+		+100%
+
+These may be amended.
+
+	Alerts may be by *email* or *programatically* through Pub/Sub
+
+.. topic:: Export Billing Data
+
+	GCP > Billing > Billing export
+
+	Data may be exported to *BigQuery* or *Cloud Storage*. This is managed through the Billing export wizard, with cloud storage called "File Export", with .csv or JSON outputs available.
+
+
+
+
 
 

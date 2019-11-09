@@ -16,7 +16,8 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Kubernetes" href="kubernetes.html" />
+    <link rel="next" title="Cloud Shell" href="cloud-shell.html" />
+    <link rel="prev" title="Enabling APIs" href="api.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -57,13 +58,13 @@
 + Organisation
 + Folder
 + Project</p>
-<p>Google offers Identity as a Service (IDaaS). By using a google identity through G Suite, you can create an organisation in your GCP hierarchy. If your company does not use G Suite, you can use Cloud Identity, Google’s other IDaaS offering.</p>
+<p>Google offers Identity as a Service (IDaaS). By using a Google identity through G Suite, you can create an organisation in your GCP hierarchy. If your company does not use G Suite, you can use Cloud Identity, Google’s other IDaaS offering.</p>
 <div class="topic">
 <p class="topic-title first">Go to:</p>
 <p>GCP &gt; IAM &amp; admin &gt; Identity &amp; Organisation</p>
 </div>
-<p>All users are assigned project creater and billing account creator by defailt- i.e. every user may initiate a service that creates costs.</p>
-<p>Futher reponsibilites may be assigned, for example a super-user position would have the Organisation Administrator IAM role assigned. These users can then assign that role to other selected users.</p>
+<p>All users are assigned project creator and billing account creator by default - i.e. every user may initiate a service that creates costs.</p>
+<p>Further responsibility may be assigned, for example a super-user position would have the Organisation Administrator IAM role assigned. These users can then assign that role to other selected users.</p>
 <p>The constraints that GCP supports include:</p>
 <ul class="simple">
 <li><em>allow</em> a set of values</li>
@@ -98,7 +99,7 @@
 </div>
 <div class="section" id="projects">
 <h3>Projects<a class="headerlink" href="#projects" title="Permalink to this headline">¶</a></h3>
-<p>All services and resources are associated with a project. The default IAM for all users is that they have the resourcemanager.projects.create role assigned, the big G is in it to make money after all.</p>
+<p>All services and resources are associated with a project. A project can sit inside a folder, or directly below your organisation. The default IAM for all users is that they have the <code class="docutils literal notranslate"><span class="pre">resourcemanager.projects.create</span></code> role assigned, the big G is in it to make money after all.</p>
 <div class="topic">
 <p class="topic-title first">Create a Project</p>
 <p>GCP &gt; IAM &amp; &gt; Manage Resources &gt; Create</p>
@@ -126,9 +127,15 @@ cannot be disabled or overridden by objects lower in the hierarchy, an effective
 </div>
 <div class="section" id="roles">
 <h2>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
+<div class="topic">
+<p class="topic-title first">Manage Roles</p>
+<p>GCP &gt; IAM &amp; &gt; IAM &gt; Roles</p>
+<p>Select project from drop-down on blue bar</p>
+<p>You can add members and roles to a project</p>
+</div>
 <p>A role is a collection of permissions.</p>
 <p>A user can be bound to a role.</p>
-<p>A user has an indentity such as <a class="reference external" href="mailto:ab1&#37;&#52;&#48;gmail&#46;com">ab1<span>&#64;</span>gmail<span>&#46;</span>com</a>. Roles are assigned to alice babel (of <a class="reference external" href="mailto:ab1&#37;&#52;&#48;gmail&#46;com">ab1<span>&#64;</span>gmail<span>&#46;</span>com</a> fame).</p>
+<p>A user has an identity such as <a class="reference external" href="mailto:ab1&#37;&#52;&#48;gmail&#46;com">ab1<span>&#64;</span>gmail<span>&#46;</span>com</a>, which is how roles are assigned to Alice Babel (of <a class="reference external" href="mailto:ab1&#37;&#52;&#48;gmail&#46;com">ab1<span>&#64;</span>gmail<span>&#46;</span>com</a> fame).</p>
 <p>Roles may be</p>
 <ul class="simple">
 <li>primitive (Owner, Editor, Viewer)</li>
@@ -138,22 +145,18 @@ cannot be disabled or overridden by objects lower in the hierarchy, an effective
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>DRY</p>
-<p class="last">use pre-defined roles before making your own <em>custom</em> role. Consider these 3 and how many more are out there:</p>
+<p>use pre-defined roles before making your own <em>custom</em> role. Consider these 3 and how many more are out there:</p>
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.appAdmin
+</pre></div>
+</td></tr></table></div>
+<p>which grants identities the ability to read, write, and modify all application settings</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.ServiceAdmin
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+<p class="last">which grants read-only access to application settings and write-level access to module-level and version-level settings</p>
 </div>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.appAdmin
-
-.. which grants identities the ability to read, write, and modify all application settings
-</pre></div>
-</td></tr></table></div>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.ServiceAdmin
-
-which grants read-only access to application settings and write-level access to module-level and version-level settings
-</pre></div>
-</td></tr></table></div>
 <div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.appViewer
@@ -161,6 +164,65 @@ which grants read-only access to application settings and write-level access to 
 which grants read-only access to applications
 </pre></div>
 </td></tr></table></div>
+</div>
+<div class="section" id="service-accounts">
+<h2>Service Accounts<a class="headerlink" href="#service-accounts" title="Permalink to this headline">¶</a></h2>
+<div class="topic">
+<p class="topic-title first">Add a service account</p>
+<p>GCP &gt; IAM &amp; &gt; Service accounts</p>
+</div>
+<p>Typically we think of identities as belonging to users, that is a person. Sometimes we assign apps or VMs identities to utilise the same IAM system to determine what has access, rather than who.</p>
+<p>A service account can be created and then given access permissions. Because they are linked to a what, such as a VM, they may be considered a resources. On the other hand they may be as abstracted as providing a user access to a database via a service account that is associated with an app - in this instance it is behaving like a resource.</p>
+<p>You may create up to 100 user-defined service accounts.</p>
+<p>Service accounts are often created in the background. For example, if you create an App Engine app, then it is assigned a service account to control what it has access to. This service account will be assigned the editor roles for the project in which it is active.</p>
+</div>
+<div class="section" id="billing-accounts">
+<h2>Billing Accounts<a class="headerlink" href="#billing-accounts" title="Permalink to this headline">¶</a></h2>
+<p>These are associated with a Project, allowing an Organisation to separate the financials for different activities.</p>
+<div class="topic">
+<p class="topic-title first">Manage Billing Accounts</p>
+<p>GCP &gt; Billing</p>
+</div>
+<dl class="docutils">
+<dt>There are 2 types:</dt>
+<dd><ul class="first last simple">
+<li>Invoiced</li>
+<li>Self-serve (credit card)</li>
+</ul>
+</dd>
+<dt>IAM, of course, controls who may do what where, and so there are various pre-defined roles that entities who require access may be assigned:</dt>
+<dd><ul class="first last simple">
+<li>Billing Account Creator</li>
+<li>Billing Account Admin</li>
+<li>Billing Account User</li>
+<li>Billing Account Viewer</li>
+</ul>
+</dd>
+</dl>
+<p>The super user will require account creation rights, whilst the accountant may require user and viewer roles.</p>
+</div>
+<div class="section" id="alerts">
+<h2>Alerts<a class="headerlink" href="#alerts" title="Permalink to this headline">¶</a></h2>
+<div class="topic">
+<p class="topic-title first">Setup Alerts</p>
+<p>GCP &gt; Billing &gt; Budgets &amp; alerts</p>
+<p>There are 3 default alert positions for a budget:</p>
+<blockquote>
+<div><ul class="simple">
+<li>50%</li>
+<li>90%</li>
+</ul>
+<p>+100%</p>
+</div></blockquote>
+</div>
+<p>These may be amended.</p>
+<blockquote>
+<div>Alerts may be by <em>email</em> or <em>programatically</em> through Pub/Sub</div></blockquote>
+<div class="topic">
+<p class="topic-title first">Export Billing Data</p>
+<p>GCP &gt; Billing &gt; Billing export</p>
+<p>Data may be exported to <em>BigQuery</em> or <em>Cloud Storage</em>. This is managed through the Billing export wizard, with cloud storage called “File Export”, with .csv or JSON outputs available.</p>
+</div>
 </div>
 </div>
 
@@ -181,23 +243,31 @@ which grants read-only access to applications
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Enabling APIs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Accounts &amp; Billing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#gcp-resource-hierarchy">GCP Resource Hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#organisation-policies">Organisation Policies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#roles">Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gcp-resource-hierarchy">GCP Resource Hierarchy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#organisation">Organisation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#folders">Folders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#projects">Projects</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#organisation-policies">Organisation Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#roles">Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-accounts">Service Accounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing-accounts">Billing Accounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alerts">Alerts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="kubernetes.html" title="previous chapter">Kubernetes</a></li>
+      <li>Previous: <a href="api.html" title="previous chapter">Enabling APIs</a></li>
+      <li>Next: <a href="cloud-shell.html" title="next chapter">Cloud Shell</a></li>
   </ul></li>
 </ul>
 </div>

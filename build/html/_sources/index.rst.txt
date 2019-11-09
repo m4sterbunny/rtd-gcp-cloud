@@ -10,9 +10,13 @@ Welcome to an eclectic set of Cloud Notes documentation
    :maxdepth: 2
    :caption: Contents:
 
+   pages/api.rst
+   pages/accounts-billing.rst
    pages/cloud-shell.rst
    pages/kubernetes.rst
-   pages/accounts-billing.rst
+   pages/stackdriver.rst
+   pages/accounts-billing-quiz.rst
+
 
 
 Indices and tables
@@ -58,5 +62,33 @@ Indices and tables
    :keywords: google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine
    :description lang=en: An eclectic collection of snippets of information useful to a Google Cloud Engineer.
 
+=================================
+The Google Clound Engineer Exam
+=================================
 
 
+You will be expected to understand different ways of delivering cloud computing resources such as:
+
+  + VMs
+  + Kubernetes
+
+
+Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) extracting away much of the admin required in managing a kubernetes cluster. 
+
+Kubernetes is just one of the serverless computing options offered by GC. GC is geared toward supporting microservices, that is code run in a containerized environment managed by the cloud provider or in a compute platform designed for short-running code.
+
+Microservices may be managed by GC or Developers and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more
+value from abstracting such management away.
+
+Google Cloud Engineers (GCEs) must understand the different forms of cloud storage and when to use them: 
+
+  + object
+  + file
+  + block
+  + in-memory caches
+
+Object storage is designed for highly reliable and durable storage of objects such as images or datasets. Object storage is less versatile than file system–based storage systems which provide hierarchical directory storage for files and support operating system. File system services include providing accessibility to multiple servers. 
+
+Block storage occurs on persistent storage devices, such as SSDs and HDDs. Caches are temporary, in-memory data stores used to minimize the latency in retrieving data. They do not provide persistent storage and data held there is usually only recent, not current.
+
+The GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can't, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.

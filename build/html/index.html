@@ -18,7 +18,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Cloud Shell" href="pages/cloud-shell.html" />
+    <link rel="next" title="Enabling APIs" href="pages/api.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -40,6 +40,16 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/api.html">Enabling APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing.html">Accounts &amp; Billing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#gcp-resource-hierarchy">GCP Resource Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#organisation-policies">Organisation Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#roles">Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#service-accounts">Service Accounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#billing-accounts">Billing Accounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#alerts">Alerts</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/cloud-shell.html">Cloud Shell</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/cloud-shell.html#basic-commands">Basic Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/cloud-shell.html#i-like-this-is-there-more">I like this - is there more?</a></li>
@@ -49,12 +59,9 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#learning-to-love-k8s">Learning to love K8s</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing.html">Accounts &amp; Billing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#gcp-resource-hierarchy">GCP Resource Hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#organisation-policies">Organisation Policies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#roles">Roles</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 </ul>
 </div>
 </div>
@@ -65,6 +72,32 @@
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+<div class="section" id="the-google-clound-engineer-exam">
+<h2>The Google Clound Engineer Exam<a class="headerlink" href="#the-google-clound-engineer-exam" title="Permalink to this headline">¶</a></h2>
+<p>You will be expected to understand different ways of delivering cloud computing resources such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li>VMs</li>
+<li>Kubernetes</li>
+</ul>
+</div></blockquote>
+<p>Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) extracting away much of the admin required in managing a kubernetes cluster.</p>
+<p>Kubernetes is just one of the serverless computing options offered by GC. GC is geared toward supporting microservices, that is code run in a containerized environment managed by the cloud provider or in a compute platform designed for short-running code.</p>
+<p>Microservices may be managed by GC or Developers and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more
+value from abstracting such management away.</p>
+<p>Google Cloud Engineers (GCEs) must understand the different forms of cloud storage and when to use them:</p>
+<blockquote>
+<div><ul class="simple">
+<li>object</li>
+<li>file</li>
+<li>block</li>
+<li>in-memory caches</li>
+</ul>
+</div></blockquote>
+<p>Object storage is designed for highly reliable and durable storage of objects such as images or datasets. Object storage is less versatile than file system–based storage systems which provide hierarchical directory storage for files and support operating system. File system services include providing accessibility to multiple servers.</p>
+<p>Block storage occurs on persistent storage devices, such as SSDs and HDDs. Caches are temporary, in-memory data stores used to minimize the latency in retrieving data. They do not provide persistent storage and data held there is usually only recent, not current.</p>
+<p>The GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can’t, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.</p>
+</div>
 </div>
 
 
@@ -86,16 +119,20 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/api.html">Enabling APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="pages/cloud-shell.html" title="next chapter">Cloud Shell</a></li>
+      <li>Next: <a href="pages/api.html" title="next chapter">Enabling APIs</a></li>
   </ul></li>
 </ul>
 </div>

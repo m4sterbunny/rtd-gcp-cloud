@@ -13,9 +13,11 @@ GCP has made setting up kubernetes (K8s) a simple procedure:
 
 - Let's make a K8 cluster on the GCP:
 
-|Make a cluster
-|\GCP> Kubernetes> Clusters> create cluster
-|choose the number of nodes (1 for test purposes)
+.. topic:: Make a cluster
+
+	GCP> Kubernetes> Clusters> create cluster
+	
+	choose the number of nodes (1 for test purposes)
 
 
 and create your cluster.
@@ -38,7 +40,7 @@ Setting up K8s from the CLI in cloud shell
     
     gcloud config set compute/zone us-central1-a
 
-Notice how the first command uses bash, whilst the second is gcp's SDK command.
+Notice how the first command uses bash, whilst the second is GCP's SDK command.
 
 3. Create the cluster with auto scaling enabled:
 

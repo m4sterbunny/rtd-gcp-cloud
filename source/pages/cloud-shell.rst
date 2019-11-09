@@ -44,7 +44,7 @@ For example:
 
 	gcloud projects list
 
-A really useful tool is saving environment variables on that machine to allow your commands to be written in a DRY_ manner.
+A really useful tool is saving environment variables on that machine to allow your commands to be written in a kinda DRY_ manner.
 
 - list the Hipster Shop version environment variable:
 
