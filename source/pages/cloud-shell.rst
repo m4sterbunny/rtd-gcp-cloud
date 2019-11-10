@@ -72,7 +72,7 @@ The big G has, of course, documented the `lot <https://cloud.google.com/sdk/>`_
 
 But here are a few more firm favorites:
 
-.. topic:: display all your functions:
+.. topic:: display all your functions
 
 	.. code-block:: bash
 
