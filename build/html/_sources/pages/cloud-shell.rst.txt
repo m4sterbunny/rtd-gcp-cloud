@@ -1,7 +1,7 @@
 
 .. _DRY: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 
-.. _console_link: https://console.cloud.google.com/
+.. _console: https://console.cloud.google.com/
 
 .. toctree::
    :maxdepth: 2
@@ -16,7 +16,7 @@ The cloud shell environment sits on a VM spun up on your behalf by GCP.
 
 Because GCP has created this machine, it is tied to your GCP account, and gives command line access to your projects.
 
-Which is why this wilting little button unleashes command line interfacing (CLI) with VMs on your console_link_
+Which is why this wilting little button unleashes command line interfacing (CLI) with VMs on your console_.
 
 .. image:: ../images/shell.PNG
 		
