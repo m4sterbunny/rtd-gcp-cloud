@@ -11,16 +11,15 @@ Setting up K8s from the GUI
 
 GCP has made setting up kubernetes (K8s) a simple procedure:
 
-- Let's make a K8 cluster on the GCP:
+Let's make a K8 cluster on the GCP:
 
 .. topic:: Make a cluster
 
 	GCP> Kubernetes> Clusters> create cluster
+
+	and create your cluster.
 	
 	choose the number of nodes (1 for test purposes)
-
-
-and create your cluster.
 
 **Done!**
 

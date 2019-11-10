@@ -220,8 +220,17 @@ which grants read-only access to applications
 <div>Alerts may be by <em>email</em> or <em>programatically</em> through Pub/Sub</div></blockquote>
 <div class="topic">
 <p class="topic-title first">Export Billing Data</p>
-<p>GCP &gt; Billing &gt; Billing export</p>
+<blockquote>
+<div><p>GCP &gt; Billing &gt; Billing export</p>
 <p>Data may be exported to <em>BigQuery</em> or <em>Cloud Storage</em>. This is managed through the Billing export wizard, with cloud storage called “File Export”, with .csv or JSON outputs available.</p>
+<ul class="simple">
+<li>Set the zone you want to work in</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>gcloud config set compute/zone us-central1-a</p>
 </div>
 </div>
 </div>
@@ -243,15 +252,11 @@ which grants read-only access to applications
 
 
 <h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">Enabling APIs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Accounts &amp; Billing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#gcp-resource-hierarchy">GCP Resource Hierarchy</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#organisation">Organisation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#folders">Folders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#projects">Projects</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#gcp-resource-hierarchy">GCP Resource Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#organisation-policies">Organisation Policies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#roles">Roles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#service-accounts">Service Accounts</a></li>
@@ -260,6 +265,10 @@ which grants read-only access to applications
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 </ul>
 
 <div class="relations">

@@ -231,6 +231,11 @@ These may be amended.
 
 	Data may be exported to *BigQuery* or *Cloud Storage*. This is managed through the Billing export wizard, with cloud storage called "File Export", with .csv or JSON outputs available.
 
+	+ Set the zone you want to work in
+
+	.. code-block:: bash
+    
+    gcloud config set compute/zone us-central1-a
 
 
 

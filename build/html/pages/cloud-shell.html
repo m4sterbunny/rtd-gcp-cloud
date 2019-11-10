@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Kubernetes" href="kubernetes.html" />
-    <link rel="prev" title="Welcome to an eclectic set of Cloud Notes documentation" href="../index.html" />
+    <link rel="prev" title="Accounts &amp; Billing" href="accounts-billing.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -36,11 +36,16 @@
             
   <div class="section" id="cloud-shell">
 <h1>Cloud Shell<a class="headerlink" href="#cloud-shell" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="basic-commands">
-<h2>Basic Commands<a class="headerlink" href="#basic-commands" title="Permalink to this headline">¶</a></h2>
 <p>The cloud shell environment sits on a VM spun up on your behalf by GCP.</p>
 <p>Because GCP has created this machine, it is tied to your GCP account, and gives command line access to your projects.</p>
-<p>For example:</p>
+<p>Which is why this wilting little button unleashes command line interfacting (CLI) with VMs on your <a class="reference external" href="https://console.cloud.google.com/">console_link</a></p>
+<div class="figure" id="id1">
+<img alt="pages/../images/shell.PNG:scale:80%:align:center:alt:shellicon" src="pages/../images/shell.PNG:scale:80%:align:center:alt:shellicon" />
+<p class="caption"><span class="caption-text">In the right hand corner of your console.</span></p>
+</div>
+<div class="section" id="basic-commands">
+<h2>Basic Commands<a class="headerlink" href="#basic-commands" title="Permalink to this headline">¶</a></h2>
+<p>There are a ton of great tools on this bash- + Google SDK-hosting machine. Here are just a few commands to have a play around with:</p>
 <ul class="simple">
 <li>list the active account name with:</li>
 </ul>
@@ -48,26 +53,26 @@
 </pre></div>
 </td></tr></table></div>
 <ul class="simple">
-<li>list the project ID with:</li>
+<li>list project ID with:</li>
 </ul>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    gcloud config list project
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config list project
 </pre></div>
-</td></tr></table></div>
+</div>
 <ul class="simple">
 <li>or see all your accessible projects (this will list the properties in your active SDK configuration):</li>
 </ul>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    gcloud config list
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config list
 </pre></div>
-</td></tr></table></div>
+</div>
 <ul class="simple">
-<li>pick up the project number directly from gcloud via CLI</li>
+<li>pick up the project number directly from gcloud</li>
 </ul>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    gcloud projects list
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud projects list
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>A really useful tool is saving environment variables on that machine to allow your commands to be written in a kinda <a class="reference external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> manner.</p>
 <ul class="simple">
-<li>list the Hipster Shop version environment variable:</li>
+<li>set an environment variable; Hipster Shop version:</li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">HIPSTER_VERSION</span><span class="o">=</span><span class="m">1</span>.0.0
 </pre></div>
@@ -78,10 +83,47 @@
 <h2>I like this - is there more?<a class="headerlink" href="#i-like-this-is-there-more" title="Permalink to this headline">¶</a></h2>
 <p>The big G has, of course, documented the <a class="reference external" href="https://cloud.google.com/sdk/">lot</a></p>
 <p>But here are a few more firm favorites:</p>
-<p>display all your functions:</p>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>gcloud functions list
+<blockquote>
+<div><p>display all your functions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud functions list
 </pre></div>
-</td></tr></table></div>
+</div>
+</div></blockquote>
+<div class="topic">
+<p class="topic-title first">display all available zones</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute zones list
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title first">display all available zones in selected region</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute zones list <span class="p">|</span> grep us-central1
+</pre></div>
+</div>
+</div>
+<p>Rather than administer each VM directly, you may configure them all through settings.</p>
+<div class="topic">
+<p class="topic-title first">configure default zone</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title first">launch new VM</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-new-vm&quot;</span>
+--machine-type <span class="s2">&quot;n1-standard-1&quot;</span>
+--image-project <span class="s2">&quot;debian-cloud&quot;</span>
+--image <span class="s2">&quot;debian-9-stretch-v20170918&quot;</span> <span class="se">\</span>
+--subnet <span class="s2">&quot;default&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>close cloud shell</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exit</span>
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 </div>
 
@@ -104,13 +146,14 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">Enabling APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cloud Shell</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basic-commands">Basic Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#i-like-this-is-there-more">I like this - is there more?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
@@ -120,7 +163,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to an eclectic set of Cloud Notes documentation</a></li>
+      <li>Previous: <a href="accounts-billing.html" title="previous chapter">Accounts &amp; Billing</a></li>
       <li>Next: <a href="kubernetes.html" title="next chapter">Kubernetes</a></li>
   </ul></li>
 </ul>

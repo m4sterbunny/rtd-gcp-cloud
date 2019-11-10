@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Kubernetes &#8212; Cloud Notes 0.1 documentation</title>
+    <title>&lt;no title&gt; &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -16,8 +16,6 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Stackdriver" href="stackdriver.html" />
-    <link rel="prev" title="Cloud Shell" href="cloud-shell.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -34,57 +32,25 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="kubernetes">
-<h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="learning-to-love-k8s">
-<h2>Learning to love K8s<a class="headerlink" href="#learning-to-love-k8s" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="setting-up-k8s-from-the-gui">
-<h3>Setting up K8s from the GUI<a class="headerlink" href="#setting-up-k8s-from-the-gui" title="Permalink to this headline">¶</a></h3>
-<p>GCP has made setting up kubernetes (K8s) a simple procedure:</p>
-<p>Let’s make a K8 cluster on the GCP:</p>
+  <p>Virtual Machines are a basic unit of cloud computing.</p>
+<p>Setting one up from the console is a simple task:</p>
 <div class="topic">
-<p class="topic-title first">Make a cluster</p>
-<p>GCP&gt; Kubernetes&gt; Clusters&gt; create cluster</p>
-<p>and create your cluster.</p>
-<p>choose the number of nodes (1 for test purposes)</p>
+<p class="topic-title first">Setup a VM from GCP</p>
+<p>GCP &gt; Compute Engine &gt; VM Instances</p>
+<blockquote>
+<div><ul class="simple">
+<li>Name your instance</li>
+<li>Choose your zone (or accept default)</li>
+<li>Decide you machine type (or accept default)</li>
+<li>Decide your OS (Debian 9 Linux is a grand choice)</li>
+<li>Modify the firewall to allow HTTP or HTTPS traffic</li>
+</ul>
+</div></blockquote>
 </div>
-<p><strong>Done!</strong></p>
-</div>
-<div class="section" id="setting-up-k8s-from-the-cli-in-cloud-shell">
-<h3>Setting up K8s from the CLI in cloud shell<a class="headerlink" href="#setting-up-k8s-from-the-cli-in-cloud-shell" title="Permalink to this headline">¶</a></h3>
-<ol class="arabic simple">
-<li>Set up an environment variable with your cluster name:</li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CLUSTER_NAME</span><span class="o">=</span>my-hip-app
-</pre></div>
-</div>
-<ol class="arabic simple" start="2">
-<li>Set the zone you want to work in:</li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
-</pre></div>
-</div>
-<p>Notice how the first command uses bash, whilst the second is GCP’s SDK command.</p>
-<ol class="arabic simple" start="3">
-<li>Create the cluster with auto scaling enabled:</li>
-</ol>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    gcloud container clusters create <span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span> <span class="se">\</span>
---machine-type<span class="o">=</span>n1-standard-2 <span class="se">\</span>
---num-nodes<span class="o">=</span><span class="m">1</span> <span class="se">\</span>
---enable-autoscaling --min-nodes <span class="m">1</span> --max-nodes <span class="m">3</span> <span class="se">\</span>
---no-enable-legacy-authorization
-</pre></div>
-</td></tr></table></div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The warning messages may be ignored.</p>
-</div>
-</div>
-</div>
+<div class="topic">
+<p class="topic-title first">Setup a VM from the command line</p>
+<p>Launch GCP’s Cloud Shell</p>
+<p>This sets up a VM in the cloud provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that <em>you</em> create.</p>
 </div>
 
 
@@ -105,14 +71,11 @@
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Enabling APIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#learning-to-love-k8s">Learning to love K8s</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
@@ -122,8 +85,6 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="cloud-shell.html" title="previous chapter">Cloud Shell</a></li>
-      <li>Next: <a href="stackdriver.html" title="next chapter">Stackdriver</a></li>
   </ul></li>
 </ul>
 </div>
@@ -159,7 +120,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../_sources/pages/kubernetes.rst.txt"
+      <a href="../_sources/pages/VMs.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
