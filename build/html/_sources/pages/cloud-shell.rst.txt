@@ -14,14 +14,11 @@ Cloud Shell
 
 The cloud shell environment sits on a VM spun up on your behalf by GCP.
 
-Because GCP has created this machine, it is tied to your GCP account, and gives command line access to your projects.
-
-Which is why this wilting little button unleashes command line interfacing (CLI) with VMs on your console_.
+Because GCP has created this machine, it is tied to your GCP account, and gives command line access to your projects and their resources. Which is why this vital little button unleashes command line interfacing (CLI) with VMs on your console_.
 
 .. image:: ../images/shell.PNG
 		
 
-  	
 
 Basic Commands
 --------------
