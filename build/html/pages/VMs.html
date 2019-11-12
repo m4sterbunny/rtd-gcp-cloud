@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; Cloud Notes 0.1 documentation</title>
+    <title>Virtual Machines &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -16,6 +16,8 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Review Questions Billing &amp; Accounts" href="accounts-billing-quiz.html" />
+    <link rel="prev" title="Stackdriver" href="stackdriver.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -32,7 +34,9 @@
 
           <div class="body" role="main">
             
-  <p>Virtual Machines are a basic unit of cloud computing.</p>
+  <div class="section" id="virtual-machines">
+<h1>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this headline">¶</a></h1>
+<p>Virtual Machines are a basic unit of cloud computing.</p>
 <p>Setting one up from the console is a simple task:</p>
 <div class="topic">
 <p class="topic-title first">Setup a VM from GCP</p>
@@ -47,10 +51,53 @@
 </ul>
 </div></blockquote>
 </div>
+<p>Launch GCP’s <a class="reference external" href="cloud-shell.html">Cloud Shell</a></p>
+<p>This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that <em>you</em> create.</p>
 <div class="topic">
 <p class="topic-title first">Setup a VM from the command line</p>
-<p>Launch GCP’s Cloud Shell</p>
-<p>This sets up a VM in the cloud provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that <em>you</em> create.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-new-vm&quot;</span>
+</pre></div>
+</div>
+<p>You will be prompted for a Zone, because the high-level separation of services offered on the GCP are segregated by geographical zones.</p>
+<p>&gt; 46 for us-central1-a</p>
+<p>This command creates the default setting for your VM, which if you have not setup configurations for will be:</p>
+<img alt="../_images/baseVM.PNG" class="align-center" src="../_images/baseVM.PNG" />
+</div>
+<p>Let’s be a little more decisive and prescribe some VM configurations this time. We will create 2 VMs from the command line and connect them.</p>
+<div class="topic">
+<p class="topic-title first">Create &amp; Connect 2 VMs</p>
+<p>First set your zone as a configuration setting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
+</pre></div>
+</div>
+<p>Then create the first VM:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;vm1-zonea&quot;</span> <span class="se">\</span>
+--machine-type <span class="s2">&quot;n1-standard-1&quot;</span> <span class="se">\</span>
+--image-project <span class="s2">&quot;debian-cloud&quot;</span> <span class="se">\</span>
+--image <span class="s2">&quot;debian-9-stretch-v20190213&quot;</span> <span class="se">\</span>
+--subnet <span class="s2">&quot;default&quot;</span>
+</pre></div>
+</div>
+<p>Then set your zone for the next vm:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-b
+</pre></div>
+</div>
+<p>… and create the 2nd VM</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;vm2-zoneb&quot;</span> <span class="se">\</span>
+--machine-type <span class="s2">&quot;n1-standard-1&quot;</span> <span class="se">\</span>
+--image-project <span class="s2">&quot;debian-cloud&quot;</span> <span class="se">\</span>
+--image <span class="s2">&quot;debian-9-stretch-v20190213&quot;</span> <span class="se">\</span>
+--subnet <span class="s2">&quot;default&quot;</span>
+</pre></div>
+</div>
+<p>Let’s see if our 2 VMs can connect.</p>
+<p>SSH into vm2-zoneb</p>
+<p>GCP&gt; Compute Engine&gt; VM instances&gt; SSH</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping my-vm-1 -c <span class="m">3</span>
+</pre></div>
+</div>
+<p>NB if you don’t set the count for the number of pings then use Ctrl+C to abort the ping command.</p>
+</div>
 </div>
 
 
@@ -71,12 +118,13 @@
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">Enabling APIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 </ul>
@@ -85,6 +133,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="stackdriver.html" title="previous chapter">Stackdriver</a></li>
+      <li>Next: <a href="accounts-billing-quiz.html" title="next chapter">Review Questions Billing &amp; Accounts</a></li>
   </ul></li>
 </ul>
 </div>
