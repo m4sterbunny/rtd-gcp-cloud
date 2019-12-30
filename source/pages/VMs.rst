@@ -58,7 +58,7 @@ Let's be a little more decisive and prescribe some VM configurations this time. 
 		--image "debian-9-stretch-v20190213" \
 		--subnet "default"
 	
-	Then set your zone for the next vm:
+	Then set your zone for the next VM:
 
 	.. code-block:: bash
 

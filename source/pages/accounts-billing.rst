@@ -211,6 +211,11 @@ The super user will require account creation rights, whilst the accountant may r
 Alerts
 =======
 
+To change a billing account you must be:
+
+	+ an owner of the project
+	+ billing administrator on that account
+	
 .. topic:: Setup Alerts
 
 	GCP > Billing > Budgets & alerts
