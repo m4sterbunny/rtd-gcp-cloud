@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta content="google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine" name="keywords" />
-<meta content="An eclectic collection of snippets of information useful to a Google Cloud Engineer." lang="en" name="description" />
+<meta content="An eclectic collection of snippets of information useful to a wanna be Google Cloud Engineer." lang="en" name="description" />
 
     <title>Welcome to an eclectic set of GCP Notes &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
@@ -45,6 +45,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#gcp-resource-hierarchy">GCP Resource Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#organisation-policies">Organisation Policies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#roles">Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#primitive-role-descriptions">Primitive Role Descriptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#service-accounts">Service Accounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#billing-accounts">Billing Accounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/accounts-billing.html#alerts">Alerts</a></li>
@@ -57,12 +58,30 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/kubernetes.html">Kubernetes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#learning-to-love-k8s">Learning to love K8s</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#speaking-to-k8s">Speaking to K8s</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#running-awesome-applications">Running awesome applications</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/stackdriver.html">Stackdriver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/VMs.html">Virtual Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/VMs.html">Virtual Machines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#creating-and-linking-virtual-machines">Creating and Linking Virtual Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#zones-matter">Zones matter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#creating-your-own-image">Creating your own image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#importing-a-custom-image">Importing a custom image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#preemptilble-vms">Preemptilble VMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#keen-to-make-something-useful">Keen to make something useful?</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/database-options.html">GCP Database Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/database-options.html#gcp-storage-options">GCP Storage Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/ace-exam.html">ACE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/ace-exam.html#the-ace-exam">The ACE exam</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -75,18 +94,27 @@
 </ul>
 <div class="section" id="the-google-clound-engineer-exam">
 <h2>The Google Clound Engineer Exam<a class="headerlink" href="#the-google-clound-engineer-exam" title="Permalink to this headline">¶</a></h2>
+<p>The Associate level exam (ACE) does not expect the applicant to be able to solve cloud business requirement problems. It focuses on technical requirements and implementation of cloud solutions (expect to be tested on syntax for CLI commands!).</p>
+<p>It is the professional-level exam that requires the applicant to be able to critically examine various solutions and decide which best apply to a business requirement (in addition to the ACE materials).</p>
 <p>You will be expected to understand different ways of delivering cloud computing resources such as:</p>
 <blockquote>
 <div><ul class="simple">
-<li>VMs</li>
+<li>Virtual Machines (VMs)</li>
 <li>Kubernetes</li>
 </ul>
 </div></blockquote>
-<p>Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) extracting away much of the admin required in managing a kubernetes cluster.</p>
+<p>Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) abstracting away much of the admin required in managing a kubernetes cluster.</p>
 <p>Kubernetes is just one of the serverless computing options offered by GC. GC is geared toward supporting microservices, that is code run in a containerized environment managed by the cloud provider or in a compute platform designed for short-running code.</p>
-<p>Microservices may be managed by GC or Developers and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more
+<p>Microservices may be managed by GC or Developers, and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more
 value from abstracting such management away.</p>
 <p>Google Cloud Engineers (GCEs) must understand the different forms of cloud storage and when to use them:</p>
+<p>The professional-level GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can’t, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.</p>
+<div class="section" id="the-gcp-resources">
+<h3>The GCP resources<a class="headerlink" href="#the-gcp-resources" title="Permalink to this headline">¶</a></h3>
+<p>App Engine is typically used for websites, game backends, IOT, and - well, Apps.</p>
+<p>Compute engine provides access to VMs allowing users access to any OS, or configuration. It is also possible to create custom VM images.</p>
+<p>GKE is excellent for managing containerised workloads and hybrid applications.</p>
+<p>Data Storage on the GCP has various modes:</p>
 <blockquote>
 <div><ul class="simple">
 <li>object</li>
@@ -97,7 +125,18 @@ value from abstracting such management away.</p>
 </div></blockquote>
 <p>Object storage is designed for highly reliable and durable storage of objects such as images or datasets. Object storage is less versatile than file system–based storage systems which provide hierarchical directory storage for files and support operating system. File system services include providing accessibility to multiple servers.</p>
 <p>Block storage occurs on persistent storage devices, such as SSDs and HDDs. Caches are temporary, in-memory data stores used to minimize the latency in retrieving data. They do not provide persistent storage and data held there is usually only recent, not current.</p>
-<p>The GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can’t, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.</p>
+<p>The GCP provides 6 different database options for data storage.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Cloud SQL</li>
+<li>Cloud Spanner</li>
+<li>Cloud Datastore</li>
+<li>Cloud Bigtable</li>
+<li>Cloud Storage</li>
+<li>Big Query</li>
+</ul>
+</div></blockquote>
+</div>
 </div>
 </div>
 
@@ -128,6 +167,8 @@ value from abstracting such management away.</p>
 <li class="toctree-l1"><a class="reference internal" href="pages/VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/ace-exam.html">ACE</a></li>
 </ul>
 
 <div class="relations">

@@ -9,6 +9,7 @@ Stackdriver is a tool for:
 	+ logging
 	+ debugging
 
+Stackdriver monitors the performance, uptime, and overall health of cloud-based apps. Stackdriver collates metrics, events, and metadata from GCP, AWS, hosted uptime probes, application instrumentation, and a variety of common application components including Cassandra, Nginx, Apache Web Server, Elasticsearch, among others. Stackdriver generates insights via dashboards, charts, and alerts. Stackdriver alerting integrates with Slack, PagerDuty, HipChat, Campfire, and more.
 
 Stackdriver does this via a workspace on GCP. 
 

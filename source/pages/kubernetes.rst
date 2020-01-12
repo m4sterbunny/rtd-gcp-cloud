@@ -60,7 +60,7 @@ Notice how the first command uses bash, whilst the second is GCP's SDK command.
 Speaking to K8s
 ===============
 
-With load balancing, you can go from zero instances to hero (billions). Much cheaper than keeping a VM running all the time.
+With load balancing, you can go from zero instances to hero (billions). Much cheaper than keeping all those VMs running all the time.
 
 There is a learning curve to tackle for running your K8s.
 
@@ -71,7 +71,15 @@ example code:
     kubectl expose deployment app --type LoadBalancer \
   --port 80 --target-port 8080
 
+It helps when you are a novice to NOT have to use VIM!
 
+example code:
+
+.. code-block:: bash
+
+    KUBE_EDITOR="nano" kubectl edit deployment hello-node
+
+    
 
 Running awesome applications
 =============================

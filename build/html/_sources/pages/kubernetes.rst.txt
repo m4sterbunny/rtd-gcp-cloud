@@ -1,3 +1,5 @@
+.. _r_link:
+
 ===========
 Kubernetes
 ===========
@@ -54,4 +56,39 @@ Notice how the first command uses bash, whilst the second is GCP's SDK command.
 
 .. Note:: The warning messages may be ignored.
 
+
+Speaking to K8s
+===============
+
+With load balancing, you can go from zero instances to hero (billions). Much cheaper than keeping all those VMs running all the time.
+
+There is a learning curve to tackle for running your K8s.
+
+example code:
+
+.. code-block:: bash
+    
+    kubectl expose deployment app --type LoadBalancer \
+  --port 80 --target-port 8080
+
+It helps when you are a novice to NOT have to use VIM!
+
+example code:
+
+.. code-block:: bash
+
+    KUBE_EDITOR="nano" kubectl edit deployment hello-node
+
+    
+
+Running awesome applications
+=============================
+
+So, the reason cloud rocks is the ability to run applications in a way that your little ol' PC can't handle.
+
+I hope you are interested in achieving something in your cloud journey. For me, it is using R in awesome ways.
+
+That is why this is the next Kubernetes experiment for me:
+
+http://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/
 

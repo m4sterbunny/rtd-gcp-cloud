@@ -36,7 +36,9 @@
             
   <div class="section" id="virtual-machines">
 <h1>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this headline">¶</a></h1>
-<p>Virtual Machines are a basic unit of cloud computing.</p>
+<div class="section" id="creating-and-linking-virtual-machines">
+<h2>Creating and Linking Virtual Machines<a class="headerlink" href="#creating-and-linking-virtual-machines" title="Permalink to this headline">¶</a></h2>
+<p>Virtual Machines (VMs) are a basic unit of cloud computing.</p>
 <p>Setting one up from the console is a simple task:</p>
 <div class="topic">
 <p class="topic-title first">Setup a VM from GCP</p>
@@ -60,7 +62,7 @@
 </div>
 <p>You will be prompted for a Zone, because the high-level separation of services offered on the GCP are segregated by geographical zones.</p>
 <p>&gt; 46 for us-central1-a</p>
-<p>This command creates the default setting for your VM, which if you have not setup configurations for will be:</p>
+<p>This minimal command creates a VM with default settings which, if you have not previously setup configurations, will be:</p>
 <img alt="../_images/baseVM.PNG" class="align-center" src="../_images/baseVM.PNG" />
 </div>
 <p>Let’s be a little more decisive and prescribe some VM configurations this time. We will create 2 VMs from the command line and connect them.</p>
@@ -78,7 +80,7 @@
 --subnet <span class="s2">&quot;default&quot;</span>
 </pre></div>
 </div>
-<p>Then set your zone for the next vm:</p>
+<p>Then set your zone for the next VM:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-b
 </pre></div>
 </div>
@@ -97,6 +99,95 @@
 </pre></div>
 </div>
 <p>NB if you don’t set the count for the number of pings then use Ctrl+C to abort the ping command.</p>
+</div>
+</div>
+<div class="section" id="zones-matter">
+<h2>Zones matter<a class="headerlink" href="#zones-matter" title="Permalink to this headline">¶</a></h2>
+<p>VM instances are assigned to a zone, that is a sub-region. Zones within a region are better connected that zones between regaions. You have to specify your zone when you set up your VM.</p>
+<p>Zone selection may be vital if the following affect you:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Cost, not all regions are equal!</li>
+<li>Data legislation may mean that personal and sensitive data should not be transferred to other countries (see <a class="reference external" href="UK_Data_link_https://www.ukdataservice.ac.uk/manage-data/store/security">UK Data protection issues</a>)</li>
+<li><dl class="first docutils">
+<dt>Performance, if you users are multi-regional then your service may be improved by running multiple instances in different regions.</dt>
+<dd><dl class="first last docutils">
+<dt>NB performance may be impacted by:</dt>
+<dd><ul class="first last">
+<li>Availability</li>
+<li>Latency</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="creating-your-own-image">
+<h2>Creating your own image<a class="headerlink" href="#creating-your-own-image" title="Permalink to this headline">¶</a></h2>
+<p>Once you have chosen an image that is close to what you need, either from the GCP itself, its marketplace, by uploading your own custom image, or sourcing from a 3rd party, you may make additional changes to it.</p>
+<p>This may include updating or adding libraries or software.</p>
+<p>If your project is not simply a one off, then you may use this as a base-image for future projects by creating a snapshot, i.e. by grabbing an image from the boot disk of your VM.</p>
+</div>
+<div class="section" id="importing-a-custom-image">
+<h2>Importing a custom image<a class="headerlink" href="#importing-a-custom-image" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="preemptilble-vms">
+<h2>Preemptilble VMs<a class="headerlink" href="#preemptilble-vms" title="Permalink to this headline">¶</a></h2>
+<p>Where you need a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.</p>
+<p>You can even split workloads across “permanent VMs” and premtiple VMs.</p>
+</div>
+<div class="section" id="keen-to-make-something-useful">
+<h2>Keen to make something useful?<a class="headerlink" href="#keen-to-make-something-useful" title="Permalink to this headline">¶</a></h2>
+<p>It is tough to learn system setup in isolation of normal day to day requirements.</p>
+<p>Let’s go through a real-world example to bust through the rather abstract ones - e.g., setting up a VM to act as a server for a web page.</p>
+<p>Activate Cloud Shell and use the GCP SDK that it provides.</p>
+<p>First, set your zone as a configuration setting:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
+</pre></div>
+</div>
+</div></blockquote>
+<p>Setup a new VM:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-web-server&quot;</span>
+--machine-type <span class="s2">&quot;n1-standard-1&quot;</span> <span class="se">\</span>
+--image-project <span class="s2">&quot;debian-cloud&quot;</span> <span class="se">\</span>
+--image <span class="s2">&quot;debian-9-stretch-v20190213&quot;</span> <span class="se">\</span>
+--subnet <span class="s2">&quot;default&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Allow HTTP traffic with</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute firewall-rules create my-web-server --allow tcp:80
+</pre></div>
+</div>
+</div></blockquote>
+<p>From the GCP console connect to your VM with SSH to set up Apache2 HTTP Server:</p>
+<p>GCP&gt; Compute Engine&gt; VM Instances&gt; my-web-server &gt; SSH</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>sudo apt-get update</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>sudo apt-get install apache2 php7.0</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>sudo service apache2 restart</p>
+</div></blockquote>
+<p>Return to your GCP console and click on the External IP for your VM. This should take you through to your apache landing page.</p>
+<p>OR use curl from the SSH connection to your VM’s command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl http://<span class="o">[</span>Your-External-IP<span class="o">]</span>
+</pre></div>
+</div>
+<p>Either option should return the apache landing page.</p>
 </div>
 </div>
 
@@ -124,9 +215,19 @@
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Machines</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Machines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-and-linking-virtual-machines">Creating and Linking Virtual Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zones-matter">Zones matter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-your-own-image">Creating your own image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-a-custom-image">Importing a custom image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preemptilble-vms">Preemptilble VMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#keen-to-make-something-useful">Keen to make something useful?</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
 <div class="relations">

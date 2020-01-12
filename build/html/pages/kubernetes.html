@@ -35,7 +35,7 @@
           <div class="body" role="main">
             
   <div class="section" id="kubernetes">
-<h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
+<span id="r-link"></span><h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-to-love-k8s">
 <h2>Learning to love K8s<a class="headerlink" href="#learning-to-love-k8s" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="setting-up-k8s-from-the-gui">
@@ -85,6 +85,28 @@
 </div>
 </div>
 </div>
+<div class="section" id="speaking-to-k8s">
+<h2>Speaking to K8s<a class="headerlink" href="#speaking-to-k8s" title="Permalink to this headline">¶</a></h2>
+<p>With load balancing, you can go from zero instances to hero (billions). Much cheaper than keeping all those VMs running all the time.</p>
+<p>There is a learning curve to tackle for running your K8s.</p>
+<p>example code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  kubectl expose deployment app --type LoadBalancer <span class="se">\</span>
+--port <span class="m">80</span> --target-port <span class="m">8080</span>
+</pre></div>
+</div>
+<p>It helps when you are a novice to NOT have to use VIM!</p>
+<p>example code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">KUBE_EDITOR</span><span class="o">=</span><span class="s2">&quot;nano&quot;</span> kubectl edit deployment hello-node
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-awesome-applications">
+<h2>Running awesome applications<a class="headerlink" href="#running-awesome-applications" title="Permalink to this headline">¶</a></h2>
+<p>So, the reason cloud rocks is the ability to run applications in a way that your little ol’ PC can’t handle.</p>
+<p>I hope you are interested in achieving something in your cloud journey. For me, it is using R in awesome ways.</p>
+<p>That is why this is the next Kubernetes experiment for me:</p>
+<p><a class="reference external" href="http://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/">http://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/</a></p>
+</div>
 </div>
 
 
@@ -111,11 +133,16 @@
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#learning-to-love-k8s">Learning to love K8s</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#speaking-to-k8s">Speaking to K8s</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-awesome-applications">Running awesome applications</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
 <div class="relations">

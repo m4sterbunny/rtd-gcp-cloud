@@ -1,8 +1,13 @@
+.. _UK_Data_link: https://www.ukdataservice.ac.uk/manage-data/store/security
+
 #################
 Virtual Machines
 #################
 
-Virtual Machines are a basic unit of cloud computing.
+Creating and Linking Virtual Machines
+=====================================
+
+Virtual Machines (VMs) are a basic unit of cloud computing.
 
 Setting one up from the console is a simple task: 
 
@@ -86,8 +91,96 @@ Let's be a little more decisive and prescribe some VM configurations this time. 
 
 	NB if you don't set the count for the number of pings then use Ctrl+C to abort the ping command.
 
+Zones matter
+============
+
+VM instances are assigned to a zone, that is a sub-region. Zones within a region are better connected that zones between regaions. You have to specify your zone when you set up your VM.
+
+Zone selection may be vital if the following affect you:
+
+	- Cost, not all regions are equal!
+	- Data legislation may mean that personal and sensitive data should not be transferred to other countries (see `UK Data protection issues <UK_Data_link_https://www.ukdataservice.ac.uk/manage-data/store/security>`_)
+	- Performance, if you users are multi-regional then your service may be improved by running multiple instances in different regions.
+		NB performance may be impacted by:
+			+ Availability
+			+ Latency
 
 
+Creating your own image
+========================
+
+Once you have chosen an image that is close to what you need, either from the GCP itself, its marketplace, by uploading your own custom image, or sourcing from a 3rd party, you may make additional changes to it.
+
+This may include updating or adding libraries or software.
+
+If your project is not simply a one off, then you may use this as a base-image for future projects by creating a snapshot, i.e. by grabbing an image from the boot disk of your VM.
+
+Importing a custom image
+========================
 
 
+Preemptilble VMs
+=================
 
+Where you need a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.
+
+You can even split workloads across "permanent VMs" and premtiple VMs.
+
+
+Keen to make something useful?
+===============================
+
+It is tough to learn system setup in isolation of normal day to day requirements.
+
+Let's go through a real-world example to bust through the rather abstract ones - e.g., setting up a VM to act as a server for a web page.
+
+Activate Cloud Shell and use the GCP SDK that it provides.
+
+First, set your zone as a configuration setting:
+
+	.. code-block:: bash
+
+		gcloud config set compute/zone us-central1-a
+
+Setup a new VM:
+
+	.. code-block:: bash
+
+		gcloud compute instances create "my-web-server"
+		--machine-type "n1-standard-1" \
+		--image-project "debian-cloud" \
+		--image "debian-9-stretch-v20190213" \
+		--subnet "default"
+	
+
+Allow HTTP traffic with
+
+	.. code-block:: bash
+
+		gcloud compute firewall-rules create my-web-server --allow tcp:80
+
+From the GCP console connect to your VM with SSH to set up Apache2 HTTP Server:
+
+GCP> Compute Engine> VM Instances> my-web-server > SSH
+
+	.. code-block:: bash
+
+	sudo apt-get update
+
+	.. code-block:: bash
+
+	sudo apt-get install apache2 php7.0
+
+	.. code-block:: bash
+
+	sudo service apache2 restart
+
+Return to your GCP console and click on the External IP for your VM. This should take you through to your apache landing page.
+
+OR use curl from the SSH connection to your VM's command line:
+
+.. code-block:: bash
+
+	curl http://[Your-External-IP]
+
+Either option should return the apache landing page.

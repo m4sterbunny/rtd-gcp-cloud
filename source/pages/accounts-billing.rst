@@ -144,14 +144,14 @@ Roles may be
 
 .. warning:: DRY
 	
-	use pre-defined roles before making your own *custom* role. Consider these 3 and how many more are out there:
+	Use pre-defined roles before making your own *custom* role. Consider these 3 and how many more are out there:
 
 	.. code-block:: bash
 		:linenos:
 
 		appengine.appAdmin
 
-	which grants identities the ability to read, write, and modify all application settings
+	Which grants identities the ability to read, write, and modify all application settings.
 
 
 		.. code-block:: bash
@@ -159,7 +159,7 @@ Roles may be
 
 			appengine.ServiceAdmin
 
-	which grants read-only access to application settings and write-level access to module-level and version-level settings
+	which grants read-only access to application settings and write-level access to module-level and version-level settings.
 
 
 .. code-block:: bash
@@ -167,8 +167,35 @@ Roles may be
 
 	appengine.appViewer
 
-	which grants read-only access to applications
+	Which grants read-only access to applications.
 
+Predefined roles are a fast way to provide users with group permissions that are typically required to carry out a set of tasks.
+
+Primitive Role Descriptions
+===========================
+
+Viewer
+++++++
+
+Permission for read-only actions that can not affect state, such as viewing (but not modifying) existing resources or data.
+
+Editor
+++++++
+
+All viewer permissions & permissions for actions that modify states, such as changing existing resources.
+
+Owner
++++++
+
+All editor permissions & permissions for the following actions:
+
+- Manage roles and permissions for a project and all resources within the project.
+- Set up billing for a project.
+
+Browser (still in beta)
++++++++++++++++++++++++
+
+Read access to browse the hierarchy for a project, including the folder, organization, and Cloud IAM policies. This role doesn't include permission to view resources in the project.
 
 Service Accounts
 =================
@@ -201,6 +228,7 @@ There are 2 types:
 	+ Self-serve (credit card)
 
 IAM, of course, controls who may do what where, and so there are various pre-defined roles that entities who require access may be assigned:
+
 	+ Billing Account Creator
 	+ Billing Account Admin
 	+ Billing Account User
@@ -224,7 +252,7 @@ To change a billing account you must be:
 
 		+ 50%
 		+ 90%
-		+100%
+		+ 100%
 
 These may be amended.
 

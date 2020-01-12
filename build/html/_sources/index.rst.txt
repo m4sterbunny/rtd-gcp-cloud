@@ -17,6 +17,8 @@ Welcome to an eclectic set of GCP Notes
    pages/stackdriver.rst
    pages/VMs.rst
    pages/accounts-billing-quiz.rst
+   pages/database-options.rst
+   pages/ace-exam.rst
 
 
 
@@ -40,11 +42,7 @@ Indices and tables
 .. :status: This is a "work in progress"
 .. :revision: $Revision: 7303 $
 .. :version: 0.1
-.. :copyright: This document has been placed in the public domain. You may do with it as you wish. You may ...	copy, modify, redistribute,	reattribute, sell, buy, rent, lease, 
-				destroy, or improve it. Quote it 				at length, 
-					excerpt, incorporate, collate, fold, staple, or mutilate it, or do anything else to it 
-            that your or anyone else's heart
-            		desires.
+.. :copyright: This document has been placed in the public domain. You may do with it as you wish. You may ...	copy, modify, redistribute,	reattribute, sell, buy, rent, lease, destroy, or improve it. Quote it at length, excerpt, incorporate, collate, fold, staple, or mutilate it, or do anything else to it that your, or anyone else's, heart desires.
 .. :field name: Edu.
 .. :field name 2:
     A Model of education
@@ -53,7 +51,7 @@ Indices and tables
 
 .. :Dedication:
 
-    For anyone on the journey. #150DaysOfALC4
+    For anyone on the journey; #150DaysOfALC4.
 
 .. :abstract:
 
@@ -61,27 +59,42 @@ Indices and tables
 
 .. meta::
    :keywords: google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine
-   :description lang=en: An eclectic collection of snippets of information useful to a Google Cloud Engineer.
+   :description lang=en: An eclectic collection of snippets of information useful to a wanna be Google Cloud Engineer.
 
 =================================
 The Google Clound Engineer Exam
 =================================
 
+The Associate level exam (ACE) does not expect the applicant to be able to solve cloud business requirement problems. It focuses on technical requirements and implementation of cloud solutions (expect to be tested on syntax for CLI commands!).
+
+It is the professional-level exam that requires the applicant to be able to critically examine various solutions and decide which best apply to a business requirement (in addition to the ACE materials).
 
 You will be expected to understand different ways of delivering cloud computing resources such as:
 
-  + VMs
+  + Virtual Machines (VMs)
   + Kubernetes
 
-
-Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) extracting away much of the admin required in managing a kubernetes cluster. 
+Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) abstracting away much of the admin required in managing a kubernetes cluster. 
 
 Kubernetes is just one of the serverless computing options offered by GC. GC is geared toward supporting microservices, that is code run in a containerized environment managed by the cloud provider or in a compute platform designed for short-running code.
 
-Microservices may be managed by GC or Developers and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more
+Microservices may be managed by GC or Developers, and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more
 value from abstracting such management away.
 
 Google Cloud Engineers (GCEs) must understand the different forms of cloud storage and when to use them: 
+
+The professional-level GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can't, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.
+
+The GCP resources
+-----------------
+
+App Engine is typically used for websites, game backends, IOT, and - well, Apps.
+
+Compute engine provides access to VMs allowing users access to any OS, or configuration. It is also possible to create custom VM images.
+
+GKE is excellent for managing containerised workloads and hybrid applications.
+
+Data Storage on the GCP has various modes:
 
   + object
   + file
@@ -92,4 +105,11 @@ Object storage is designed for highly reliable and durable storage of objects su
 
 Block storage occurs on persistent storage devices, such as SSDs and HDDs. Caches are temporary, in-memory data stores used to minimize the latency in retrieving data. They do not provide persistent storage and data held there is usually only recent, not current.
 
-The GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can't, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.
+The GCP provides 6 different database options for data storage.
+
+  + Cloud SQL
+  + Cloud Spanner
+  + Cloud Datastore
+  + Cloud Bigtable
+  + Cloud Storage
+  + Big Query

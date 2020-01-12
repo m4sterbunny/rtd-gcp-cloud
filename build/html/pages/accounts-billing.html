@@ -145,25 +145,37 @@ cannot be disabled or overridden by objects lower in the hierarchy, an effective
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>DRY</p>
-<p>use pre-defined roles before making your own <em>custom</em> role. Consider these 3 and how many more are out there:</p>
+<p>Use pre-defined roles before making your own <em>custom</em> role. Consider these 3 and how many more are out there:</p>
 <div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.appAdmin
 </pre></div>
 </td></tr></table></div>
-<p>which grants identities the ability to read, write, and modify all application settings</p>
+<p>Which grants identities the ability to read, write, and modify all application settings.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.ServiceAdmin
 </pre></div>
 </td></tr></table></div>
 </div></blockquote>
-<p class="last">which grants read-only access to application settings and write-level access to module-level and version-level settings</p>
+<p class="last">which grants read-only access to application settings and write-level access to module-level and version-level settings.</p>
 </div>
 <div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.appViewer
 
-which grants read-only access to applications
+Which grants read-only access to applications.
 </pre></div>
 </td></tr></table></div>
+<p>Predefined roles are a fast way to provide users with group permissions that are typically required to carry out a set of tasks.</p>
+</div>
+<div class="section" id="primitive-role-descriptions">
+<h2>Primitive Role Descriptions<a class="headerlink" href="#primitive-role-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>Permission for read-only actions that can not affect state, such as viewing (but not modifying) existing resources or data.</p>
+<p>All viewer permissions &amp; permissions for actions that modify states, such as changing existing resources.</p>
+<p>All editor permissions &amp; permissions for the following actions:</p>
+<ul class="simple">
+<li>Manage roles and permissions for a project and all resources within the project.</li>
+<li>Set up billing for a project.</li>
+</ul>
+<p>Read access to browse the hierarchy for a project, including the folder, organization, and Cloud IAM policies. This role doesn’t include permission to view resources in the project.</p>
 </div>
 <div class="section" id="service-accounts">
 <h2>Service Accounts<a class="headerlink" href="#service-accounts" title="Permalink to this headline">¶</a></h2>
@@ -190,19 +202,27 @@ which grants read-only access to applications
 <li>Self-serve (credit card)</li>
 </ul>
 </dd>
-<dt>IAM, of course, controls who may do what where, and so there are various pre-defined roles that entities who require access may be assigned:</dt>
-<dd><ul class="first last simple">
+</dl>
+<p>IAM, of course, controls who may do what where, and so there are various pre-defined roles that entities who require access may be assigned:</p>
+<blockquote>
+<div><ul class="simple">
 <li>Billing Account Creator</li>
 <li>Billing Account Admin</li>
 <li>Billing Account User</li>
 <li>Billing Account Viewer</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 <p>The super user will require account creation rights, whilst the accountant may require user and viewer roles.</p>
 </div>
 <div class="section" id="alerts">
 <h2>Alerts<a class="headerlink" href="#alerts" title="Permalink to this headline">¶</a></h2>
+<p>To change a billing account you must be:</p>
+<blockquote>
+<div><ul class="simple">
+<li>an owner of the project</li>
+<li>billing administrator on that account</li>
+</ul>
+</div></blockquote>
 <div class="topic">
 <p class="topic-title first">Setup Alerts</p>
 <p>GCP &gt; Billing &gt; Budgets &amp; alerts</p>
@@ -211,8 +231,8 @@ which grants read-only access to applications
 <div><ul class="simple">
 <li>50%</li>
 <li>90%</li>
+<li>100%</li>
 </ul>
-<p>+100%</p>
 </div></blockquote>
 </div>
 <p>These may be amended.</p>
@@ -259,6 +279,7 @@ which grants read-only access to applications
 <li class="toctree-l2"><a class="reference internal" href="#gcp-resource-hierarchy">GCP Resource Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#organisation-policies">Organisation Policies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#roles">Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#primitive-role-descriptions">Primitive Role Descriptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#service-accounts">Service Accounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#billing-accounts">Billing Accounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#alerts">Alerts</a></li>
@@ -267,8 +288,11 @@ which grants read-only access to applications
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
 <div class="relations">
