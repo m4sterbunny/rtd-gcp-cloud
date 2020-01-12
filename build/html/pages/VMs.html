@@ -169,18 +169,15 @@
 <p>From the GCP console connect to your VM with SSH to set up Apache2 HTTP Server:</p>
 <p>GCP&gt; Compute Engine&gt; VM Instances&gt; my-web-server &gt; SSH</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get update
 </pre></div>
 </div>
-<p>sudo apt-get update</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install apache2 php7.0
 </pre></div>
 </div>
-<p>sudo apt-get install apache2 php7.0</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo service apache2 restart
 </pre></div>
 </div>
-<p>sudo service apache2 restart</p>
 </div></blockquote>
 <p>Return to your GCP console and click on the External IP for your VM. This should take you through to your apache landing page.</p>
 <p>OR use curl from the SSH connection to your VM’s command line:</p>

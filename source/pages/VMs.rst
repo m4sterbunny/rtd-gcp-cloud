@@ -165,15 +165,15 @@ GCP> Compute Engine> VM Instances> my-web-server > SSH
 
 	.. code-block:: bash
 
-	sudo apt-get update
+		sudo apt-get update
 
 	.. code-block:: bash
 
-	sudo apt-get install apache2 php7.0
+		sudo apt-get install apache2 php7.0
 
 	.. code-block:: bash
 
-	sudo service apache2 restart
+		sudo service apache2 restart
 
 Return to your GCP console and click on the External IP for your VM. This should take you through to your apache landing page.
 
