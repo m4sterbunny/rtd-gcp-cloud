@@ -16,6 +16,7 @@ Welcome to an eclectic set of GCP Notes
    pages/kubernetes.rst
    pages/stackdriver.rst
    pages/VMs.rst
+   pages/virtual-networking.rst
    pages/accounts-billing-quiz.rst
    pages/database-options.rst
    pages/storage.rst
