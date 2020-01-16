@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>GCP Database Options &#8212; Cloud Notes 0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Storage" href="storage.html" />
+    <link rel="prev" title="Review Questions Billing &amp; Accounts" href="accounts-billing-quiz.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="gcp-database-options">
+<h1>GCP Database Options<a class="headerlink" href="#gcp-database-options" title="Permalink to this headline">¶</a></h1>
+<p>The GCP provides 6 different database options that fit into 4 categories:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Relational Databases (Cloud SQL and Cloud Spanner)</p></li>
+<li><p>Non-relational Databases (Cloud Datastore and Cloud Bigtable)</p></li>
+<li><p>Object Storage (Cloud Storage)</p></li>
+<li><p>Warehouse (Big Query)</p></li>
+</ul>
+</div></blockquote>
+<p>Relational databases are restrictive in terms of design. All fields should be identified with the relationships between them established from the outset. Non-relational databases allow for the data types and fields to morph over time, without requiring a redesign of the database.</p>
+<p>The Object storage option, for data such as images or other “blobs” is handled by Cloud Storage.</p>
+<p>The “Warehouse” storage option is infact a relational database, with data accessed using SQL. The reason it sits in its own category is that it is specifically set up to manage huge loads such as those created with data streaming, analytics, and reporting.</p>
+<div class="section" id="gcp-storage-options">
+<h2>GCP Storage Options<a class="headerlink" href="#gcp-storage-options" title="Permalink to this headline">¶</a></h2>
+<p>There are varous Cloud Storage options:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Multi-regional</p></li>
+<li><p>Regional</p></li>
+<li><p>Nearline</p></li>
+<li><p>Coldline</p></li>
+</ul>
+</div></blockquote>
+<p>Multi-regional is intended for use with data accessed frequently, with regional being the same - with the expectation that this occurs from a particular region.</p>
+<p>Nearline is for data that is accessed less than one per month, while Coldline is for data accessed less than annually.</p>
+<p>Charges are applied per GB of data stored per month, varying according to the type. Accessing of data is also charged.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Cloud Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">Enabling APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GCP Database Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gcp-storage-options">GCP Storage Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="accounts-billing-quiz.html" title="previous chapter">Review Questions Billing &amp; Accounts</a></li>
+      <li>Next: <a href="storage.html" title="next chapter">Storage</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, masterbunny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/database-options.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
