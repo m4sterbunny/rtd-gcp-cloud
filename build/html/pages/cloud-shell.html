@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Cloud Shell &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -45,32 +43,32 @@
 <h2>Basic Commands<a class="headerlink" href="#basic-commands" title="Permalink to this headline">¶</a></h2>
 <p>There are a ton of great tools on this bash- + Google SDK-hosting machine. Here are just a few commands to have a play around with:</p>
 <ul class="simple">
-<li>list the active account name with:</li>
+<li><p>list the active account name with:</p></li>
 </ul>
 <div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    gcloud auth list
 </pre></div>
 </td></tr></table></div>
 <ul class="simple">
-<li>list project ID with:</li>
+<li><p>list project ID with:</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config list project
 </pre></div>
 </div>
 <ul class="simple">
-<li>or see all your accessible projects (this will list the properties in your active SDK configuration):</li>
+<li><p>or see all your accessible projects (this will list the properties in your active SDK configuration):</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config list
 </pre></div>
 </div>
 <ul class="simple">
-<li>pick up the project number directly from gcloud</li>
+<li><p>pick up the project number directly from gcloud</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud projects list
 </pre></div>
 </div>
 <p>A really useful tool is saving environment variables on that machine to allow your commands to be written in a kinda <a class="reference external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> manner.</p>
 <ul class="simple">
-<li>set an environment variable; Hipster Shop version:</li>
+<li><p>set an environment variable; Hipster Shop version:</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">HIPSTER_VERSION</span><span class="o">=</span><span class="m">1</span>.0.0
 </pre></div>
@@ -82,32 +80,32 @@
 <p>The big G has, of course, documented the <a class="reference external" href="https://cloud.google.com/sdk/">lot</a></p>
 <p>But here are a few more firm favorites:</p>
 <div class="topic">
-<p class="topic-title first">display all your functions</p>
+<p class="topic-title">display all your functions</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud functions list
 </pre></div>
 </div>
 </div>
 <div class="topic">
-<p class="topic-title first">display all available zones</p>
+<p class="topic-title">display all available zones</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute zones list
 </pre></div>
 </div>
 </div>
 <div class="topic">
-<p class="topic-title first">display all available zones in selected region</p>
+<p class="topic-title">display all available zones in selected region</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute zones list <span class="p">|</span> grep us-central1
 </pre></div>
 </div>
 </div>
 <p>Rather than administer each VM directly, you may configure them all through settings.</p>
 <div class="topic">
-<p class="topic-title first">configure default zone</p>
+<p class="topic-title">configure default zone</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central
 </pre></div>
 </div>
 </div>
 <div class="topic">
-<p class="topic-title first">launch new VM</p>
+<p class="topic-title">launch new VM</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-new-vm&quot;</span>
 --machine-type <span class="s2">&quot;n1-standard-1&quot;</span>
 --image-project <span class="s2">&quot;debian-cloud&quot;</span>
@@ -153,8 +151,12 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
 <div class="relations">
@@ -167,13 +169,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -194,7 +194,7 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

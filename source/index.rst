@@ -18,7 +18,9 @@ Welcome to an eclectic set of GCP Notes
    pages/VMs.rst
    pages/accounts-billing-quiz.rst
    pages/database-options.rst
+   pages/storage.rst
    pages/ace-exam.rst
+
 
 
 

@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Stackdriver &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -37,19 +35,18 @@
   <div class="section" id="stackdriver">
 <h1>Stackdriver<a class="headerlink" href="#stackdriver" title="Permalink to this headline">¶</a></h1>
 <p>Stackdriver is one of those buy-ups that the big G has begun. Along with Quiklabs, they have grabbed a very useful tool. Folk who are waaay past the need for GCP introduction notes may be using Stackdriver to monitor their AWS entities <em>and</em> their GCP entities.</p>
-<dl class="docutils">
-<dt>Stackdriver is a tool for:</dt>
-<dd><ul class="first last simple">
-<li>monitoring</li>
-<li>logging</li>
-<li>debugging</li>
+<dl class="simple">
+<dt>Stackdriver is a tool for:</dt><dd><ul class="simple">
+<li><p>monitoring</p></li>
+<li><p>logging</p></li>
+<li><p>debugging</p></li>
 </ul>
 </dd>
 </dl>
 <p>Stackdriver monitors the performance, uptime, and overall health of cloud-based apps. Stackdriver collates metrics, events, and metadata from GCP, AWS, hosted uptime probes, application instrumentation, and a variety of common application components including Cassandra, Nginx, Apache Web Server, Elasticsearch, among others. Stackdriver generates insights via dashboards, charts, and alerts. Stackdriver alerting integrates with Slack, PagerDuty, HipChat, Campfire, and more.</p>
 <p>Stackdriver does this via a workspace on GCP.</p>
 <div class="topic">
-<p class="topic-title first">Setup Stackdriver</p>
+<p class="topic-title">Setup Stackdriver</p>
 <p>GCP &gt; Stackdriver</p>
 <p>Although Stackdriver has its own high-level access from the GCP menu, you will immediately notice that the interface differs.</p>
 </div>
@@ -83,6 +80,7 @@
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
@@ -96,13 +94,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -123,7 +119,7 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

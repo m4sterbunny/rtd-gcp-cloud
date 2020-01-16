@@ -10,6 +10,8 @@ The key is going to be to prepare well.
 The ACE exam 
 -------------
 
+https://cloud.google.com/certification/cloud-engineer
+
 The exam tests the applicants ability to architect with the GCP infrastructure and understanding the fundamentals of the GCP core infrastructure.
 
 This means:

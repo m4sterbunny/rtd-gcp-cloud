@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Kubernetes &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -43,7 +41,7 @@
 <p>GCP has made setting up kubernetes (K8s) a simple procedure:</p>
 <p>Let’s make a K8 cluster on the GCP:</p>
 <div class="topic">
-<p class="topic-title first">Make a cluster</p>
+<p class="topic-title">Make a cluster</p>
 <p>GCP&gt; Kubernetes&gt; Clusters&gt; create cluster</p>
 <p>and create your cluster.</p>
 <p>choose the number of nodes (1 for test purposes)</p>
@@ -53,20 +51,20 @@
 <div class="section" id="setting-up-k8s-from-the-cli-in-cloud-shell">
 <h3>Setting up K8s from the CLI in cloud shell<a class="headerlink" href="#setting-up-k8s-from-the-cli-in-cloud-shell" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Set up an environment variable with your cluster name:</li>
+<li><p>Set up an environment variable with your cluster name:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CLUSTER_NAME</span><span class="o">=</span>my-hip-app
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>Set the zone you want to work in:</li>
+<li><p>Set the zone you want to work in:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
 </pre></div>
 </div>
 <p>Notice how the first command uses bash, whilst the second is GCP’s SDK command.</p>
 <ol class="arabic simple" start="3">
-<li>Create the cluster with auto scaling enabled:</li>
+<li><p>Create the cluster with auto scaling enabled:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
@@ -80,8 +78,8 @@
 </pre></div>
 </td></tr></table></div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The warning messages may be ignored.</p>
+<p class="admonition-title">Note</p>
+<p>The warning messages may be ignored.</p>
 </div>
 </div>
 </div>
@@ -142,6 +140,7 @@
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
@@ -155,13 +154,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -182,7 +179,7 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

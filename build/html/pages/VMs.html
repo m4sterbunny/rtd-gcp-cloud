@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Virtual Machines &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -41,22 +39,22 @@
 <p>Virtual Machines (VMs) are a basic unit of cloud computing.</p>
 <p>Setting one up from the console is a simple task:</p>
 <div class="topic">
-<p class="topic-title first">Setup a VM from GCP</p>
+<p class="topic-title">Setup a VM from GCP</p>
 <p>GCP &gt; Compute Engine &gt; VM Instances</p>
 <blockquote>
 <div><ul class="simple">
-<li>Name your instance</li>
-<li>Choose your zone (or accept default)</li>
-<li>Decide you machine type (or accept default)</li>
-<li>Decide your OS (Debian 9 Linux is a grand choice)</li>
-<li>Modify the firewall to allow HTTP or HTTPS traffic</li>
+<li><p>Name your instance</p></li>
+<li><p>Choose your zone (or accept default)</p></li>
+<li><p>Decide you machine type (or accept default)</p></li>
+<li><p>Decide your OS (Debian 9 Linux is a grand choice)</p></li>
+<li><p>Modify the firewall to allow HTTP or HTTPS traffic</p></li>
 </ul>
 </div></blockquote>
 </div>
 <p>Launch GCP’s <a class="reference external" href="cloud-shell.html">Cloud Shell</a></p>
 <p>This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that <em>you</em> create.</p>
 <div class="topic">
-<p class="topic-title first">Setup a VM from the command line</p>
+<p class="topic-title">Setup a VM from the command line</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-new-vm&quot;</span>
 </pre></div>
 </div>
@@ -67,7 +65,7 @@
 </div>
 <p>Let’s be a little more decisive and prescribe some VM configurations this time. We will create 2 VMs from the command line and connect them.</p>
 <div class="topic">
-<p class="topic-title first">Create &amp; Connect 2 VMs</p>
+<p class="topic-title">Create &amp; Connect 2 VMs</p>
 <p>First set your zone as a configuration setting:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
 </pre></div>
@@ -107,15 +105,13 @@
 <p>Zone selection may be vital if the following affect you:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Cost, not all regions are equal!</li>
-<li>Data legislation may mean that personal and sensitive data should not be transferred to other countries (see <a class="reference external" href="UK_Data_link_https://www.ukdataservice.ac.uk/manage-data/store/security">UK Data protection issues</a>)</li>
-<li><dl class="first docutils">
-<dt>Performance, if you users are multi-regional then your service may be improved by running multiple instances in different regions.</dt>
-<dd><dl class="first last docutils">
-<dt>NB performance may be impacted by:</dt>
-<dd><ul class="first last">
-<li>Availability</li>
-<li>Latency</li>
+<li><p>Cost, not all regions are equal!</p></li>
+<li><p>Data legislation may mean that personal and sensitive data should not be transferred to other countries (see <a class="reference external" href="UK_Data_link_https://www.ukdataservice.ac.uk/manage-data/store/security">UK Data protection issues</a>)</p></li>
+<li><dl class="simple">
+<dt>Performance, if you users are multi-regional then your service may be improved by running multiple instances in different regions.</dt><dd><dl class="simple">
+<dt>NB performance may be impacted by:</dt><dd><ul>
+<li><p>Availability</p></li>
+<li><p>Latency</p></li>
 </ul>
 </dd>
 </dl>
@@ -186,6 +182,31 @@
 </div>
 <p>Either option should return the apache landing page.</p>
 </div>
+<div class="section" id="gcp-cloud-shell">
+<h2>GCP Cloud Shell<a class="headerlink" href="#gcp-cloud-shell" title="Permalink to this headline">¶</a></h2>
+<p>Google’s Cloud Shell is a Linux VM that is pre-loaded with development tools including GCP’s SDK. It provides a persistent 5GB home directory and runs on the GCP. Google’s Cloud Shell provides command-line access to your GCP resources.</p>
+<p>One of the great features of the Cloud Shell environment is that you may store environment variables. This enables you to work with features such as multiple projects without having to return to the console.</p>
+<p>..topic:: Storing project id as an environment variable</p>
+<blockquote>
+<div><p>If you have multiple projects storing their id with a simple name can speed up work immensely.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config list <span class="p">|</span> grep project
+</pre></div>
+</div>
+</div></blockquote>
+<p>Will provide your project id, which may look something like this:</p>
+<blockquote>
+<div><p>loony-tunes-251324</p>
+</div></blockquote>
+<p>Rather than have to pull the project id every time you want to use it you can shortcode this using:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>export loony=loony-tunes-251324</p>
+</div></blockquote>
+</div></blockquote>
+</div>
 </div>
 
 
@@ -219,11 +240,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#importing-a-custom-image">Importing a custom image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#preemptilble-vms">Preemptilble VMs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#keen-to-make-something-useful">Keen to make something useful?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gcp-cloud-shell">GCP Cloud Shell</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
@@ -237,13 +260,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -264,7 +285,7 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

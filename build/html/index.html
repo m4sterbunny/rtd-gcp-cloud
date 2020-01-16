@@ -1,12 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta content="google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine" name="keywords" />
-<meta content="An eclectic collection of snippets of information useful to a wanna be Google Cloud Engineer." lang="en" name="description" />
+    <meta charset="utf-8" /><meta content="google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine" name="keywords" />
+<meta content="An eclectic collection of snippets of information useful to a wanna be Google Cloud Engineer." lang="en" name="description" xml:lang="en" />
 
     <title>Welcome to an eclectic set of GCP Notes &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
@@ -70,6 +68,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#importing-a-custom-image">Importing a custom image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#preemptilble-vms">Preemptilble VMs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#keen-to-make-something-useful">Keen to make something useful?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#gcp-cloud-shell">GCP Cloud Shell</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
@@ -78,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/database-options.html#gcp-storage-options">GCP Storage Options</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pages/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/ace-exam.html">ACE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/ace-exam.html#the-ace-exam">The ACE exam</a></li>
 </ul>
@@ -88,9 +88,9 @@
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 <div class="section" id="the-google-clound-engineer-exam">
 <h2>The Google Clound Engineer Exam<a class="headerlink" href="#the-google-clound-engineer-exam" title="Permalink to this headline">¶</a></h2>
@@ -99,8 +99,8 @@
 <p>You will be expected to understand different ways of delivering cloud computing resources such as:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Virtual Machines (VMs)</li>
-<li>Kubernetes</li>
+<li><p>Virtual Machines (VMs)</p></li>
+<li><p>Kubernetes</p></li>
 </ul>
 </div></blockquote>
 <p>Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) abstracting away much of the admin required in managing a kubernetes cluster.</p>
@@ -117,10 +117,10 @@ value from abstracting such management away.</p>
 <p>Data Storage on the GCP has various modes:</p>
 <blockquote>
 <div><ul class="simple">
-<li>object</li>
-<li>file</li>
-<li>block</li>
-<li>in-memory caches</li>
+<li><p>object</p></li>
+<li><p>file</p></li>
+<li><p>block</p></li>
+<li><p>in-memory caches</p></li>
 </ul>
 </div></blockquote>
 <p>Object storage is designed for highly reliable and durable storage of objects such as images or datasets. Object storage is less versatile than file system–based storage systems which provide hierarchical directory storage for files and support operating system. File system services include providing accessibility to multiple servers.</p>
@@ -128,12 +128,12 @@ value from abstracting such management away.</p>
 <p>The GCP provides 6 different database options for data storage.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Cloud SQL</li>
-<li>Cloud Spanner</li>
-<li>Cloud Datastore</li>
-<li>Cloud Bigtable</li>
-<li>Cloud Storage</li>
-<li>Big Query</li>
+<li><p>Cloud SQL</p></li>
+<li><p>Cloud Spanner</p></li>
+<li><p>Cloud Datastore</p></li>
+<li><p>Cloud Bigtable</p></li>
+<li><p>Cloud Storage</p></li>
+<li><p>Big Query</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -168,6 +168,7 @@ value from abstracting such management away.</p>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/database-options.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/ace-exam.html">ACE</a></li>
 </ul>
 
@@ -180,13 +181,11 @@ value from abstracting such management away.</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -207,7 +206,7 @@ value from abstracting such management away.</p>
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

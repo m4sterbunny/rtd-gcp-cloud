@@ -184,3 +184,30 @@ OR use curl from the SSH connection to your VM's command line:
 	curl http://[Your-External-IP]
 
 Either option should return the apache landing page.
+
+GCP Cloud Shell
+================
+
+Google's Cloud Shell is a Linux VM that is pre-loaded with development tools including GCP's SDK. It provides a persistent 5GB home directory and runs on the GCP. Google's Cloud Shell provides command-line access to your GCP resources.
+
+One of the great features of the Cloud Shell environment is that you may store environment variables. This enables you to work with features such as multiple projects without having to return to the console.
+
+..topic:: Storing project id as an environment variable
+
+	If you have multiple projects storing their id with a simple name can speed up work immensely.
+
+		.. code-block:: bash
+
+			gcloud config list | grep project
+
+	Will provide your project id, which may look something like this:
+
+		loony-tunes-251324
+
+	Rather than have to pull the project id every time you want to use it you can shortcode this using:
+
+			.. code-block:: bash
+
+			export loony=loony-tunes-251324
+
+			
