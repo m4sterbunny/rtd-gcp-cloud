@@ -20,7 +20,7 @@ The default setup has one subnet per region and pre-set firewall rules. The Auto
 Networks
 =========
 
-Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are actually mapped by DNS), even if they are in different regions.
+Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are actually mapped by DNS), even if they are in different regions. You can ping a VM instance by its name, for example, because VPC networks have an internal DNS service that allows you to address instances by their DNS names rather than their internal IP addresses. This is a very useful feature, because the internal IP address can change when you delete and re-create an instance.
 
 Conversely, even if VMs are in the same region, if they are on different networks they must use their external IPs to communicate.
 
@@ -28,9 +28,9 @@ VPC networks function as a distributed firewall, with the firewall rules enforce
 
 To view your firewall rules use:
 
-.. codeblock:: bash
+	.. code-block:: bash
 
-	gcloud compute firewall-rules list --sort-by=NETWORK
+		gcloud compute firewall-rules list --sort-by=NETWORK
 
 ==============
 VPN Networking
@@ -44,24 +44,24 @@ Subnets
 
 Every subnet has 4 reserved IP addresses, the first 2 are assigned to the network and the subnet's gateway. The final 2 addresses are also reserved, with the last being used as the broadcast address.
 
-Overly large subnets can cause conflicts, be cautious and do not scale a subnet beyond current usage needs.
+Overly-large subnets can cause conflicts, be cautious and do not scale a subnet beyond current usage needs.
 
 To create a subnet from the cloud shell cli:
 
 To create a custom network:
 
-.. codeblock:: bash
+	.. code-block:: bash
 
-	gcloud compute networks create mynet --subnet-mode=custom
+		gcloud compute networks create mynet --subnet-mode=custom
 
 To create a custom subnet:
 
-.. codeblock:: bash
+	.. code-block:: bash
 
-	gcloud compute networks subnets create privatesubnet-us --network=privatenet --region=us-central1 --range=172.16.0.0/24
+		gcloud compute networks subnets create privatesubnet-us --network=privatenet --region=us-central1 --range=172.16.0.0/24
 
 To view your networks:
 
-.. codeblock:: bash
+	.. code-block:: bash
 
-	gcloud compute networks list
+		gcloud compute networks list

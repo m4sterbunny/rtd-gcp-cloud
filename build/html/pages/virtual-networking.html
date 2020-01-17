@@ -48,10 +48,15 @@
 </div>
 <div class="section" id="networks">
 <h2>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h2>
-<p>Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are actually mapped by DNS), even if they are in different regions.</p>
+<p>Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are actually mapped by DNS), even if they are in different regions. You can ping a VM instance by its name, for example, because VPC networks have an internal DNS service that allows you to address instances by their DNS names rather than their internal IP addresses. This is a very useful feature, because the internal IP address can change when you delete and re-create an instance.</p>
 <p>Conversely, even if VMs are in the same region, if they are on different networks they must use their external IPs to communicate.</p>
 <p>VPC networks function as a distributed firewall, with the firewall rules enforced across the entire network unless set to a specific instance only.</p>
 <p>To view your firewall rules use:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute firewall-rules list --sort-by<span class="o">=</span>NETWORK
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 <div class="section" id="vpn-networking">
 <h2>VPN Networking<a class="headerlink" href="#vpn-networking" title="Permalink to this headline">¶</a></h2>
@@ -59,11 +64,26 @@
 <div class="section" id="subnets">
 <h3>Subnets<a class="headerlink" href="#subnets" title="Permalink to this headline">¶</a></h3>
 <p>Every subnet has 4 reserved IP addresses, the first 2 are assigned to the network and the subnet’s gateway. The final 2 addresses are also reserved, with the last being used as the broadcast address.</p>
-<p>Overly large subnets can cause conflicts, be cautious and do not scale a subnet beyond current usage needs.</p>
+<p>Overly-large subnets can cause conflicts, be cautious and do not scale a subnet beyond current usage needs.</p>
 <p>To create a subnet from the cloud shell cli:</p>
 <p>To create a custom network:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute networks create mynet --subnet-mode<span class="o">=</span>custom
+</pre></div>
+</div>
+</div></blockquote>
 <p>To create a custom subnet:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute networks subnets create privatesubnet-us --network<span class="o">=</span>privatenet --region<span class="o">=</span>us-central1 --range<span class="o">=</span><span class="m">172</span>.16.0.0/24
+</pre></div>
+</div>
+</div></blockquote>
 <p>To view your networks:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute networks list
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 </div>
 </div>
