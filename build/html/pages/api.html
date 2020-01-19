@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Enabling APIs &#8212; Cloud Notes 0.1 documentation</title>
+    <title>What is an API? &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -32,8 +32,25 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="enabling-apis">
-<h1>Enabling APIs<a class="headerlink" href="#enabling-apis" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="what-is-an-api">
+<h1>What is an API?<a class="headerlink" href="#what-is-an-api" title="Permalink to this headline">¶</a></h1>
+<p>An API is a contract:</p>
+<p>Request &gt; Defines how it expects to be used</p>
+<p>Response &gt; Defines what you can expect to receive when making a request</p>
+<p>Typically an API request gives access to data whilst abstracting away the implementation. A rest API request may be supported in many languages. Often an HTTP request using curl, is supported, with data being received in JSON format. An API should be limited to CRUD; create, read, update, and delete. This means that if you want to create a new record, you use “POST.” If you are trying to read a record, you use “GET.” Updating may apply “PUT” or “PATCH.” While, to delete a record, use “DELETE.”</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Put v Patch</p>
+<p>PUT overrides the record (any fields are not included in the PUT push are removed) whereas PATCH updates a record based on the information provided, leaving any fields not updated intact.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Look for future-proofed APIs</p>
+<p>Favour APIs that utilise the Content-Type header. By reading the what format of data users are sending, the response may be provided in that same format.  For example, if you send a request using text/xml, you would hope to receive an XML response; whereas another user making a json request could be provided with with JSON.</p>
+<p>APIs that pay attention to this from the start are able to add as new formats become available.</p>
+</div>
+<div class="section" id="enabling-apis">
+<h2>Enabling APIs<a class="headerlink" href="#enabling-apis" title="Permalink to this headline">¶</a></h2>
 <p>Programatic access of GCP’s services is available through their API services. From creating a VM, to a Cloud Storage bucket- you are using API functions in the background.</p>
 <div class="topic">
 <p class="topic-title">Enable APIs</p>
@@ -43,6 +60,7 @@
 <p>From this console you may click on an API name to view details about its usage.</p>
 </div>
 <p>You search for APIs that you want to administer through an interface that resembles a google market place.</p>
+</div>
 </div>
 
 
@@ -64,12 +82,16 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Enabling APIs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">What is an API?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#enabling-apis">Enabling APIs</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">Virtual Private Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
