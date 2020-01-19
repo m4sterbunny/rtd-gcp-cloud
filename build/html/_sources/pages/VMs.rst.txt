@@ -208,6 +208,6 @@ One of the great features of the Cloud Shell environment is that you may store e
 
 			.. code-block:: bash
 
-			export loony=loony-tunes-251324
+			export Proj-1=loony-tunes-251324
 
-			
+

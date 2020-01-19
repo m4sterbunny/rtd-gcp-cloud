@@ -44,8 +44,17 @@
 <p>The default setup has one subnet per region and pre-set firewall rules. The Auto mode option includes regional IP allocation and a fixed /20 subnet per region, it comes with one subnet per region. The custom mode does not setup default subnets, it allows full control of IP ranges as well as regional IP allocation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>Auto mode networks</p>
 <p>Auto mode networks may be upgraded to Custom mode, but this can not be reverted.</p>
+<p>They include routes, subnets, and firewall rules.</p>
+<p>They are not recommended for production environments. The IP ranges are assigned for you.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping -c <span class="m">3</span> <span class="nv">$IP</span>-Address
+</pre></div>
 </div>
+<p>Expect positive ping results for internal IPs only if the instance exists on the same network.</p>
+<p>Expect positive ping results for external IPs only if you have a firewall rule that allows ICMP incoming.</p>
+</div>
+<p>You can connect using internal IP addresses from different network by using options such as VPC peering.</p>
 <div class="section" id="networks">
 <h2>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h2>
 <p>Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are actually mapped by DNS), even if they are in different regions. You can ping a VM instance by its name, for example, because VPC networks have an internal DNS service that allows you to address instances by their DNS names rather than their internal IP addresses. This is a very useful feature, because the internal IP address can change when you delete and re-create an instance.</p>
@@ -84,7 +93,51 @@
 </pre></div>
 </div>
 </div></blockquote>
+<p>To create a custom network:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute networks create <span class="nv">$my</span>-net1 --subnet-mode<span class="o">=</span>custom
+</pre></div>
 </div>
+</div></blockquote>
+<p>To provide this network with firewall rules:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom1
+--network my-net1
+--allow<span class="o">=</span> tcp, udp, icmp
+-- <span class="nv">source</span><span class="o">=</span>ranges <span class="nv">$IP</span>-range
+
+
+gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom2
+--network my-net1
+--allow<span class="o">=</span> tcp:22, tcp:3389, icmp
+</pre></div>
+</div>
+</div></blockquote>
+<p>But remember a network is just a collection of subnets. Now you have a network name to group them by, use:</p>
+<p>To create a subnet:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute networks create <span class="nv">$manage</span>-subnets --region<span class="o">=</span>us-central1 --range<span class="o">=</span><span class="m">10</span>.130.0.0/20
+</pre></div>
+</div>
+</div></blockquote>
+<p>To create a 2nd subnet:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute networks create <span class="nv">$manage</span>-subnets --region<span class="o">=</span>us-central1 --range<span class="o">=</span><span class="m">10</span>.130.0.0/20
+</pre></div>
+</div>
+</div></blockquote>
+<p>To view these networks:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute networks list
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="instance-isolation">
+<h2>Instance Isolation<a class="headerlink" href="#instance-isolation" title="Permalink to this headline">¶</a></h2>
+<p>A bastion host acts to isolate an instance for you.</p>
+<img alt="../_images/bastion-host.PNG" src="../_images/bastion-host.PNG" />
 </div>
 </div>
 
@@ -116,6 +169,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Private Cloud</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#networks">Networks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#vpn-networking">VPN Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instance-isolation">Instance Isolation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>

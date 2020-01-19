@@ -12,9 +12,25 @@ The GCP supports 3 different Virtual Private Cloud (VPC) network types:
 
 The default setup has one subnet per region and pre-set firewall rules. The Auto mode option includes regional IP allocation and a fixed /20 subnet per region, it comes with one subnet per region. The custom mode does not setup default subnets, it allows full control of IP ranges as well as regional IP allocation.
 
-.. note::
+.. note:: Auto mode networks
 
 	Auto mode networks may be upgraded to Custom mode, but this can not be reverted.
+
+	They include routes, subnets, and firewall rules.
+
+	They are not recommended for production environments. The IP ranges are assigned for you.
+
+	.. code-block:: bash
+
+		ping -c 3 $IP-Address
+
+	Expect positive ping results for internal IPs only if the instance exists on the same network.
+
+	Expect positive ping results for external IPs only if you have a firewall rule that allows ICMP incoming.
+
+
+You can connect using internal IP addresses from different network by using options such as VPC peering.
+
 
 =========
 Networks
@@ -65,3 +81,56 @@ To view your networks:
 	.. code-block:: bash
 
 		gcloud compute networks list
+
+
+
+To create a custom network:
+
+	.. code-block:: bash
+
+		gcloud compute networks create $my-net1 --subnet-mode=custom
+
+To provide this network with firewall rules:
+
+	.. code-block:: bash
+
+		gcloud compute firewall-rules create $my-firewall-custom1
+		--network my-net1
+		--allow= tcp, udp, icmp 
+		-- source=ranges $IP-range
+
+
+		gcloud compute firewall-rules create $my-firewall-custom2
+		--network my-net1
+		--allow= tcp:22, tcp:3389, icmp 
+		
+
+But remember a network is just a collection of subnets. Now you have a network name to group them by, use: 
+
+To create a subnet:
+
+	.. code-block:: bash
+
+		gcloud compute networks create $manage-subnets --region=us-central1 --range=10.130.0.0/20
+
+
+To create a 2nd subnet:
+
+	.. code-block:: bash
+
+		gcloud compute networks create $manage-subnets --region=us-central1 --range=10.130.0.0/20
+
+To view these networks:
+
+	.. code-block:: bash
+
+		gcloud compute networks list
+
+
+==================
+Instance Isolation
+==================
+
+A bastion host acts to isolate an instance for you.
+
+.. image:: ../images/bastion-host.PNG
