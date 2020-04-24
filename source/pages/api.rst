@@ -10,7 +10,7 @@ Response > Defines what you can expect to receive when making a request
 
 Typically an API request gives access to data whilst abstracting away the implementation. A rest API request may be supported in many languages. Often an HTTP request using curl, is supported, with data being received in JSON format. An API may be limited to CRUD; create, read, update, and delete. This means that if you want to create a new record, you use “POST.” If you are trying to read a record, you use “GET.” Updating may apply “PUT” or “PATCH.” While, to delete a record, use “DELETE.”
 
-.. note:: Put v Patch
+.. topic:: Put v Patch
 
 	PUT overrides the record (any fields are not included in the PUT push are removed) whereas PATCH updates a record based on the information provided, leaving any fields not updated intact.
 
@@ -19,6 +19,13 @@ Typically an API request gives access to data whilst abstracting away the implem
 	Favour APIs that utilise the Content-Type header. By reading the what format of data users are sending, the response may be provided in that same format.  For example, if you send a request using text/xml, you would hope to receive an XML response; whereas another user making a json request could be provided with with JSON.
 
 	APIs that pay attention to this from the start are able to add as new formats become available.
+
+.. topic:: Helper Libraries
+
+	Many providers of APIs supply a software development kit (SDK), or helper libraries. This is what GCP has done to allow you to interact with their APIs. The library allows the server of the API to abstract away much of the code required to make requests to the API.
+
+	When you make requests using cloud shell, you are interacting with the SDK that Google has set up to make interacting with their APIs simpler.
+
 
 
 ##############

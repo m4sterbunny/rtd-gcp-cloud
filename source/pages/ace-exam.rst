@@ -50,3 +50,9 @@ Useful links for exam practise
 Documentation https://cloud.google.com/docs/
 
 https://quizlet.com/328524759/google-cloud-certified-associate-cloud-engineer-flash-cards/
+
+#############################
+Sitting the Exam in Cape Town
+#############################
+
+CTU Training Solutions_Claremont	Stadium on Main , Level 3, 99 Main Road	Claremont

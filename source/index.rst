@@ -21,6 +21,7 @@ Welcome to an eclectic set of GCP Notes
    pages/database-options.rst
    pages/storage.rst
    pages/ace-exam.rst
+   pages/react-app.rst
 
 
 
@@ -35,11 +36,12 @@ Indices and tables
 
 
 .. :Author: m4sterbunny
+.. :Host: https://rtd-gcp-cloud.readthedocs.io/en/latest/
 .. :Address: 123 Example Street
           Example, EX  SA
           7915
 .. :Contact: m4sterbunny@gmail.com
-.. :Authors: Me; Myself; I
+.. :Authors: Me, whilst precariously balancing on the shoulders of giants.
 .. :organization: humankind
 .. :date: $Date: 2019-01-11 19:23:53 +0000 $
 .. :status: This is a "work in progress"
