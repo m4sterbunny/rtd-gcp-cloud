@@ -68,7 +68,6 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#creating-and-linking-virtual-machines">Creating and Linking Virtual Machines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#zones-matter">Zones matter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#creating-your-own-image">Creating your own image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#importing-a-custom-image">Importing a custom image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#preemptilble-vms">Preemptilble VMs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#keen-to-make-something-useful">Keen to make something useful?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#gcp-cloud-shell">GCP Cloud Shell</a></li>
@@ -91,10 +90,14 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/ace-exam.html#the-ace-exam">The ACE exam</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pages/react-app.html">Making a React App to Demo Lottie</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/react-app.html#set-up-a-common-environment-on-gcp">Set Up a Common Environment on GCP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/react-app.html#upload-your-lottie-to-your-vm">Upload your lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/react-app.html">Set Up a Ubuntu Environment on GCP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/react-app.html#ubuntu-vm-setup">1. Ubuntu VM Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/react-app.html#set-up-your-development-environment">2.0 Set Up Your Development Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/release-7-2-0.html">ADS GEO Reference Documentation Version 7.2.0</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -109,8 +112,13 @@
 </ul>
 <div class="section" id="the-google-clound-engineer-exam">
 <h2>The Google Clound Engineer Exam<a class="headerlink" href="#the-google-clound-engineer-exam" title="Permalink to this headline">¶</a></h2>
+<div class="topic">
+<p class="topic-title">ACE Exam v Professional Cloud Engineer</p>
 <p>The Associate level exam (ACE) does not expect the applicant to be able to solve cloud business requirement problems. It focuses on technical requirements and implementation of cloud solutions (expect to be tested on syntax for CLI commands!).</p>
 <p>It is the professional-level exam that requires the applicant to be able to critically examine various solutions and decide which best apply to a business requirement (in addition to the ACE materials).</p>
+</div>
+<div class="topic">
+<p class="topic-title">ACE Exam Requirements</p>
 <p>You will be expected to understand different ways of delivering cloud computing resources such as:</p>
 <blockquote>
 <div><ul class="simple">
@@ -120,15 +128,26 @@
 </div></blockquote>
 <p>Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) abstracting away much of the admin required in managing a kubernetes cluster.</p>
 <p>Kubernetes is just one of the serverless computing options offered by GC. GC is geared toward supporting microservices, that is code run in a containerized environment managed by the cloud provider or in a compute platform designed for short-running code.</p>
-<p>Microservices may be managed by GC or Developers, and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more
-value from abstracting such management away.</p>
+<p>Microservices may be managed by GC or Developers, and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more value from abstracting such management away.</p>
 <p>Google Cloud Engineers (GCEs) must understand the different forms of cloud storage and when to use them:</p>
 <p>The professional-level GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can’t, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.</p>
-<div class="section" id="the-gcp-resources">
-<h3>The GCP resources<a class="headerlink" href="#the-gcp-resources" title="Permalink to this headline">¶</a></h3>
-<p>App Engine is typically used for websites, game backends, IOT, and - well, Apps.</p>
-<p>Compute engine provides access to VMs allowing users access to any OS, or configuration. It is also possible to create custom VM images.</p>
+</div>
+<div class="section" id="gcp-resources-overview">
+<h3>GCP Resources Overview<a class="headerlink" href="#gcp-resources-overview" title="Permalink to this headline">¶</a></h3>
+<div class="topic">
+<p class="topic-title">App Engine</p>
+<p>App engine is typically used for websites, game backends, IOT, and - well, Apps.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Compute Engine</p>
+<p>Compute engine provides access to VMs allowing users access to any OS, or configuration. It is also possible to create and apply custom VM images.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Kubenetes Engine</p>
 <p>GKE is excellent for managing containerised workloads and hybrid applications.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Data Storage</p>
 <p>Data Storage on the GCP has various modes:</p>
 <blockquote>
 <div><ul class="simple">
@@ -138,19 +157,35 @@ value from abstracting such management away.</p>
 <li><p>in-memory caches</p></li>
 </ul>
 </div></blockquote>
+</div>
+<div class="topic">
+<p class="topic-title">Object Storage</p>
 <p>Object storage is designed for highly reliable and durable storage of objects such as images or datasets. Object storage is less versatile than file system–based storage systems which provide hierarchical directory storage for files and support operating system. File system services include providing accessibility to multiple servers.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Block Storage</p>
 <p>Block storage occurs on persistent storage devices, such as SSDs and HDDs. Caches are temporary, in-memory data stores used to minimize the latency in retrieving data. They do not provide persistent storage and data held there is usually only recent, not current.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Database Storage</p>
 <p>The GCP provides 6 different database options for data storage.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Cloud SQL</p></li>
-<li><p>Cloud Spanner</p></li>
-<li><p>Cloud Datastore</p></li>
-<li><p>Cloud Bigtable</p></li>
-<li><p>Cloud Storage</p></li>
 <li><p>Big Query</p></li>
+<li><p>Cloud Bigtable</p></li>
+<li><p>Cloud Datastore</p></li>
+<li><p>Cloud Spanner</p></li>
+<li><p>Cloud SQL</p></li>
+<li><p>Cloud Storage</p></li>
 </ul>
 </div></blockquote>
+</div>
+</div>
+<div class="section" id="new-to-this">
+<h3>New To This?<a class="headerlink" href="#new-to-this" title="Permalink to this headline">¶</a></h3>
+<p>For anyone new to GCP who wants to make a start, check out:</p>
+<p>pages/react-app.rst</p>
+<p>as a great first activity.</p>
 </div>
 </div>
 </div>
@@ -186,7 +221,10 @@ value from abstracting such management away.</p>
 <li class="toctree-l1"><a class="reference internal" href="pages/database-options.html">GCP Database Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/ace-exam.html">ACE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/react-app.html">Making a React App to Demo Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/release-7-2-0.html">ADS GEO Reference Documentation Version 7.2.0</a></li>
 </ul>
 
 <div class="relations">

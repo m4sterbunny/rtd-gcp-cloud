@@ -22,9 +22,9 @@ Setting one up from the console is a simple task:
 		+ Modify the firewall to allow HTTP or HTTPS traffic
 
 
-Launch GCP's `Cloud Shell <cloud-shell.html>`_
+.. topic:: Launch GCP's `Cloud Shell <cloud-shell.html>`_
 
-This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that *you* create.
+	This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that *you* create.
 
 
 .. topic:: Setup a VM from the command line
@@ -115,9 +115,6 @@ This may include updating or adding libraries or software.
 
 If your project is not simply a one off, then you may use this as a base-image for future projects by creating a snapshot, i.e. by grabbing an image from the boot disk of your VM.
 
-Importing a custom image
-========================
-
 
 Preemptilble VMs
 =================
@@ -132,7 +129,7 @@ Keen to make something useful?
 
 It is tough to learn system setup in isolation of normal day to day requirements.
 
-Let's go through a real-world example to bust through the rather abstract ones - e.g., setting up a VM to act as a server for a web page.
+Let's go through a real-world example to bust through the rather abstract ones - e.g., setting up a VM to act as a server for a web page. 
 
 Activate Cloud Shell and use the GCP SDK that it provides.
 
@@ -183,7 +180,7 @@ OR use curl from the SSH connection to your VM's command line:
 
 	curl http://[Your-External-IP]
 
-Either option should return the apache landing page.
+Either option should return the apache web server's landing page.
 
 GCP Cloud Shell
 ================

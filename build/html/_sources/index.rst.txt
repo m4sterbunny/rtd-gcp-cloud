@@ -22,6 +22,7 @@ Welcome to an eclectic set of GCP Notes
    pages/storage.rst
    pages/ace-exam.rst
    pages/react-app.rst
+   pages/release-7-2-0.rst
 
 
 
@@ -70,51 +71,79 @@ Indices and tables
 The Google Clound Engineer Exam
 =================================
 
-The Associate level exam (ACE) does not expect the applicant to be able to solve cloud business requirement problems. It focuses on technical requirements and implementation of cloud solutions (expect to be tested on syntax for CLI commands!).
 
-It is the professional-level exam that requires the applicant to be able to critically examine various solutions and decide which best apply to a business requirement (in addition to the ACE materials).
+.. topic:: ACE Exam v Professional Cloud Engineer
 
-You will be expected to understand different ways of delivering cloud computing resources such as:
+  The Associate level exam (ACE) does not expect the applicant to be able to solve cloud business requirement problems. It focuses on technical requirements and implementation of cloud solutions (expect to be tested on syntax for CLI commands!).
 
-  + Virtual Machines (VMs)
-  + Kubernetes
+  It is the professional-level exam that requires the applicant to be able to critically examine various solutions and decide which best apply to a business requirement (in addition to the ACE materials).
 
-Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) abstracting away much of the admin required in managing a kubernetes cluster. 
+.. topic:: ACE Exam Requirements
 
-Kubernetes is just one of the serverless computing options offered by GC. GC is geared toward supporting microservices, that is code run in a containerized environment managed by the cloud provider or in a compute platform designed for short-running code.
+  You will be expected to understand different ways of delivering cloud computing resources such as:
 
-Microservices may be managed by GC or Developers, and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more
-value from abstracting such management away.
+    + Virtual Machines (VMs)
+    + Kubernetes
 
-Google Cloud Engineers (GCEs) must understand the different forms of cloud storage and when to use them: 
+  Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) abstracting away much of the admin required in managing a kubernetes cluster. 
 
-The professional-level GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can't, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.
+  Kubernetes is just one of the serverless computing options offered by GC. GC is geared toward supporting microservices, that is code run in a containerized environment managed by the cloud provider or in a compute platform designed for short-running code.
 
-The GCP resources
------------------
+  Microservices may be managed by GC or Developers, and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more value from abstracting such management away.
 
-App Engine is typically used for websites, game backends, IOT, and - well, Apps.
+  Google Cloud Engineers (GCEs) must understand the different forms of cloud storage and when to use them: 
 
-Compute engine provides access to VMs allowing users access to any OS, or configuration. It is also possible to create custom VM images.
+  The professional-level GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can't, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.
 
-GKE is excellent for managing containerised workloads and hybrid applications.
+GCP Resources Overview
+----------------------
 
-Data Storage on the GCP has various modes:
+.. topic:: App Engine
 
-  + object
-  + file
-  + block
-  + in-memory caches
+  App engine is typically used for websites, game backends, IOT, and - well, Apps.
 
-Object storage is designed for highly reliable and durable storage of objects such as images or datasets. Object storage is less versatile than file system–based storage systems which provide hierarchical directory storage for files and support operating system. File system services include providing accessibility to multiple servers. 
+.. topic:: Compute Engine
+  
+  Compute engine provides access to VMs allowing users access to any OS, or configuration. It is also possible to create and apply custom VM images.
 
-Block storage occurs on persistent storage devices, such as SSDs and HDDs. Caches are temporary, in-memory data stores used to minimize the latency in retrieving data. They do not provide persistent storage and data held there is usually only recent, not current.
+.. topic:: Kubenetes Engine
 
-The GCP provides 6 different database options for data storage.
+  GKE is excellent for managing containerised workloads and hybrid applications.
 
-  + Cloud SQL
-  + Cloud Spanner
-  + Cloud Datastore
-  + Cloud Bigtable
-  + Cloud Storage
-  + Big Query
+.. topic:: Data Storage
+
+  Data Storage on the GCP has various modes:
+
+    + object
+    + file
+    + block
+    + in-memory caches
+
+.. topic:: Object Storage
+
+    Object storage is designed for highly reliable and durable storage of objects such as images or datasets. Object storage is less versatile than file system–based storage systems which provide hierarchical directory storage for files and support operating system. File system services include providing accessibility to multiple servers. 
+
+.. topic:: Block Storage
+
+    Block storage occurs on persistent storage devices, such as SSDs and HDDs. Caches are temporary, in-memory data stores used to minimize the latency in retrieving data. They do not provide persistent storage and data held there is usually only recent, not current.
+
+.. topic:: Database Storage
+
+    The GCP provides 6 different database options for data storage.
+
+        + Big Query
+        + Cloud Bigtable
+        + Cloud Datastore
+        + Cloud Spanner
+        + Cloud SQL
+        + Cloud Storage
+
+
+New To This?
+------------
+
+For anyone new to GCP who wants to make a start, check out:
+
+pages/react-app.rst
+
+as a great first activity. 

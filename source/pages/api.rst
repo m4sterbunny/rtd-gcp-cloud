@@ -1,7 +1,38 @@
+.. _HTTPheader: /cloud.google.com/sdk/
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
 ===============
-What is an API?
+A World of API
 ===============
 
+APIs took databases and services into the cloud. Hitting an endpoint can bring you a hit:full-on-service ratio that you are going to love. Or, you can simply store a photo.
+
+They bring a host of security for your precious data too. A wide range of toolsets may implement access management. Thus, to use an API it is good to first talk about authentication.
+
+Authentication
+===============
+
+To be allowed to the party, you have to have an invite for anything other than a public API. From weather (https://openweathermap.org/api) to quotes (https://quotes.rest) there is plenty of free data out there just waiting to be tapped.
+
+If you have a key, then you just got access to more data. How? By identifying yourself. 
+
+HTTP Header Authentication
+--------------------------
+
+
+JWT Authentication
+------------------
+
+
+Man-In-The-Middle
+-----------------
+
+
+What is an API?
+===============
 An API is a contract:
 
 Request > Defines how it expects to be used
@@ -12,7 +43,7 @@ Typically an API request gives access to data whilst abstracting away the implem
 
 .. topic:: Put v Patch
 
-	PUT overrides the record (any fields are not included in the PUT push are removed) whereas PATCH updates a record based on the information provided, leaving any fields not updated intact.
+	PUT overrides the record i.e. resets (any fields are not included in the PUT push are removed) whereas PATCH updates a record based on the information provided, leaving any fields not updated, intact.
 
 .. warning:: Look for future-proofed APIs
 
@@ -27,14 +58,13 @@ Typically an API request gives access to data whilst abstracting away the implem
 	When you make requests using cloud shell, you are interacting with the SDK that Google has set up to make interacting with their APIs simpler.
 
 
-
 ##############
 Enabling APIs
 ##############
 
-Programatic access of GCP's services is available through their API services. From creating a VM, to a Cloud Storage bucket- you are using API functions in the background.
+GCP's services are available through their API services. From creating a VM, to a Cloud Storage bucket — you are using API functions in the background.
 
-.. topic:: Enable APIs
+.. topic:: Enable APIs in the GCP
 	
 	GCP > APIs & Services
 
@@ -44,5 +74,5 @@ Programatic access of GCP's services is available through their API services. Fr
 
 	From this console you may click on an API name to view details about its usage.
 
-You search for APIs that you want to administer through an interface that resembles a google market place.
+	You search for APIs that you want to administer through an interface that resembles a Google market place.
 

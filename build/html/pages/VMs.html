@@ -51,8 +51,10 @@
 </ul>
 </div></blockquote>
 </div>
-<p>Launch GCP’s <a class="reference external" href="cloud-shell.html">Cloud Shell</a></p>
+<div class="topic">
+<p class="topic-title">Launch GCP’s <a class="reference external" href="cloud-shell.html">Cloud Shell</a></p>
 <p>This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that <em>you</em> create.</p>
+</div>
 <div class="topic">
 <p class="topic-title">Setup a VM from the command line</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-new-vm&quot;</span>
@@ -127,9 +129,6 @@
 <p>This may include updating or adding libraries or software.</p>
 <p>If your project is not simply a one off, then you may use this as a base-image for future projects by creating a snapshot, i.e. by grabbing an image from the boot disk of your VM.</p>
 </div>
-<div class="section" id="importing-a-custom-image">
-<h2>Importing a custom image<a class="headerlink" href="#importing-a-custom-image" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="preemptilble-vms">
 <h2>Preemptilble VMs<a class="headerlink" href="#preemptilble-vms" title="Permalink to this headline">¶</a></h2>
 <p>Where you need a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.</p>
@@ -180,7 +179,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl http://<span class="o">[</span>Your-External-IP<span class="o">]</span>
 </pre></div>
 </div>
-<p>Either option should return the apache landing page.</p>
+<p>Either option should return the apache web server’s landing page.</p>
 </div>
 <div class="section" id="gcp-cloud-shell">
 <h2>GCP Cloud Shell<a class="headerlink" href="#gcp-cloud-shell" title="Permalink to this headline">¶</a></h2>
@@ -228,7 +227,7 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="api.html">Enabling APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">What is an API?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -237,7 +236,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#creating-and-linking-virtual-machines">Creating and Linking Virtual Machines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zones-matter">Zones matter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-your-own-image">Creating your own image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#importing-a-custom-image">Importing a custom image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#preemptilble-vms">Preemptilble VMs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#keen-to-make-something-useful">Keen to make something useful?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gcp-cloud-shell">GCP Cloud Shell</a></li>
@@ -249,6 +247,9 @@
 <li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
 </ul>
 
 <div class="relations">
