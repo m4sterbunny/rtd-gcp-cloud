@@ -91,10 +91,34 @@ Let's be a little more decisive and prescribe some VM configurations this time. 
 
 	NB if you don't set the count for the number of pings then use Ctrl+C to abort the ping command.
 
+	OR, using the SSH for VM2 which opens a CLI interface to VM2, you can SSH directly into VM1 (well if your pings works, then you are connected -- right?!)
+
+	.. code-block:: bash
+
+		ssh my-vm-1.us-central1-a
+
+	Try something out, perhaps install a webserver on your VM1 via VM2?
+
+	.. code-block:: bash
+
+		sudo apt-get install nginx-light -y
+
+	Then mess with the landing page
+
+	.. code-block:: bash
+
+		sudo nano /var/www/html/index.nginx-debian.html
+
+	Write something witty in your index and watch it come back at you. Using the SSH from VM2 into VM1. Note that the CLI tells you which machine you are connected with (it will have my-vm-1 right there).
+
+	.. code-block:: bash
+
+		curl http://localhost/
+
 Zones matter
 ============
 
-VM instances are assigned to a zone, that is a sub-region. Zones within a region are better connected that zones between regaions. You have to specify your zone when you set up your VM.
+VM instances are assigned to a zone, that is a sub-region. Zones within a region are better connected that zones between regions. You have to specify your zone when you set up your VM.
 
 Zone selection may be vital if the following affect you:
 
@@ -104,6 +128,7 @@ Zone selection may be vital if the following affect you:
 		NB performance may be impacted by:
 			+ Availability
 			+ Latency
+
 
 
 Creating your own image
@@ -121,7 +146,7 @@ Preemptilble VMs
 
 Where you need a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.
 
-You can even split workloads across "permanent VMs" and premtiple VMs.
+You can even split workloads across "permanent VMs" and preemtible VMs.
 
 
 Keen to make something useful?

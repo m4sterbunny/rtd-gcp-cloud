@@ -71,6 +71,13 @@ Indices and tables
 The Google Clound Engineer Exam
 =================================
 
+.. topic:: GCP
+
+  GCP offers 4 main services:
+  - Compute (your virtual machine)
+  - Storage 
+  - Big Data tools
+  - Machine learning tools
 
 .. topic:: ACE Exam v Professional Cloud Engineer
 
