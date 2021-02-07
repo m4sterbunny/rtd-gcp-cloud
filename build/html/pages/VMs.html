@@ -1,24 +1,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Virtual Machines &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Virtual Private Cloud" href="virtual-networking.html" />
     <link rel="prev" title="Stackdriver" href="stackdriver.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -28,8 +27,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="virtual-machines">
@@ -99,11 +96,27 @@
 </pre></div>
 </div>
 <p>NB if you don’t set the count for the number of pings then use Ctrl+C to abort the ping command.</p>
+<p>OR, using the SSH for VM2 which opens a CLI interface to VM2, you can SSH directly into VM1 (well if your pings works, then you are connected – right?!)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh my-vm-1.us-central1-a
+</pre></div>
+</div>
+<p>Try something out, perhaps install a webserver on your VM1 via VM2?</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install nginx-light -y
+</pre></div>
+</div>
+<p>Then mess with the landing page</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano /var/www/html/index.nginx-debian.html
+</pre></div>
+</div>
+<p>Write something witty in your index and watch it come back at you. Using the SSH from VM2 into VM1. Note that the CLI tells you which machine you are connected with (it will have my-vm-1 right there).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl http://localhost/
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="zones-matter">
 <h2>Zones matter<a class="headerlink" href="#zones-matter" title="Permalink to this headline">¶</a></h2>
-<p>VM instances are assigned to a zone, that is a sub-region. Zones within a region are better connected that zones between regaions. You have to specify your zone when you set up your VM.</p>
+<p>VM instances are assigned to a zone, that is a sub-region. Zones within a region are better connected that zones between regions. You have to specify your zone when you set up your VM.</p>
 <p>Zone selection may be vital if the following affect you:</p>
 <blockquote>
 <div><ul class="simple">
@@ -132,7 +145,7 @@
 <div class="section" id="preemptilble-vms">
 <h2>Preemptilble VMs<a class="headerlink" href="#preemptilble-vms" title="Permalink to this headline">¶</a></h2>
 <p>Where you need a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.</p>
-<p>You can even split workloads across “permanent VMs” and premtiple VMs.</p>
+<p>You can even split workloads across “permanent VMs” and preemtible VMs.</p>
 </div>
 <div class="section" id="keen-to-make-something-useful">
 <h2>Keen to make something useful?<a class="headerlink" href="#keen-to-make-something-useful" title="Permalink to this headline">¶</a></h2>
@@ -184,7 +197,7 @@
 <div class="section" id="gcp-cloud-shell">
 <h2>GCP Cloud Shell<a class="headerlink" href="#gcp-cloud-shell" title="Permalink to this headline">¶</a></h2>
 <p>Google’s Cloud Shell is a Linux VM that is pre-loaded with development tools including GCP’s SDK. It provides a persistent 5GB home directory and runs on the GCP. Google’s Cloud Shell provides command-line access to your GCP resources.</p>
-<p>One of the great features of the Cloud Shell environment is that you may store environment variables. This enables you to work with features such as multiple projects without having to return to the console.</p>
+<p>One of the great features of the Cloud Shell environment is that you may use bash to store environment variables. This enables you to work with features such as multiple projects without having to return to the console.</p>
 <p>..topic:: Storing project id as an environment variable</p>
 <blockquote>
 <div><p>If you have multiple projects storing their id with a simple name can speed up work immensely.</p>
@@ -203,14 +216,18 @@
 </pre></div>
 </div>
 <p>export Proj-1=loony-tunes-251324</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>echo $Proj-1</p>
 </div></blockquote>
 </div></blockquote>
+<p>See more about the <a class="reference internal" href="cloud-shell.html#cloud-shell"><span class="std std-ref">GCP cloud shell</span></a></p>
 </div>
 </div>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -227,10 +244,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="api.html">What is an API?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Machines</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#creating-and-linking-virtual-machines">Creating and Linking Virtual Machines</a></li>
@@ -244,12 +262,12 @@
 <li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">Virtual Private Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
 </ul>
 
 <div class="relations">
@@ -270,15 +288,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -287,8 +297,8 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="../_sources/pages/VMs.rst.txt"

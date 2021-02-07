@@ -1,24 +1,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kubernetes &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Stackdriver" href="stackdriver.html" />
     <link rel="prev" title="Cloud Shell" href="cloud-shell.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -28,12 +27,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="kubernetes">
-<span id="r-link"></span><h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
+<h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
+<p>Kurbernetes orchastrates your containers. Need more, wait a mo and there you go. Don’t like to be charged for resources you aint using – shut ‘em down again. You do have a copy ready to roll, after all.</p>
+<div class="section" id="containerisation-and-why-these-docs-are-so-long">
+<h2>Containerisation and why these docs are so long<a class="headerlink" href="#containerisation-and-why-these-docs-are-so-long" title="Permalink to this headline">¶</a></h2>
+<p>Let’s just stick to one method that a) popular, so you are likely to use it at some point and b) short to read; <a class="reference external" href="https://www.freecodecamp.org/news/the-docker-handbook/">Docker</a>.</p>
+<p>So, a docker container posesses everything it needs to run your software. You need a library? So declare that and when you activate your container it goes gets the library version it needs.</p>
+</div>
 <div class="section" id="learning-to-love-k8s">
 <h2>Learning to love K8s<a class="headerlink" href="#learning-to-love-k8s" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="setting-up-k8s-from-the-gui">
@@ -109,7 +112,6 @@
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -126,10 +128,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="api.html">Enabling APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#containerisation-and-why-these-docs-are-so-long">Containerisation and why these docs are so long</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#learning-to-love-k8s">Learning to love K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#speaking-to-k8s">Speaking to K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-awesome-applications">Running awesome applications</a></li>
@@ -137,11 +140,15 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">Virtual Private Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-7-2-0.html">ADS GEO Reference Documentation Version 7.2.0</a></li>
 </ul>
 
 <div class="relations">
@@ -162,15 +169,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -179,8 +178,8 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="../_sources/pages/kubernetes.rst.txt"

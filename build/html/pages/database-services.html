@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Load-balancing &#8212; Cloud Notes 0.1 documentation</title>
+    <title>GCP Database Options &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -27,30 +27,69 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="load-balancing">
-<h1>Load-balancing<a class="headerlink" href="#load-balancing" title="Permalink to this headline">¶</a></h1>
-<p>Not all load-balancers are the same! You may want to balance the load for internal services, or for external requests to a service.</p>
-<p>Load balancing allows the use of 2 or more identical clusters. This setup allows you to be resiliant to the loss of a server, or responsive to spikes in traffic.</p>
-<p>Load balancers may be configured to ad or remover servers, or clusters of servers. This is known as autoscaling.</p>
-<p>There are a number of options, e.g.:</p>
+  <div class="section" id="gcp-database-options">
+<h1>GCP Database Options<a class="headerlink" href="#gcp-database-options" title="Permalink to this headline">¶</a></h1>
+<p>The GCP provides 6 different database options that fit into 4 categories:</p>
 <blockquote>
 <div><ul class="simple">
-<li><dl class="simple">
-<dt>Cross-regional load balancing of web apps</dt><dd><ul>
-<li><p>HTTP load-balancing</p></li>
-<li><p>SSL proxy load-balancing</p></li>
-<li><p>Global TCP proxy load balancer</p></li>
-<li><p>UDP regional load balancer</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><p>Internal load balancer</p></li>
+<li><p>Relational Databases (Cloud SQL and Cloud Spanner)</p></li>
+<li><p>Non-relational Databases (Cloud Datastore and Cloud Bigtable)</p></li>
+<li><p>Object Storage (Cloud Storage)</p></li>
+<li><p>Warehouse (Big Query)</p></li>
 </ul>
 </div></blockquote>
-<p>Global load balancing is available using the premium network service tier. Regional load balancing is available on the standard tier. GCP’s load balancers are divided into external and internal load balancers.</p>
-<p>External load balancers distribute traffic coming from the Internet to your GCP network. Internal load balancers distribute traffic within your GCP network.</p>
-<p>HTTP and HTTPS traffic require global external load balancing. TCP traffic can be handled by global external load balancing, external regional load balancing, or internal regional load balancing. UDP traffic can be handled by external regional load balancing or internal regional load balancing.</p>
+<p>Relational databases are restrictive in terms of design. All fields should be identified with the relationships between them established from the outset. Non-relational databases allow for the data types and fields to morph over time, without requiring a redesign of the database.</p>
+<p>The Object storage option, for data such as images or other “blobs” is handled by Cloud Storage.</p>
+<p>The “Warehouse” storage option is infact a relational database, with data accessed using SQL. The reason it sits in its own category is that it is specifically set up to manage huge loads such as those created with data streaming, analytics, and reporting.</p>
+<div class="section" id="storage-retrival">
+<h2>Storage &amp; Retrival<a class="headerlink" href="#storage-retrival" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bigtable">
+<h3>BigTable<a class="headerlink" href="#bigtable" title="Permalink to this headline">¶</a></h3>
+<p><strong>NoSQL</strong> Fully-managed NoSQL (think little structure!) database</p>
+<p><strong>Analytical data</strong>
+<strong>Handles heavy read/write</strong></p>
+<p><strong>Security</strong> As with cloud storage, data is encrypted in transit and access controlled with IAM. Think G-mail!</p>
+<p><strong>Capacity</strong> Petabybes+</p>
+<p><strong>Unit size</strong> 10 + MB</p>
+</div>
+<div class="section" id="cloud-datastore">
+<h3>Cloud Datastore<a class="headerlink" href="#cloud-datastore" title="Permalink to this headline">¶</a></h3>
+<p>e.g., stores structured data for App engine applications.</p>
+<p><strong>NoSQL</strong> Fully-managed NoSQL (with SQL-like queries)
+<strong>Handles transactions</strong>
+<strong>Unit size</strong> 1MB
+<strong>Handles sharding and replication</strong>
+<strong>Free daily quota</strong></p>
+</div>
+<div class="section" id="cloud-storage">
+<h3>Cloud Storage<a class="headerlink" href="#cloud-storage" title="Permalink to this headline">¶</a></h3>
+<p>Think movies or large images. Immutable large stuff. Binary or object data.</p>
+<p><strong>Blob Store</strong>
+<strong>Capacity</strong> Petabybes+
+<strong>Unit size</strong> 5TB</p>
+</div>
+</div>
+<div class="section" id="searchable">
+<h2>Searchable<a class="headerlink" href="#searchable" title="Permalink to this headline">¶</a></h2>
+<p>All the following have database schemas, i.e., they are relational SQL databases.</p>
+<div class="section" id="cloud-sql">
+<h3>Cloud SQL<a class="headerlink" href="#cloud-sql" title="Permalink to this headline">¶</a></h3>
+<p>Full SQL transaction processing: think user-credential verification, customer order processing.</p>
+<p>Scales vertically and horizontally.</p>
+<p>MySQL and POSTgreSQL.</p>
+<p>Accessible by GCP and external services.</p>
+</div>
+<div class="section" id="cloud-spanner">
+<h3>Cloud Spanner<a class="headerlink" href="#cloud-spanner" title="Permalink to this headline">¶</a></h3>
+<p>Full SQL transaction processing. Large database-driven applications, think job board, ecommerce.</p>
+<p><strong>Capacity &gt;2TB</strong> Petabybes+
+<strong>Horizonal scalability</strong></p>
+</div>
+<div class="section" id="bigquery">
+<h3>BigQuery<a class="headerlink" href="#bigquery" title="Permalink to this headline">¶</a></h3>
+<p>Umm Storage? Processing? Processing? Aces heavy read/write.</p>
+</div>
+</div>
 </div>
 
 
@@ -117,7 +156,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
-      <a href="../_sources/pages/load-balancing.rst.txt"
+      <a href="../_sources/pages/database-services.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

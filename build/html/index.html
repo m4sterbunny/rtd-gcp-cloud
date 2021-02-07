@@ -1,25 +1,24 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta charset="utf-8" /><meta content="google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine" name="keywords" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta content="google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine" name="keywords" />
 <meta content="An eclectic collection of snippets of information useful to a wanna be Google Cloud Engineer." lang="en" name="description" xml:lang="en" />
 
-    <title>Welcome to an eclectic set of GCP Notes &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <title>Welcome to an Eclectic set of GCP Notes &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="What is an API?" href="pages/api.html" />
+    <link rel="next" title="A World of API" href="pages/api.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -29,17 +28,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="welcome-to-an-eclectic-set-of-gcp-notes">
-<h1>Welcome to an eclectic set of GCP Notes<a class="headerlink" href="#welcome-to-an-eclectic-set-of-gcp-notes" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to an Eclectic set of GCP Notes<a class="headerlink" href="#welcome-to-an-eclectic-set-of-gcp-notes" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pages/api.html">What is an API?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/api.html#enabling-apis">Enabling APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/api.html">A World of API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/api.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/api.html#what-is-an-rest-api">What is an REST API?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing.html">Accounts &amp; Billing</a><ul>
@@ -53,16 +51,19 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/cloud-shell.html">Cloud Shell</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/cloud-shell.html#function-trees">Function Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/cloud-shell.html#basic-commands">Basic Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/cloud-shell.html#i-like-this-is-there-more">I like this - is there more?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/kubernetes.html">Kubernetes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#containerisation-and-why-these-docs-are-so-long">Containerisation and why these docs are so long</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#learning-to-love-k8s">Learning to love K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#speaking-to-k8s">Speaking to K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#running-awesome-applications">Running awesome applications</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pages/load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/VMs.html">Virtual Machines</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#creating-and-linking-virtual-machines">Creating and Linking Virtual Machines</a></li>
@@ -81,11 +82,12 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/database-options.html">GCP Database Options</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/database-options.html#gcp-storage-options">GCP Storage Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/storage.html">Storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/storage.html#buckets">Buckets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/storage.html#storage-classes">Storage Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/storage.html#moving-data">Moving Data</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pages/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/ace-exam.html">ACE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/ace-exam.html#the-ace-exam">The ACE exam</a></li>
 </ul>
@@ -97,7 +99,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/release-7-2-0.html">ADS GEO Reference Documentation Version 7.2.0</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="pages/database-services.html">GCP Database Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/database-services.html#storage-retrival">Storage &amp; Retrival</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/database-services.html#searchable">Searchable</a></li>
 </ul>
 </li>
 </ul>
@@ -112,14 +116,24 @@
 </ul>
 <div class="section" id="the-google-clound-engineer-exam">
 <h2>The Google Clound Engineer Exam<a class="headerlink" href="#the-google-clound-engineer-exam" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quick-navigation">
+<h3>Quick navigation<a class="headerlink" href="#quick-navigation" title="Permalink to this headline">¶</a></h3>
+<div class="topic">
+<p class="topic-title">GCP</p>
+<p>GCP offers 4 main services:
+- Compute (your virtual machine)
+- Storage
+- Big Data tools
+- Machine learning tools</p>
+</div>
 <div class="topic">
 <p class="topic-title">ACE Exam v Professional Cloud Engineer</p>
 <p>The Associate level exam (ACE) does not expect the applicant to be able to solve cloud business requirement problems. It focuses on technical requirements and implementation of cloud solutions (expect to be tested on syntax for CLI commands!).</p>
 <p>It is the professional-level exam that requires the applicant to be able to critically examine various solutions and decide which best apply to a business requirement (in addition to the ACE materials).</p>
 </div>
-<div class="topic">
-<p class="topic-title">ACE Exam Requirements</p>
-<p>You will be expected to understand different ways of delivering cloud computing resources such as:</p>
+<p>The ACE exam certifies that you are able to build, deploy, and manage the cloud services.</p>
+<blockquote>
+<div><p>You will be expected to understand different ways of delivering cloud computing resources such as:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Virtual Machines (VMs)</p></li>
@@ -131,6 +145,7 @@
 <p>Microservices may be managed by GC or Developers, and DevOps may manage their own servers and clusters. Managed services and serverless options are good choices when you do not need control over the computing environment and will get more value from abstracting such management away.</p>
 <p>Google Cloud Engineers (GCEs) must understand the different forms of cloud storage and when to use them:</p>
 <p>The professional-level GCE must understand the implications of replacing an IT environment on-premise with the cloud. Running an IT environment in the cloud has several advantages, including short-term rental of resources, a pay-as-you-go model, elastic resource allocation, and the choice of many specialised services. You can’t, however, assume that the unit cost of cloud resources will be cheaper in the cloud than on-premise. It is important to understand the cost models so you can provide advice about the most efficient distribution of workload between cloud and on-premise resources.</p>
+</div></blockquote>
 </div>
 <div class="section" id="gcp-resources-overview">
 <h3>GCP Resources Overview<a class="headerlink" href="#gcp-resources-overview" title="Permalink to this headline">¶</a></h3>
@@ -192,7 +207,6 @@
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -209,29 +223,29 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pages/api.html">What is an API?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/virtual-networking.html">Virtual Private Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/database-options.html">GCP Database Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/ace-exam.html">ACE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/release-7-2-0.html">ADS GEO Reference Documentation Version 7.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/database-services.html">GCP Database Options</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="pages/api.html" title="next chapter">What is an API?</a></li>
+      <li>Next: <a href="pages/api.html" title="next chapter">A World of API</a></li>
   </ul></li>
 </ul>
 </div>
@@ -244,15 +258,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -261,8 +267,8 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/index.rst.txt"

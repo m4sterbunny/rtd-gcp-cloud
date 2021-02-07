@@ -1,4 +1,5 @@
 
+
 .. _DRY: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 
 .. _console: https://console.cloud.google.com/
@@ -7,21 +8,44 @@
    :maxdepth: 2
    :caption: Contents:
 
+
+
 ===========
 Cloud Shell
 ===========
 
+Cloud shell contains GCP's software development kit (SDK), or helper libraries. This massively simplifies interacting with services such as APIs. 
 
-The cloud shell environment sits on a VM spun up on your behalf by GCP.
+The cloud shell environment sits on a VM spun up in the cloud and accessible by your GCP account. It gives command line access to your projects and their resources according to your IAM settings. 
 
-Because GCP has created this machine, it is tied to your GCP account, and gives command line access to your projects and their resources. Which is why this vital little button unleashes command line interfacing (CLI) with VMs on your console_.
+Unleash the command line interface (CLI) with VMs on your console_.
 
 .. image:: ../images/shell.PNG
 		
 
+Function Trees
+---------------
+
+Are split into:
+
+- gsutil
+	- storage
+	- bigQuery
+- gcloud
+	- platform
+	- products
+	- services (data analytics, ML, networking, APIs)
+
+
 
 Basic Commands
 --------------
+
+Try this from console 
+
+.. code-block:: bash
+
+	gcloud config set account `ACCOUNT`
 
 There are a ton of great tools on this bash- + Google SDK-hosting machine. Here are just a few commands to have a play around with:
 
@@ -59,7 +83,7 @@ A really useful tool is saving environment variables on that machine to allow yo
 
     export HIPSTER_VERSION=1.0.0
 
-Notice that here you are using bash, rather than the gcloud command. 
+Notice that here you are using bash, rather than the gcloud command. NB the local SDK does not include bash.
 
 I like this - is there more?
 -----------------------------
@@ -108,9 +132,23 @@ Rather than administer each VM directly, you may configure them all through sett
 			--image "debian-9-stretch-v20170918" \
 			--subnet "default"
 
+
+.. topic:: launch a more useful VM
+
+			being able to talk to the world through your own wee tunnel is very useful. `my-new-vm` could be a lot more fun, and less safe!
+
+			.. code-block:: bash
+
+				gcloud compute instances create "my-new-vm"
+				--machine-type "n1-standard-1"
+				--image-project "debian-cloud"
+				--image "debian-9-stretch-v20170918" \
+				--subnet "default"
+
 close cloud shell
 
 	.. code-block:: bash
 
 		exit
 
+.. _uniqueTag: 

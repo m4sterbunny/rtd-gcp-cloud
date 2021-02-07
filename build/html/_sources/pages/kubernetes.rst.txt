@@ -1,8 +1,18 @@
 .. _r_link:
+.. _Docker: https://www.freecodecamp.org/news/the-docker-handbook/
 
 ===========
 Kubernetes
 ===========
+
+Kurbernetes orchastrates your containers. Need more, wait a mo and there you go. Don't like to be charged for resources you aint using -- shut 'em down again. You do have a copy ready to roll, after all.
+
+Containerisation and why these docs are so long
+================================================
+
+Let's just stick to one method that a) popular, so you are likely to use it at some point and b) short to read; Docker_. 
+
+So, a docker container posesses everything it needs to run your software. You need a library? So declare that and when you activate your container it goes gets the library version it needs.
 
 
 Learning to love K8s

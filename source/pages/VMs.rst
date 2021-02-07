@@ -1,5 +1,7 @@
 .. _UK_Data_link: https://www.ukdataservice.ac.uk/manage-data/store/security
 
+
+
 #################
 Virtual Machines
 #################
@@ -212,7 +214,7 @@ GCP Cloud Shell
 
 Google's Cloud Shell is a Linux VM that is pre-loaded with development tools including GCP's SDK. It provides a persistent 5GB home directory and runs on the GCP. Google's Cloud Shell provides command-line access to your GCP resources.
 
-One of the great features of the Cloud Shell environment is that you may store environment variables. This enables you to work with features such as multiple projects without having to return to the console.
+One of the great features of the Cloud Shell environment is that you may use bash to store environment variables. This enables you to work with features such as multiple projects without having to return to the console.
 
 ..topic:: Storing project id as an environment variable
 
@@ -232,4 +234,11 @@ One of the great features of the Cloud Shell environment is that you may store e
 
 			export Proj-1=loony-tunes-251324
 
+			.. code-block:: bash
 
+			echo $Proj-1
+
+			
+See more about the :ref:`GCP cloud shell <Cloud Shell>`
+
+.. the above line applies the extension in conf.py to grab headers as a link reference (best practice is to use labels rather than the header itself to allow for headings to change)

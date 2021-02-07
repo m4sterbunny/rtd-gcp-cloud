@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to an eclectic set of GCP Notes 
+Welcome to an Eclectic set of GCP Notes 
 ===========================================
 
 .. toctree::
@@ -14,17 +14,16 @@ Welcome to an eclectic set of GCP Notes
    pages/accounts-billing.rst
    pages/cloud-shell.rst
    pages/kubernetes.rst
+   pages/load-balancing.rst
    pages/stackdriver.rst
    pages/VMs.rst
    pages/virtual-networking.rst
    pages/accounts-billing-quiz.rst
-   pages/database-options.rst
    pages/storage.rst
    pages/ace-exam.rst
    pages/react-app.rst
-   pages/release-7-2-0.rst
-
-
+   pages/database-services.rst
+ 
 
 
 Indices and tables
@@ -72,6 +71,28 @@ The Google Clound Engineer Exam
 =================================
 
 
+
+Quick navigation
+----------------
+
+
+.. comment::  
+  # I like the markdown table like so
+  # | About Snowplow             | Project & Community              | Setup Guide          | Technical Documentation                  |
+  # |----------------------------|---------------------------------|-------------------------------|---------------------------|
+  # | [[/images/help.png]] | [[/images/users.png]] | [[/images/tools.png]] | [[/images/database.png]] |
+  # | [About Snowplow](Snowplow-overview) | [Project & Community](Snowplow-project-and-community)| [Setup Guide](Setting-up-Snowplow) | [Technical Documentation](Snowplow-technical-documentation)|
+  # | Introducing Snowplow - why we built it and what it does | About the open-source project, our community and how to contribute | A step-by-step guide to running Snowplow | Detailed technical documentation on Snowplow and its six sub-systems |
+
+
+.. topic:: GCP
+
+  GCP offers 4 main services:
+  - Compute (your virtual machine)
+  - Storage 
+  - Big Data tools
+  - Machine learning tools
+
 .. topic:: ACE Exam v Professional Cloud Engineer
 
   The Associate level exam (ACE) does not expect the applicant to be able to solve cloud business requirement problems. It focuses on technical requirements and implementation of cloud solutions (expect to be tested on syntax for CLI commands!).
@@ -79,6 +100,8 @@ The Google Clound Engineer Exam
   It is the professional-level exam that requires the applicant to be able to critically examine various solutions and decide which best apply to a business requirement (in addition to the ACE materials).
 
 .. topic:: ACE Exam Requirements
+
+The ACE exam certifies that you are able to build, deploy, and manage the cloud services.
 
   You will be expected to understand different ways of delivering cloud computing resources such as:
 

@@ -1,7 +1,8 @@
 
 .. _HTTPheader: /cloud.google.com/sdk/
 .. _GUIDE: http://udig.refractions.net/files/docs/latest/user/docguide/sphinxSyntax.html
-
+.. _Sublime: https://sublime-and-sphinx-guide.readthedocs.io/en/latest/references.html
+.. _ReadtheDocs: 
 
 Hosting [this page](https://rtd-gcp-cloud.readthedocs.io/en/latest/), this documentation was made to assist with the Google Cloud Engineer Course as per: https://help.pluralsight.com/help/andela-4-0-courses
 
@@ -15,7 +16,7 @@ What is rST?
 
 Restructured Text is a simple markup language to abstract away the look of the document from the content. 
 
-rST is probably the slimmest markup language I have yet used. It is used to create a static page. It is an example of headless content management.
+rST is probably the slimmest markup language I have yet used (it pairs well with Sublime_). It is used to create a static page. It is an example of headless content management.
 
 With a word processor, choices such as layout, landscape v portrait, for example come early. With rST the content and its look are separated. Look is defined by CSS templates.
 
@@ -40,8 +41,7 @@ To trigger this key pair, Guide is called using:
 		Guide_
 
 
-
-This name==reference statment is not rendered, i.e. is not visible in the final built page (HTML, pdf, etc.).
+This name==reference statment is not rendered, i.e., it is not visible in the final built page (HTML, pdf, etc.).
 
 
 Where is the rST?
@@ -49,7 +49,7 @@ Where is the rST?
 
 Because rST files are going to generate your site's content, they are stored in the source folder.
 
-The final documents sit in the build folder where the rST + CSS are rendered into HTML docs (or whatever you output will be).
+The final documents sit in the build folder where the rST + CSS are rendered into an output such as HTML docs.
 
 
 I like it show me more

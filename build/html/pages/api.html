@@ -1,24 +1,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>What is an API? &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A World of API &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Accounts &amp; Billing" href="accounts-billing.html" />
     <link rel="prev" title="Welcome to an eclectic set of GCP Notes" href="../index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -28,19 +27,86 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
-  <div class="section" id="what-is-an-api">
-<h1>What is an API?<a class="headerlink" href="#what-is-an-api" title="Permalink to this headline">¶</a></h1>
-<p>An API is a contract:</p>
-<p>Request &gt; Defines how it expects to be used</p>
-<p>Response &gt; Defines what you can expect to receive when making a request</p>
-<p>Typically an API request gives access to data whilst abstracting away the implementation. A rest API request may be supported in many languages. Often an HTTP request using curl, is supported, with data being received in JSON format. An API may be limited to CRUD; create, read, update, and delete. This means that if you want to create a new record, you use “POST.” If you are trying to read a record, you use “GET.” Updating may apply “PUT” or “PATCH.” While, to delete a record, use “DELETE.”</p>
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="a-world-of-api">
+<h1>A World of API<a class="headerlink" href="#a-world-of-api" title="Permalink to this headline">¶</a></h1>
+<p>Application Programming Interfaces (APIs) busy fufilling promises everywhere!</p>
+<p>APIs took databases and services into the cloud. Hitting an endpoint can bring you a hit:full-on-service ratio that you are going to love, perhaps some business administration. Or, you can simply store a photo.</p>
+<p>They bring a host of security for your precious data too. A wide range of toolsets may implement access management. Thus, to use an API it is good to first talk about authentication.</p>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>To be allowed to the party, you have to have an invite for anything other than a public API. From weather (<a class="reference external" href="https://openweathermap.org/api">https://openweathermap.org/api</a>) to quotes (<a class="reference external" href="https://quotes.rest">https://quotes.rest</a>) there is plenty of free data out there just waiting to be tapped.</p>
+<p>If you have a key, then you just got access to more data. How? By identifying yourself.</p>
+<div class="section" id="http-header-authentication">
+<h3>HTTP Header Authentication<a class="headerlink" href="#http-header-authentication" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="jwt-authentication">
+<h3>JWT Authentication<a class="headerlink" href="#jwt-authentication" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="man-in-the-middle">
+<h3>Man-In-The-Middle<a class="headerlink" href="#man-in-the-middle" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="what-is-an-rest-api">
+<h2>What is an REST API?<a class="headerlink" href="#what-is-an-rest-api" title="Permalink to this headline">¶</a></h2>
+<p>Representational state transfer</p>
+<p>The majority of RESTful APIs, if not all, use HTTP as a transport layer. Understandable choice, being that the infrastructure, servers, and client libraries for HTTP are widely available already. SMTP serves just as well, among others.</p>
+<p>Many not RESTFull APIs also use HTTP for the same reason.</p>
+<div class="topic">
+<p class="topic-title">hint</p>
+<p>It is worth a pause to wonder. HTTP transports data for remote interactions, think tunnel.</p>
+</div>
+<div class="section" id="back-to-apis">
+<h3>Back to APIs<a class="headerlink" href="#back-to-apis" title="Permalink to this headline">¶</a></h3>
+<p>An API is a contract. Consider making a booking request, if the salon saves each request, the first interaction would be to POST your “document” say, the required date, to their exposed service endpoint (at a unique URI).</p>
+<p>This POST triggers a response. The megrest response would be an automated message, say an error status. OR it could carry a payload, a document of its own, back down your (probably-HTTP) tunnel.</p>
+<p>You may be given all available appointments for you to book, for example, probably as a JSON object.</p>
+<p>You book by posting back the appointment id for the one you want and bingo a 201 response comes with some kinda resource added success message, or some error handling alt, and you are off for a cut.</p>
+<div class="topic">
+<p class="topic-title">Keep it simple stupid</p>
+<dl class="simple">
+<dt>A method</dt><dd><dl class="simple">
+<dt>is called on an object</dt><dd><p>providing argument</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<p>Poor design to our API, though – let’s fix that up a bit:</p>
+</div>
+<div class="section" id="http-verbs">
+<h3>HTTP Verbs<a class="headerlink" href="#http-verbs" title="Permalink to this headline">¶</a></h3>
+<p>Your first step works as a POST and you will find many not-so-shiney APIs wrangling happily away like the example.</p>
+<p>I prefer to see the actions or verbs made more precisely:</p>
+<div class="topic">
+<p class="topic-title">Get</p>
+<p>Make the request for the avaiable saloon slots with a GET request.</p>
+<p>GET is read only.
+Allows for caching.</p>
+</div>
+</div>
+<div class="section" id="payloads">
+<h3>Payloads<a class="headerlink" href="#payloads" title="Permalink to this headline">¶</a></h3>
+<p>So payloads don’t just have to be the data in the objects stored in the system such as the available appointments. Payloads may offer the URI or path to perform the next action at.</p>
+<p>In our example we &gt; Get &gt; 200 response + Payload of a message body + &gt; link for each timeslot for a &gt; PUT to be made at.</p>
+<p>Job done we have a cut booked, again!</p>
+</div>
+<div class="section" id="what-a-relief">
+<h3>What a RElief!<a class="headerlink" href="#what-a-relief" title="Permalink to this headline">¶</a></h3>
+<p>By breaking services down into these URI endpoints, we build a service that is relatively bottle-neck free. No single service endpoint doing many jobs.</p>
+<p>If devs stay altert human-readable tags such as the URI /base-address/linkrels/appoiontment/cancel, then an ever-dynamic set of services can be offered by an endpoint.</p>
+<p>more <a class="reference external" href="https://martinfowler.com/articles/richardsonMaturityModel.html">here</a>.</p>
+</div>
+<div class="section" id="expect-to-conform">
+<h3>Expect to Conform<a class="headerlink" href="#expect-to-conform" title="Permalink to this headline">¶</a></h3>
+<p>If you are attemting to POST malformed data, expect to fail. Read the docs. API docs will explain how to present data to be sent. And, fit in with the security we started with.</p>
+<p>Typically an API request gives access to data or a service whilst abstracting away the implementation. A rest API request may be supported in many languages. Often an HTTP request using curl, is supported, with data being passed in JSON format. An API may be limited to CRUD; create, read, update, and delete. This means that if you want to create a new record, you use “POST.” If you are trying to read a record, you use “GET.” Updating may apply “PUT” or “PATCH.” While, to delete a record, use “DELETE.”</p>
 <div class="topic">
 <p class="topic-title">Put v Patch</p>
-<p>PUT overrides the record (any fields are not included in the PUT push are removed) whereas PATCH updates a record based on the information provided, leaving any fields not updated intact.</p>
+<p>PUT overrides the record i.e. resets (any fields are not included in the PUT push are removed) whereas PATCH updates a record based on the information provided, leaving any fields not updated, intact.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -51,25 +117,25 @@
 <div class="topic">
 <p class="topic-title">Helper Libraries</p>
 <p>Many providers of APIs supply a software development kit (SDK), or helper libraries. This is what GCP has done to allow you to interact with their APIs. The library allows the server of the API to abstract away much of the code required to make requests to the API.</p>
-<p>When you make requests using cloud shell, you are interacting with the SDK that Google has set up to make interacting with their APIs simpler.</p>
 </div>
 <div class="section" id="enabling-apis">
-<h2>Enabling APIs<a class="headerlink" href="#enabling-apis" title="Permalink to this headline">¶</a></h2>
-<p>Programatic access of GCP’s services is available through their API services. From creating a VM, to a Cloud Storage bucket- you are using API functions in the background.</p>
+<h4>Enabling APIs<a class="headerlink" href="#enabling-apis" title="Permalink to this headline">¶</a></h4>
+<p>GCP’s services are available through their API services. From creating a VM, to a Cloud Storage bucket — you are using API functions in the background.</p>
 <div class="topic">
-<p class="topic-title">Enable APIs</p>
+<p class="topic-title">Enable APIs in the GCP</p>
 <p>GCP &gt; APIs &amp; Services</p>
 <p>most APIs are not enabled by default.</p>
 <p>If you attempt an operation that requires a disabled API, then you may be prompted to enable it.</p>
 <p>From this console you may click on an API name to view details about its usage.</p>
+<p>You search for APIs that you want to administer through an interface that resembles a Google market place.</p>
 </div>
-<p>You search for APIs that you want to administer through an interface that resembles a google market place.</p>
+</div>
+</div>
 </div>
 </div>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -86,8 +152,9 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">What is an API?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#enabling-apis">Enabling APIs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">A World of API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-an-rest-api">What is an REST API?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
@@ -98,9 +165,12 @@
 <li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">Virtual Private Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-options.html">GCP Database Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-7-2-0.html">ADS GEO Reference Documentation Version 7.2.0</a></li>
 </ul>
 
 <div class="relations">
@@ -121,15 +191,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -138,8 +200,8 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="../_sources/pages/api.rst.txt"

@@ -22,26 +22,35 @@ This means:
 - Configuring access and security
 
 
-Make a Study Plan
+Make a Study Plan and Know what to study:
 
-- 1 Know what to study
-- 2 Gather your list of study resources
-- 3 Use the Practice Exam
-- 4 Fine tune a study plan
+- Architecting with GCP infrastructure 
+- GCP Fundamentals/Core Infrastructure
 
-Exam guide (cloud.google.com/certification/guides/cloud-engineer)
+This means:
 
-Practice exam (cloud.google.com/certification/practice-exam/cloud-engineer)
+- GCP core infrastructure
+- essential cloud infrastructure (foundation)
+- essential cloud infrastructure (core services)
+- elastic cloud infrastructure (scaling and automation)
+- elastic cloud infrastrucure (containers and services)
 
-Flashcards (https://quizlet.com/328524759/google-cloud-certified-associate-cloud-engineer-flash-cards/)
 
-Feed-you-courses
+.. topic:: Resources
 
-coursera _https://www.coursera.org/learn/preparing-cloud-associate-cloud-engineer-exam
+	Exam guide (cloud.google.com/certification/guides/cloud-engineer)
 
-pluralsight _
+	Practice exam (cloud.google.com/certification/practice-exam/cloud-engineer)
 
-Practice Quicklabs
+	Flashcards (https://quizlet.com/328524759/google-cloud-certified-associate-cloud-engineer-flash-cards/)
+
+	Feed-you-courses
+
+	coursera _https://www.coursera.org/learn/preparing-cloud-associate-cloud-engineer-exam
+
+	pluralsight _
+
+	Practice Quicklabs
 
 ##############################
 Useful links for exam practise
@@ -55,4 +64,6 @@ https://quizlet.com/328524759/google-cloud-certified-associate-cloud-engineer-fl
 Sitting the Exam in Cape Town
 #############################
 
-CTU Training Solutions_Claremont	Stadium on Main , Level 3, 99 Main Road	Claremont
+CTU Training Solutions_Claremont	
+Stadium on Main , Level 3, 99 Main Road	Claremont
+
