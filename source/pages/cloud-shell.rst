@@ -26,7 +26,7 @@ Unleash the command line interface (CLI) with VMs on your console_.
 Function Trees
 ---------------
 
-Are split into:
+Cloud Shell's commands are split by function into:
 
 - gsutil
 	- storage
@@ -52,8 +52,7 @@ There are a ton of great tools on this bash- + Google SDK-hosting machine. Here 
 - list the active account name with:
 
 .. code-block:: bash
-    :linenos:
-
+    
 	gcloud auth list
 
 
@@ -75,7 +74,7 @@ There are a ton of great tools on this bash- + Google SDK-hosting machine. Here 
 
 	gcloud projects list
 
-A really useful tool is saving environment variables on that machine to allow your commands to be written in a kinda DRY_ manner.
+A really useful tool is saving environment variables on that VM machine to allow your commands to be written in a kinda DRY_ manner.
 
 - set an environment variable; Hipster Shop version:
 
@@ -135,20 +134,30 @@ Rather than administer each VM directly, you may configure them all through sett
 
 .. topic:: launch a more useful VM
 
-			being able to talk to the world through your own wee tunnel is very useful. `my-new-vm` could be a lot more fun, and less safe!
+		Being able to talk to the world through your own wee tunnel is very useful. `my-new-vm` could be a lot more fun (and less safe)!
 
-			.. code-block:: bash
+		.. code-block:: bash
 
-				gcloud compute instances create "my-new-vm"
-				--machine-type "n1-standard-1"
-				--image-project "debian-cloud"
-				--image "debian-9-stretch-v20170918" \
-				--subnet "default"
+			gcloud config set compute/zone us-central
 
-close cloud shell
+		.. code-block:: bash
 
-	.. code-block:: bash
+			gcloud compute instances create "lamp-1-vm"
+			--machine-type "n1-standard-2"
+			--image-project "debian-cloud"
+			--image "debian-9-stretch-v20170918" \
+			--subnet "default"
 
-		exit
+		Allow HTTP traffic with
 
-.. _uniqueTag: 
+		.. code-block:: bash
+
+			gcloud compute firewall-rules create lamp-1-vm
+			--allow tcp:80
+
+.. topic:: close cloud shell
+
+		.. code-block:: bash
+
+			exit
+

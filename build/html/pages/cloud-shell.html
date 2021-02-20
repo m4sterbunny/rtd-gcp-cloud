@@ -1,23 +1,24 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cloud Shell &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Kubernetes" href="kubernetes.html" />
     <link rel="prev" title="Accounts &amp; Billing" href="accounts-billing.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,6 +28,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="toctree-wrapper compound">
@@ -39,7 +42,7 @@
 <img alt="../_images/shell.PNG" src="../_images/shell.PNG" />
 <div class="section" id="function-trees">
 <h2>Function Trees<a class="headerlink" href="#function-trees" title="Permalink to this headline">¶</a></h2>
-<p>Are split into:</p>
+<p>Cloud Shell’s commands are split by function into:</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>gsutil</dt><dd><ul>
@@ -70,9 +73,9 @@
 <ul class="simple">
 <li><p>list the active account name with:</p></li>
 </ul>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    gcloud auth list
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud auth list
 </pre></div>
-</td></tr></table></div>
+</div>
 <ul class="simple">
 <li><p>list project ID with:</p></li>
 </ul>
@@ -91,7 +94,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud projects list
 </pre></div>
 </div>
-<p>A really useful tool is saving environment variables on that machine to allow your commands to be written in a kinda <a class="reference external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> manner.</p>
+<p>A really useful tool is saving environment variables on that VM machine to allow your commands to be written in a kinda <a class="reference external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> manner.</p>
 <ul class="simple">
 <li><p>set an environment variable; Hipster Shop version:</p></li>
 </ul>
@@ -141,26 +144,35 @@
 </div>
 <div class="topic">
 <p class="topic-title">launch a more useful VM</p>
-<p>being able to talk to the world through your own wee tunnel is very useful. <cite>my-new-vm</cite> could be a lot more fun, and less safe!</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-new-vm&quot;</span>
---machine-type <span class="s2">&quot;n1-standard-1&quot;</span>
+<p>Being able to talk to the world through your own wee tunnel is very useful. <cite>my-new-vm</cite> could be a lot more fun (and less safe)!</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;lamp-1-vm&quot;</span>
+--machine-type <span class="s2">&quot;n1-standard-2&quot;</span>
 --image-project <span class="s2">&quot;debian-cloud&quot;</span>
 --image <span class="s2">&quot;debian-9-stretch-v20170918&quot;</span> <span class="se">\</span>
 --subnet <span class="s2">&quot;default&quot;</span>
 </pre></div>
 </div>
-</div>
-<p>close cloud shell</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exit</span>
+<p>Allow HTTP traffic with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute firewall-rules create lamp-1-vm
+--allow tcp:80
 </pre></div>
 </div>
-</div></blockquote>
-<span class="target" id="uniquetag"></span></div>
+</div>
+<div class="topic">
+<p class="topic-title">close cloud shell</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exit</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -189,7 +201,7 @@
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">Virtual Private Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
@@ -218,7 +230,15 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -227,8 +247,8 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/pages/cloud-shell.rst.txt"

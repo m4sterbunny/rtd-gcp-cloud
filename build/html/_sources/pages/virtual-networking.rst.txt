@@ -1,4 +1,23 @@
 #####################
+GCP Networking
+#####################
+
+Networking Servies
+##################
+
+.. topic:: Networking on the GCP
+
+	GCP allows for pure cloud networks and linking to on-premises networks.
+	The various services include:
+
+	- :ref:`Virtual Private Cloud <virtual private cloud>`
+		- Google's network (not public internet)
+		- No public IP required to connect across VPC
+	- :ref:`Cloud Load Balancing <load-balancing>`
+		- distributes workload across regions
+		- can load-balance HTTP, HTTPS, TCP/SSL, and UDP
+	- Cloud Armor
+
 Virtual Private Cloud
 #####################
 
@@ -54,9 +73,9 @@ VPN Networking
 
 By leveraging VPN networks it becomes possible to connect VMs in different zones with subnets. A single firewall rule can apply to all VMs on that subnet, even though they are in different zones.
 
-+++++++
+
 Subnets
-+++++++
+-------
 
 Every subnet has 4 reserved IP addresses, the first 2 are assigned to the network and the subnet's gateway. The final 2 addresses are also reserved, with the last being used as the broadcast address.
 
@@ -134,3 +153,12 @@ Instance Isolation
 A bastion host acts to isolate an instance for you.
 
 .. image:: ../images/bastion-host.PNG
+
+=====================
+Hybrid Infrastructure
+=====================
+
+Enterprise applications can get big fast. A lift and shift into the cloud is no small task, and so most organizations take a hybrid approach – perhaps by taking a microservice approach and starting with cloud microservices.
+
+GCP has a service called Anthos to assist with such transitions.
+

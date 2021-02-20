@@ -13,3 +13,6 @@ Like this simple site? Try this great rST guide:
 
 http://udig.refractions.net/files/docs/latest/user/docguide/sphinxSyntax.html
 
+or this
+
+https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/CheatSheet.html

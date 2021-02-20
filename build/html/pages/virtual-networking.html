@@ -1,23 +1,24 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Virtual Private Cloud &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <title>GCP Networking &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Review Questions Billing &amp; Accounts" href="accounts-billing-quiz.html" />
     <link rel="prev" title="Virtual Machines" href="VMs.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,10 +28,41 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <div class="section" id="virtual-private-cloud">
-<h1>Virtual Private Cloud<a class="headerlink" href="#virtual-private-cloud" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="gcp-networking">
+<h1>GCP Networking<a class="headerlink" href="#gcp-networking" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="networking-servies">
+<h2>Networking Servies<a class="headerlink" href="#networking-servies" title="Permalink to this headline">¶</a></h2>
+<div class="topic">
+<p class="topic-title">Networking on the GCP</p>
+<p>GCP allows for pure cloud networks and linking to on-premises networks.
+The various services include:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference internal" href="#virtual-private-cloud"><span class="std std-ref">Virtual Private Cloud</span></a></dt><dd><ul>
+<li><p>Google’s network (not public internet)</p></li>
+<li><p>No public IP required to connect across VPC</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="load-balancing.html#load-balancing"><span class="std std-ref">Cloud Load Balancing</span></a></dt><dd><ul>
+<li><p>distributes workload across regions</p></li>
+<li><p>can load-balance HTTP, HTTPS, TCP/SSL, and UDP</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Cloud Armor</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="virtual-private-cloud">
+<h2>Virtual Private Cloud<a class="headerlink" href="#virtual-private-cloud" title="Permalink to this headline">¶</a></h2>
 <p>GCP’s Virtual Private Cloud (VPC) supports networking with VM instances, Kubernetes Engine containers, and the App Engine flexible environment. A VPC network is an essential component of linking with VM instances, containers, or App Engine applications. Therefore, each GCP project creates a default network a soon as any of these services are started.</p>
 <p>The GCP supports 3 different Virtual Private Cloud (VPC) network types:</p>
 <ul class="simple">
@@ -53,7 +85,7 @@
 </div>
 <p>You can connect using internal IP addresses from different network by using options such as VPC peering.</p>
 <div class="section" id="networks">
-<h2>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h2>
+<h3>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h3>
 <p>Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are actually mapped by DNS), even if they are in different regions. You can ping a VM instance by its name, for example, because VPC networks have an internal DNS service that allows you to address instances by their DNS names rather than their internal IP addresses. This is a very useful feature, because the internal IP address can change when you delete and re-create an instance.</p>
 <p>Conversely, even if VMs are in the same region, if they are on different networks they must use their external IPs to communicate.</p>
 <p>VPC networks function as a distributed firewall, with the firewall rules enforced across the entire network unless set to a specific instance only.</p>
@@ -65,10 +97,10 @@
 </div></blockquote>
 </div>
 <div class="section" id="vpn-networking">
-<h2>VPN Networking<a class="headerlink" href="#vpn-networking" title="Permalink to this headline">¶</a></h2>
+<h3>VPN Networking<a class="headerlink" href="#vpn-networking" title="Permalink to this headline">¶</a></h3>
 <p>By leveraging VPN networks it becomes possible to connect VMs in different zones with subnets. A single firewall rule can apply to all VMs on that subnet, even though they are in different zones.</p>
 <div class="section" id="subnets">
-<h3>Subnets<a class="headerlink" href="#subnets" title="Permalink to this headline">¶</a></h3>
+<h4>Subnets<a class="headerlink" href="#subnets" title="Permalink to this headline">¶</a></h4>
 <p>Every subnet has 4 reserved IP addresses, the first 2 are assigned to the network and the subnet’s gateway. The final 2 addresses are also reserved, with the last being used as the broadcast address.</p>
 <p>Overly-large subnets can cause conflicts, be cautious and do not scale a subnet beyond current usage needs.</p>
 <p>To create a subnet from the cloud shell cli:</p>
@@ -132,14 +164,21 @@ gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom
 </div>
 </div>
 <div class="section" id="instance-isolation">
-<h2>Instance Isolation<a class="headerlink" href="#instance-isolation" title="Permalink to this headline">¶</a></h2>
+<h3>Instance Isolation<a class="headerlink" href="#instance-isolation" title="Permalink to this headline">¶</a></h3>
 <p>A bastion host acts to isolate an instance for you.</p>
 <img alt="../_images/bastion-host.PNG" src="../_images/bastion-host.PNG" />
+</div>
+<div class="section" id="hybrid-infrastructure">
+<h3>Hybrid Infrastructure<a class="headerlink" href="#hybrid-infrastructure" title="Permalink to this headline">¶</a></h3>
+<p>Enterprise applications can get big fast. A lift and shift into the cloud is no small task, and so most organizations take a hybrid approach – perhaps by taking a microservice approach and starting with cloud microservices.</p>
+<p>GCP has a service called Anthos to assist with such transitions.</p>
+</div>
 </div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -160,12 +199,12 @@ gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Private Cloud</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#networks">Networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vpn-networking">VPN Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#instance-isolation">Instance Isolation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GCP Networking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#networking-servies">Networking Servies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-private-cloud">Virtual Private Cloud</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
@@ -175,7 +214,7 @@ gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="release-7-2-0.html">ADS GEO Reference Documentation Version 7.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
 </ul>
 
 <div class="relations">
@@ -196,7 +235,15 @@ gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -205,8 +252,8 @@ gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/pages/virtual-networking.rst.txt"

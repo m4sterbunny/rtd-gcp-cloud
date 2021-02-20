@@ -1,3 +1,5 @@
+.. _VM: VM 
+
 ############
 Stackdriver
 ############
@@ -19,3 +21,6 @@ Stackdriver does this via a workspace on GCP.
 
 	Although Stackdriver has its own high-level access from the GCP menu, you will immediately notice that the interface differs.
 
+.. topic:: Set up a VM_ and monitor
+
+	.. code-block:: 

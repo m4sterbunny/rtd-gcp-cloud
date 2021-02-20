@@ -1,23 +1,24 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kubernetes &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Stackdriver" href="stackdriver.html" />
+    <link rel="next" title="Load-balancing" href="load-balancing.html" />
     <link rel="prev" title="Cloud Shell" href="cloud-shell.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,21 +28,81 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="kubernetes">
 <h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
-<p>Kurbernetes orchastrates your containers. Need more, wait a mo and there you go. Don’t like to be charged for resources you aint using – shut ‘em down again. You do have a copy ready to roll, after all.</p>
-<div class="section" id="containerisation-and-why-these-docs-are-so-long">
-<h2>Containerisation and why these docs are so long<a class="headerlink" href="#containerisation-and-why-these-docs-are-so-long" title="Permalink to this headline">¶</a></h2>
-<p>Let’s just stick to one method that a) popular, so you are likely to use it at some point and b) short to read; <a class="reference external" href="https://www.freecodecamp.org/news/the-docker-handbook/">Docker</a>.</p>
-<p>So, a docker container posesses everything it needs to run your software. You need a library? So declare that and when you activate your container it goes gets the library version it needs.</p>
+<p>Kubernetes orchestrates your containers. Need more, wait a mo and there you go. Don’t like to be charged for resources you ain’t using – shut ‘em down again. You do have a copy ready to roll, after all. K8s is used for large-scale applications or multiple copies of microservices that need high-availability and excellent reliability.</p>
+<p>The micro-service model works so well with K8s, because apps can be broken up according to business logic and served on as as-needed basis. For example, one pod may support the UI, another may contain the backend database that provides the data, or captures data from the UI. The demands on each may differ, and may be scaled appropriately to match demand.</p>
+<div class="section" id="containerization">
+<h2>Containerization<a class="headerlink" href="#containerization" title="Permalink to this headline">¶</a></h2>
+<p>Let’s just stick to one method that a) popular, so you are likely to use it at some point and b) short to read, and c) is open source; <a class="reference external" href="https://www.freecodecamp.org/news/the-docker-handbook/">Docker</a>. (The GCP provides cloud build as an alternative).</p>
+<p>So, a docker container possesses everything your software needs to run. You need a library? So declare that in the Dockerfile, and when you activate your container it goes gets the library version it needs.</p>
+<p>Think a box around your code AND its dependencies. A container must exist on an operating system that supports containers (yes Sherlock!). The container is very portable and can move from development &gt; staging &gt; production without other changes (and without having to worry that the staging environment setup is different somehow to your development environment!).</p>
+<div class="section" id="step-1">
+<h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h3>
+<p>Create a docker file to specify how your code is packaged into a container. This example:</p>
+<ol class="arabic simple">
+<li><p>gets the operating system it needs,</p></li>
+<li><p>updates the OS</p></li>
+<li><p>goes grabs python and</p></li>
+<li><p>grabs the file requirements.txt</p></li>
+<li><p>sets up a folder</p></li>
+<li><p>sets up the environment as defined in requirements.txt (setting up the application’s dependencies)</p></li>
+<li><p>grabs the code (the app)</p></li>
+<li><p>tells the environment that launches the container how to run it</p></li>
+</ol>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">From</span> <span class="n">ubuntuu</span><span class="p">:</span><span class="mf">18.10</span>
+<span class="n">Run</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">-</span><span class="n">y</span> <span class="o">&amp;&amp;</span> \
+    <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span>
+    <span class="n">COPY</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span> <span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="n">requirements</span>
+    <span class="n">WORKDIR</span> <span class="o">/</span><span class="n">app</span>
+    <span class="n">RUN</span> <span class="n">pip3</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+    <span class="n">COPY</span> <span class="o">.</span> <span class="o">/</span><span class="n">app</span>
+    <span class="n">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span> <span class="s2">&quot;app.py&quot;</span><span class="p">]</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="step-2">
+<h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h3>
+<p>Use the docker build command to build the container to store it on the system as a runnable image.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">py</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-3">
+<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h3>
+<p>The docker run command can run this image, or you can use an orchestration tool to determine when the image should be run.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span> <span class="n">py</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="learning-to-love-k8s">
 <h2>Learning to love K8s<a class="headerlink" href="#learning-to-love-k8s" title="Permalink to this headline">¶</a></h2>
+<p>Kubernetes in the GCP is a managed service that abstracts away infrastructure chores. Much like App engine, it scales rapidly. Kubernetes offers an API to control its operation, the GCP simplifies interacting with this API.</p>
+<p>A K8 cluster is composed of a master node and 1 or more worker nodes. In K8s a “node” is a compute instance. A GKE cluster can support different machine types and numbers of nodes. A K8 pod may contain clusters of nodes that contain containers. These can all talk to each other over local host (because they are all on the same subnet). Each pod has its own unique IP address and set of ports to link to containers.</p>
+<div class="section" id="using-k8s-on-the-gcp">
+<h3>Using K8s on the GCP<a class="headerlink" href="#using-k8s-on-the-gcp" title="Permalink to this headline">¶</a></h3>
+<p>Requirements:</p>
+<ol class="arabic simple">
+<li><p>Kubernetes Engine API</p></li>
+<li><p>Container Registry API</p></li>
+</ol>
+<p>Verify these are active from GCP Console &gt; APIs &amp; Services</p>
+</div>
 <div class="section" id="setting-up-k8s-from-the-gui">
 <h3>Setting up K8s from the GUI<a class="headerlink" href="#setting-up-k8s-from-the-gui" title="Permalink to this headline">¶</a></h3>
-<p>GCP has made setting up kubernetes (K8s) a simple procedure:</p>
+<p>GCP has made setting up Kubernetes (K8s) a simple procedure:</p>
 <p>Let’s make a K8 cluster on the GCP:</p>
 <div class="topic">
 <p class="topic-title">Make a cluster</p>
@@ -50,6 +111,13 @@
 <p>choose the number of nodes (1 for test purposes)</p>
 </div>
 <p><strong>Done!</strong></p>
+<blockquote>
+<div><p>OR
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">container</span> <span class="n">clusters</span> <span class="n">create</span> <span class="n">k1</span>
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 <div class="section" id="setting-up-k8s-from-the-cli-in-cloud-shell">
 <h3>Setting up K8s from the CLI in cloud shell<a class="headerlink" href="#setting-up-k8s-from-the-cli-in-cloud-shell" title="Permalink to this headline">¶</a></h3>
@@ -89,16 +157,69 @@
 <div class="section" id="speaking-to-k8s">
 <h2>Speaking to K8s<a class="headerlink" href="#speaking-to-k8s" title="Permalink to this headline">¶</a></h2>
 <p>With load balancing, you can go from zero instances to hero (billions). Much cheaper than keeping all those VMs running all the time.</p>
-<p>There is a learning curve to tackle for running your K8s.</p>
+<p>When you start a deployment of K8s you are setting up a group of replicas of the same pod, i.e. many instances of:
+1) setting up a pod to
+2) run your container/s</p>
+<p>A deployment may initiate a microservice or an entire application.</p>
+<p>There is a learning curve to tackle for running your K8s. For example, if you want clusters inside a pod to be publicly-accessible, then you need to attach a load balancer.</p>
 <p>example code:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  kubectl expose deployment app --type LoadBalancer <span class="se">\</span>
 --port <span class="m">80</span> --target-port <span class="m">8080</span>
 </pre></div>
 </div>
+<p>The load balancer provides a fixed IP to each cluster.</p>
+<p>It is a K8 service that manages details such as the load balancer. Another layer, why?! Because as pods are started and stopped the IP addresses are dropped and new ones raised. To give access via IP, therefore, you need a stable endpoint.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">getservices</span>
+</pre></div>
+</div>
+<p>Will display your service’s public IP address. This single-point IP address actually gives access to multiple pods, i.e. the service is proxying the traffic to all the pods. This is load-sharing at work.</p>
+<div class="section" id="automating-scaling">
+<h3>Automating Scaling<a class="headerlink" href="#automating-scaling" title="Permalink to this headline">¶</a></h3>
+<p>A key concept of K8s is the ability to scale. Such scaling can be automated. For example the following code:</p>
+<ol class="arabic simple">
+<li><p>Calls the autoscale function</p></li>
+<li><p>Sets the minimum number of pods</p></li>
+<li><p>Sets the maximum number of pods</p></li>
+<li><p>Sets the condition at which to trigger this setup (in this case, based on CPU usage of 80%):</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">autoscale</span> <span class="n">nginx</span>
+<span class="o">--</span> <span class="nb">min</span><span class="o">=</span><span class="mi">10</span>
+<span class="o">--</span><span class="nb">max</span><span class="o">=</span><span class="mi">15</span>
+<span class="o">--</span><span class="n">cpu</span><span class="o">=</span><span class="mi">80</span>
+</pre></div>
+</div>
+<p>Then when you run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">get</span> <span class="n">replicasets</span>
+</pre></div>
+</div>
+<p>you should see your 10–15 pods.</p>
+<p>If you want to see each pod individually:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">get</span> <span class="n">pods</span>
+</pre></div>
+</div>
+<p>If you want to see from the service-level, how many replicas are running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">get</span> <span class="n">deployments</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="automatic-versioning">
+<h3>Automatic Versioning<a class="headerlink" href="#automatic-versioning" title="Permalink to this headline">¶</a></h3>
+<p>K8s even handles versioning for you. You may implement rolling updates, when a new version of your app is presented K8s starts up a pod containing the new version <strong>before</strong> destroying the original pod.</p>
+</div>
+<div class="section" id="configuration-files">
+<h3>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline">¶</a></h3>
+<p>It would actually be pretty rare to be setting such commands up from the CLI to control K8s. Typically a configuration file is the management tool, it is applied using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">apply</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="but-i-am-new-at-this">
+<h3>But, I am new at this!<a class="headerlink" href="#but-i-am-new-at-this" title="Permalink to this headline">¶</a></h3>
 <p>It helps when you are a novice to NOT have to use VIM!</p>
 <p>example code:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">KUBE_EDITOR</span><span class="o">=</span><span class="s2">&quot;nano&quot;</span> kubectl edit deployment hello-node
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="running-awesome-applications">
@@ -112,6 +233,7 @@
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -132,15 +254,16 @@
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#containerisation-and-why-these-docs-are-so-long">Containerisation and why these docs are so long</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#containerization">Containerization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#learning-to-love-k8s">Learning to love K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#speaking-to-k8s">Speaking to K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-awesome-applications">Running awesome applications</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">Virtual Private Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
@@ -148,7 +271,7 @@
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="release-7-2-0.html">ADS GEO Reference Documentation Version 7.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
 </ul>
 
 <div class="relations">
@@ -156,7 +279,7 @@
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="cloud-shell.html" title="previous chapter">Cloud Shell</a></li>
-      <li>Next: <a href="stackdriver.html" title="next chapter">Stackdriver</a></li>
+      <li>Next: <a href="load-balancing.html" title="next chapter">Load-balancing</a></li>
   </ul></li>
 </ul>
 </div>
@@ -169,7 +292,15 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -178,8 +309,8 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/pages/kubernetes.rst.txt"

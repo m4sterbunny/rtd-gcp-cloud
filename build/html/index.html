@@ -1,24 +1,25 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta content="google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine" name="keywords" />
+    <meta charset="utf-8" /><meta content="google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine" name="keywords" />
 <meta content="An eclectic collection of snippets of information useful to a wanna be Google Cloud Engineer." lang="en" name="description" xml:lang="en" />
 
     <title>Welcome to an Eclectic set of GCP Notes &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="A World of API" href="pages/api.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -28,6 +29,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="welcome-to-an-eclectic-set-of-gcp-notes">
@@ -57,7 +60,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/kubernetes.html">Kubernetes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#containerisation-and-why-these-docs-are-so-long">Containerisation and why these docs are so long</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#containerization">Containerization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#learning-to-love-k8s">Learning to love K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#speaking-to-k8s">Speaking to K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pages/kubernetes.html#running-awesome-applications">Running awesome applications</a></li>
@@ -74,10 +77,9 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/VMs.html#gcp-cloud-shell">GCP Cloud Shell</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pages/virtual-networking.html">Virtual Private Cloud</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/virtual-networking.html#networks">Networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/virtual-networking.html#vpn-networking">VPN Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/virtual-networking.html#instance-isolation">Instance Isolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/virtual-networking.html">GCP Networking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/virtual-networking.html#networking-servies">Networking Servies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/virtual-networking.html#virtual-private-cloud">Virtual Private Cloud</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
@@ -207,6 +209,7 @@
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -230,7 +233,7 @@
 <li class="toctree-l1"><a class="reference internal" href="pages/load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/VMs.html">Virtual Machines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/virtual-networking.html">Virtual Private Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/virtual-networking.html">GCP Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/storage.html">Storage</a></li>
@@ -258,7 +261,15 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -267,8 +278,8 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/index.rst.txt"
