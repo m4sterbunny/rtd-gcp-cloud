@@ -37,12 +37,9 @@ Man-In-The-Middle
 What is an REST API?
 ====================
 
-Representational state transfer 
-
-The majority of RESTful APIs, if not all, use HTTP as a transport layer. Understandable choice, being that the infrastructure, servers, and client libraries for HTTP are widely available already. SMTP serves just as well, among others.
+Representational state transfer -- the majority of RESTful APIs, if not all, use HTTP as a transport layer. Understandable choice, being that the infrastructure, servers, and client libraries for HTTP are widely available already. SMTP serves just as well, among others.
 
 Many not RESTFull APIs also use HTTP for the same reason.
-
 
 .. topic:: hint
 	
@@ -58,7 +55,7 @@ This POST triggers a response. The megrest response would be an automated messag
 
 You may be given all available appointments for you to book, for example, probably as a JSON object. 
 
-You book by posting back the appointment id for the one you want and bingo a 201 response comes with some kinda resource added success message, or some error handling alt, and you are off for a cut. 
+You book by posting back the appointment id for the one you want and bingo a 201 response comes with some kinda "resource added" success message, or some error handling alt, and you are off for a cut. 
 
 
 .. topic:: Keep it simple stupid

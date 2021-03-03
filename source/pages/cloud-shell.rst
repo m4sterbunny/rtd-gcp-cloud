@@ -14,7 +14,7 @@
 Cloud Shell
 ===========
 
-Cloud shell contains GCP's software development kit (SDK), or helper libraries. This massively simplifies interacting with services such as APIs. 
+Cloud shell contains GCP's software development kit (:ref:`sdk`) or helper libraries. This massively simplifies interacting with services such as APIs. 
 
 The cloud shell environment sits on a VM spun up in the cloud and accessible by your GCP account. It gives command line access to your projects and their resources according to your IAM settings. 
 
@@ -35,6 +35,12 @@ Cloud Shell's commands are split by function into:
 	- platform
 	- products
 	- services (data analytics, ML, networking, APIs)
+
+The gcloud command starts with the group that it manages, e.g. to create an instance using Compute Engine:
+
+.. code-block:: 	
+
+	gcloud compute instances create vm-1
 
 
 
@@ -61,6 +67,12 @@ There are a ton of great tools on this bash- + Google SDK-hosting machine. Here 
 .. code-block:: bash
 
 	gcloud config list project 
+
+Of course, similar information may be pulled using the Compute Engine command:
+
+.. code-block:: bash
+
+	gcloud compute project-info describe
 
 - or see all your accessible projects (this will list the properties in your active SDK configuration):
 
@@ -160,4 +172,18 @@ Rather than administer each VM directly, you may configure them all through sett
 		.. code-block:: bash
 
 			exit
+
+SDK
+----
+
+GCP's SDK has client libraries for:
+
+- Java
+- Pthon
+- Node.js
+- Ruby
+- Go
+- .NET
+
+This means that it can be a useful environment in itself. For example, I am using Python's Sphinx to generate this static site from a PC by typing commands in the GCP SDK installed locally on my machine.
 

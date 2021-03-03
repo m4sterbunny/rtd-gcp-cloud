@@ -34,12 +34,13 @@
             
   <div class="section" id="gcp-networking">
 <h1>GCP Networking<a class="headerlink" href="#gcp-networking" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="networking-servies">
-<h2>Networking Servies<a class="headerlink" href="#networking-servies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="networking-services">
+<h2>Networking Services<a class="headerlink" href="#networking-services" title="Permalink to this headline">¶</a></h2>
+<p>On the GCP networks are global and subnets are regional.</p>
 <div class="topic">
 <p class="topic-title">Networking on the GCP</p>
-<p>GCP allows for pure cloud networks and linking to on-premises networks.
-The various services include:</p>
+<p>GCP allows for pure cloud networks and linking to on-premises networks.</p>
+<p>The various services include:</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt><a class="reference internal" href="#virtual-private-cloud"><span class="std std-ref">Virtual Private Cloud</span></a></dt><dd><ul>
@@ -57,20 +58,45 @@ The various services include:</p>
 </dd>
 </dl>
 </li>
-<li><p>Cloud Armor</p></li>
+<li><dl class="simple">
+<dt>Cloud Armor</dt><dd><ul>
+<li><p>protects against denial-of-service attacks (DDoS)</p></li>
+<li><p>works with HTTP/S load-balancing</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Cloud Content Delivery Network (CDN)</dt><dd><ul>
+<li><p>reduces latency with region-based provision</p></li>
+<li><p>ideal for large volumes of static content</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Cloud Interconnect</dt><dd><ul>
+<li><p>connects private networks to Google’s network</p></li>
+<li><p>provides an SLA</p></li>
+<li><p>alternative is VPN with reduced bandwidth</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </div>
 </div>
 <div class="section" id="virtual-private-cloud">
 <h2>Virtual Private Cloud<a class="headerlink" href="#virtual-private-cloud" title="Permalink to this headline">¶</a></h2>
 <p>GCP’s Virtual Private Cloud (VPC) supports networking with VM instances, Kubernetes Engine containers, and the App Engine flexible environment. A VPC network is an essential component of linking with VM instances, containers, or App Engine applications. Therefore, each GCP project creates a default network a soon as any of these services are started.</p>
-<p>The GCP supports 3 different Virtual Private Cloud (VPC) network types:</p>
+<p>The GCP supports 3 different VPC network types:</p>
 <ul class="simple">
 <li><p>Default</p></li>
 <li><p>Auto mode</p></li>
 <li><p>Custom mode</p></li>
 </ul>
 <p>The default setup has one subnet per region and pre-set firewall rules. The Auto mode option includes regional IP allocation and a fixed /20 subnet per region, it comes with one subnet per region. The custom mode does not setup default subnets, it allows full control of IP ranges as well as regional IP allocation.</p>
+<p>VPC subnets have regional scope, i.e. they can span the zones that make up a region.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Auto mode networks</p>
@@ -87,7 +113,7 @@ The various services include:</p>
 <div class="section" id="networks">
 <h3>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h3>
 <p>Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are actually mapped by DNS), even if they are in different regions. You can ping a VM instance by its name, for example, because VPC networks have an internal DNS service that allows you to address instances by their DNS names rather than their internal IP addresses. This is a very useful feature, because the internal IP address can change when you delete and re-create an instance.</p>
-<p>Conversely, even if VMs are in the same region, if they are on different networks they must use their external IPs to communicate.</p>
+<p>Conversely, even if VMs are in the same region, if they are on different networks they must use their public/external IPs to communicate.</p>
 <p>VPC networks function as a distributed firewall, with the firewall rules enforced across the entire network unless set to a specific instance only.</p>
 <p>To view your firewall rules use:</p>
 <blockquote>
@@ -203,7 +229,7 @@ gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">GCP Networking</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#networking-servies">Networking Servies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#networking-services">Networking Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#virtual-private-cloud">Virtual Private Cloud</a></li>
 </ul>
 </li>
@@ -214,7 +240,7 @@ gcloud compute firewall-rules create <span class="nv">$my</span>-firewall-custom
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
 </ul>
 
 <div class="relations">

@@ -6,6 +6,50 @@
 Virtual Machines
 #################
 
+.. topic:: Preemptible VMs
+
+	Use case may be a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interrupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.
+	
+	You can even split workloads across "permanent VMs" and preemptible VMs.
+
+.. topic:: Labels
+
+	Labels become vital when you have large numbers of VMs. They can be used to filter the VM list from the console. 
+
+	VMs may also be filtered by:
+	- Status
+	- Membership of instance group
+
+.. topic:: GPU
+
+	A GPU can take on workload to relieve the CPU. These are usually used for intensitve processes such as visualising data, machine learning, and image processing.
+
+	A GPU is often supported by libraries that will need to be installed. This may be achieved by selecting the relevant boot disk image from the options, or by creating your own.
+
+	Restrictions include:
+		- availability of the GPU by zone
+		- compatibility with the CPU
+		- the instance *must* be set to terminate during maintenance 
+
+
+VM Instances
+============
+
+A group of VMs that run the same configuration are called instance groups. They are managed as a single entity and created from a group template (default is/was the n1-standard1 image). Instance groups may contain VMs that span a region (i.e. across multiple zones), providing greater resiliency.
+
+Managed groups are identical VMs that can be set to autoscale and be managed with a load balancer. Scaling may be triggered by:
+
+- CPU utilization
+- load-balancing metrics
+- que-based workload metrics
+- or, a specified monitoring KPI
+
+Unmanaged groups are possible where the VMs have different configurations.
+
+.. note:: warning
+
+	When autoscaling, allow time for VMs to come online, otherwise new VMs may be added that are not required.
+
 Creating and Linking Virtual Machines
 =====================================
 
@@ -25,6 +69,8 @@ Setting one up from the console is a simple task:
 
 
 .. topic:: Launch GCP's `Cloud Shell <cloud-shell.html>`_
+	
+	:ref:`Cloud Shell <cloud-shell>`_
 
 	This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that *you* create.
 
@@ -111,7 +157,7 @@ Let's be a little more decisive and prescribe some VM configurations this time. 
 
 		sudo nano /var/www/html/index.nginx-debian.html
 
-	Write something witty in your index and watch it come back at you. Using the SSH from VM2 into VM1. Note that the CLI tells you which machine you are connected with (it will have my-vm-1 right there).
+	Write something witty in your index and watch it come back at you. Using the SSH from VM2 into VM1. Note that the CLIcur tells you which machine you are connected with (it will have my-vm-1 right there).
 
 	.. code-block:: bash
 
@@ -138,18 +184,26 @@ Creating your own image
 
 Once you have chosen an image that is close to what you need, either from the GCP itself, its marketplace, by uploading your own custom image, or sourcing from a 3rd party, you may make additional changes to it.
 
-This may include updating or adding libraries or software.
+This may include updating or adding data, libraries, or software.
 
 If your project is not simply a one off, then you may use this as a base-image for future projects by creating a snapshot, i.e. by grabbing an image from the boot disk of your VM.
 
 
-Preemptilble VMs
-=================
+.. topic:: Restarting VMs
 
-Where you need a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.
+	If a VM is restarted the contents of memory are lost. This means that essential data must be preserved in a persistent disk or Cloud Storage.
 
-You can even split workloads across "permanent VMs" and preemtible VMs.
+.. topic:: Snapshots
 
+	A snapshot is a copy of data held on a persistent disk. This is useful for restoring data. The first snapshot is a full copy of the data. Subsequent snapshots record updated data only.
+
+	If data is held in memory, flush disk buffers **before** creating the snapshot to ensure the storage of all data.
+
+	NB to work with snapshots, the user must have the **Compute Storage Admin** role setup from IAM.
+
+.. topic:: Image v Snapshot
+
+	Both images and snapshots are copies of disk contents. Snapshots make data available on a disk, images are used to create VMs.
 
 Keen to make something useful?
 ===============================

@@ -36,7 +36,7 @@
 </div>
 <div class="section" id="cloud-shell">
 <h1>Cloud Shell<a class="headerlink" href="#cloud-shell" title="Permalink to this headline">¶</a></h1>
-<p>Cloud shell contains GCP’s software development kit (SDK), or helper libraries. This massively simplifies interacting with services such as APIs.</p>
+<p>Cloud shell contains GCP’s software development kit (<a class="reference internal" href="#sdk"><span class="std std-ref">SDK</span></a>) or helper libraries. This massively simplifies interacting with services such as APIs.</p>
 <p>The cloud shell environment sits on a VM spun up in the cloud and accessible by your GCP account. It gives command line access to your projects and their resources according to your IAM settings.</p>
 <p>Unleash the command line interface (CLI) with VMs on your <a class="reference external" href="https://console.cloud.google.com/">console</a>.</p>
 <img alt="../_images/shell.PNG" src="../_images/shell.PNG" />
@@ -62,6 +62,10 @@
 </dl>
 </li>
 </ul>
+<p>The gcloud command starts with the group that it manages, e.g. to create an instance using Compute Engine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">compute</span> <span class="n">instances</span> <span class="n">create</span> <span class="n">vm</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="basic-commands">
 <h2>Basic Commands<a class="headerlink" href="#basic-commands" title="Permalink to this headline">¶</a></h2>
@@ -80,6 +84,10 @@
 <li><p>list project ID with:</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config list project
+</pre></div>
+</div>
+<p>Of course, similar information may be pulled using the Compute Engine command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute project-info describe
 </pre></div>
 </div>
 <ul class="simple">
@@ -168,6 +176,19 @@
 </div>
 </div>
 </div>
+<div class="section" id="sdk">
+<h2>SDK<a class="headerlink" href="#sdk" title="Permalink to this headline">¶</a></h2>
+<p>GCP’s SDK has client libraries for:</p>
+<ul class="simple">
+<li><p>Java</p></li>
+<li><p>Pthon</p></li>
+<li><p>Node.js</p></li>
+<li><p>Ruby</p></li>
+<li><p>Go</p></li>
+<li><p>.NET</p></li>
+</ul>
+<p>This means that it can be a useful environment in itself. For example, I am using Python’s Sphinx to generate this static site from a PC by typing commands in the GCP SDK installed locally on my machine.</p>
+</div>
 </div>
 
 
@@ -195,6 +216,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#function-trees">Function Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#basic-commands">Basic Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#i-like-this-is-there-more">I like this - is there more?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sdk">SDK</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>

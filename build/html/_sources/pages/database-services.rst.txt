@@ -1,4 +1,7 @@
 #####################
+GCP Data Services
+#####################
+
 GCP Database Options
 #####################
 
@@ -21,28 +24,30 @@ Storage & Retrival
 BigTable
 ========
 
-**NoSQL** Fully-managed NoSQL (think little structure!) database 
+Cloud Bigtable can be considered as a persistent hashtable, i.e. each item in the database can be sparsely populated, and is looked up with a single key. 
 
-**Analytical data**
-**Handles heavy read/write**
+A use case would be storing large volumes of streamed sensor data from IoT devices. 
 
-**Security** As with cloud storage, data is encrypted in transit and access controlled with IAM. Think G-mail!
-
-**Capacity** Petabybes+
-
-**Unit size** 10 + MB
+- **NoSQL** Fully-managed NoSQL (think little structure/no schema!) database 
+- **Analytical data**
+- **Handles heavy read/write**
+- **Security** As with cloud storage, data is encrypted in transit and access controlled with IAM. Think G-mail!
+- **Capacity** Petabybes+
+- **Unit size** 10 + MB
+- **Highly scalable**
 
 Cloud Datastore
 ================
 
-e.g., stores structured data for App engine applications.
+Use case, is storing structured data for App Engine and Compute Engine applications, e.g. a small app whose application's data storage could be free.
 
 
-**NoSQL** Fully-managed NoSQL (with SQL-like queries)
-**Handles transactions**
-**Unit size** 1MB
-**Handles sharding and replication**
-**Free daily quota**
+- **NoSQL** Fully-managed NoSQL (with SQL-like queries)
+- **Handles transactions**
+- **Unit size** 1MB
+- **Handles sharding and replication**
+- **Highly scalable**
+- **Free daily quota**
 
 
 Cloud Storage
@@ -64,7 +69,7 @@ Cloud SQL
 
 Full SQL transaction processing: think user-credential verification, customer order processing.
 
-Scales vertically and horizontally.
+Scales vertically and horizontally, but limited by the size of the database instance that you choose.
 
 MySQL and POSTgreSQL.
 
@@ -72,13 +77,90 @@ Accessible by GCP and external services.
 
 Cloud Spanner
 ==============
-Full SQL transaction processing. Large database-driven applications, think job board, ecommerce.
+Full SQL transaction processing at a global scale. Large database-driven applications, think job board, ecommerce.
 
-**Capacity >2TB** Petabybes+
+Cloud Spanner provides strong transactional consistency and seamless scaling. 
+
+**Capacity >2TB** Petabytes+
 **Horizonal scalability**
+
+
+
+GCP Big Data Services
+#####################
+
+The GCP provides 5 data handling tools:
+
+- Cloud Dataproc
+- Cloud Dataflow
+- BigQuery
+- Cloud Pub/Sun
+- Cloud Datalab
 
 BigQuery
 ========
 
-Umm Storage? Processing? Processing? Aces heavy read/write.
+Big Query is a good choice for data analytics warehousing. It supports fast SQL queries against large datasets. Aces heavy on read/write, able to stream data at 100,000 rows per second.
 
++ Analytics data warehouse
++ supports SQL
++ load or stream data in
++ free monthly quota
++ data can be held regionally for local compliance
++ People you share data with pay for their own queries
+
+Cloud Dataproc
+==============
+
+Managed Hadoop, MapReduce, Spark, Pig, and Hive service.
+
++ By-second billing
++ Can take advantage of preemtible VMs
+
+Cloud Dataflow
+==============
+
+Use cases include fraud detection, point of sale segmentation analyses, personalization experiences.
+
+
++ Streak and batch processing for unified and simplified pipelines
++ For data of unpredictable size and rate
++ ETL
++ Orchestration tasks
++ Each step in the pipeline is elastically scaled (i.e. all resources are by demand)
+
+
+Cloud Pub/Sub
+=============
+
+Flexible, scalable enterprise messaging. Operates in a decoupled way. A use case is email or IOT data analyses as the data streams.
+
++ Supports many-to-many asynchronous messaging
++ Offline support
++ "at least once delivery" 
++ 1 million+ messages per second
++ pairs well with Dataflow
++ push OR pull messages
+
+Cloud Datalab
+=============
+
+Data exploration in Python.
+
++ Notebooks and comments supported e.g. Jupyter Notebook
+
+GCP Machine Learning
+=====================
+
+The ML platform is used for:
++ content personalisation
++ fraud detection
++ sentiment analyses
+
+TensorFlow is an opensource software library. It links with dedicated hardware for large workloads.
+
+CloudVision API classifies images by category, it can provide the metadata on your image catalog, filter offensive material, or provide sentiment analysis.
+
+Cloud Natural Language API recognises 80+languages. It can transcribe audio into text. 
+
+Cloud Video Intelligence API identifies nouns in video content to make it searcable.

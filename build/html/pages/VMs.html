@@ -34,6 +34,48 @@
             
   <div class="section" id="virtual-machines">
 <h1>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title">Preemptible VMs</p>
+<p>Use case may be a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interrupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.</p>
+<p>You can even split workloads across “permanent VMs” and preemptible VMs.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Labels</p>
+<p>Labels become vital when you have large numbers of VMs. They can be used to filter the VM list from the console.</p>
+<p>VMs may also be filtered by:
+- Status
+- Membership of instance group</p>
+</div>
+<div class="topic">
+<p class="topic-title">GPU</p>
+<p>A GPU can take on workload to relieve the CPU. These are usually used for intensitve processes such as visualising data, machine learning, and image processing.</p>
+<p>A GPU is often supported by libraries that will need to be installed. This may be achieved by selecting the relevant boot disk image from the options, or by creating your own.</p>
+<dl class="simple">
+<dt>Restrictions include:</dt><dd><ul class="simple">
+<li><p>availability of the GPU by zone</p></li>
+<li><p>compatibility with the CPU</p></li>
+<li><p>the instance <em>must</em> be set to terminate during maintenance</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="vm-instances">
+<h2>VM Instances<a class="headerlink" href="#vm-instances" title="Permalink to this headline">¶</a></h2>
+<p>A group of VMs that run the same configuration are called instance groups. They are managed as a single entity and created from a group template (default is/was the n1-standard1 image). Instance groups may contain VMs that span a region (i.e. across multiple zones), providing greater resiliency.</p>
+<p>Managed groups are identical VMs that can be set to autoscale and be managed with a load balancer. Scaling may be triggered by:</p>
+<ul class="simple">
+<li><p>CPU utilization</p></li>
+<li><p>load-balancing metrics</p></li>
+<li><p>que-based workload metrics</p></li>
+<li><p>or, a specified monitoring KPI</p></li>
+</ul>
+<p>Unmanaged groups are possible where the VMs have different configurations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>warning</p>
+<p>When autoscaling, allow time for VMs to come online, otherwise new VMs may be added that are not required.</p>
+</div>
+</div>
 <div class="section" id="creating-and-linking-virtual-machines">
 <h2>Creating and Linking Virtual Machines<a class="headerlink" href="#creating-and-linking-virtual-machines" title="Permalink to this headline">¶</a></h2>
 <p>Virtual Machines (VMs) are a basic unit of cloud computing.</p>
@@ -53,6 +95,7 @@
 </div>
 <div class="topic">
 <p class="topic-title">Launch GCP’s <a class="reference external" href="cloud-shell.html">Cloud Shell</a></p>
+<p><a href="#id1"><span class="problematic" id="id2">:ref:`Cloud Shell &lt;cloud-shell&gt;`_</span></a></p>
 <p>This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that <em>you</em> create.</p>
 </div>
 <div class="topic">
@@ -111,7 +154,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano /var/www/html/index.nginx-debian.html
 </pre></div>
 </div>
-<p>Write something witty in your index and watch it come back at you. Using the SSH from VM2 into VM1. Note that the CLI tells you which machine you are connected with (it will have my-vm-1 right there).</p>
+<p>Write something witty in your index and watch it come back at you. Using the SSH from VM2 into VM1. Note that the CLIcur tells you which machine you are connected with (it will have my-vm-1 right there).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl http://localhost/
 </pre></div>
 </div>
@@ -142,13 +185,22 @@
 <div class="section" id="creating-your-own-image">
 <h2>Creating your own image<a class="headerlink" href="#creating-your-own-image" title="Permalink to this headline">¶</a></h2>
 <p>Once you have chosen an image that is close to what you need, either from the GCP itself, its marketplace, by uploading your own custom image, or sourcing from a 3rd party, you may make additional changes to it.</p>
-<p>This may include updating or adding libraries or software.</p>
+<p>This may include updating or adding data, libraries, or software.</p>
 <p>If your project is not simply a one off, then you may use this as a base-image for future projects by creating a snapshot, i.e. by grabbing an image from the boot disk of your VM.</p>
+<div class="topic">
+<p class="topic-title">Restarting VMs</p>
+<p>If a VM is restarted the contents of memory are lost. This means that essential data must be preserved in a persistent disk or Cloud Storage.</p>
 </div>
-<div class="section" id="preemptilble-vms">
-<h2>Preemptilble VMs<a class="headerlink" href="#preemptilble-vms" title="Permalink to this headline">¶</a></h2>
-<p>Where you need a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.</p>
-<p>You can even split workloads across “permanent VMs” and preemtible VMs.</p>
+<div class="topic">
+<p class="topic-title">Snapshots</p>
+<p>A snapshot is a copy of data held on a persistent disk. This is useful for restoring data. The first snapshot is a full copy of the data. Subsequent snapshots record updated data only.</p>
+<p>If data is held in memory, flush disk buffers <strong>before</strong> creating the snapshot to ensure the storage of all data.</p>
+<p>NB to work with snapshots, the user must have the <strong>Compute Storage Admin</strong> role setup from IAM.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Image v Snapshot</p>
+<p>Both images and snapshots are copies of disk contents. Snapshots make data available on a disk, images are used to create VMs.</p>
+</div>
 </div>
 <div class="section" id="keen-to-make-something-useful">
 <h2>Keen to make something useful?<a class="headerlink" href="#keen-to-make-something-useful" title="Permalink to this headline">¶</a></h2>
@@ -255,10 +307,10 @@
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Machines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vm-instances">VM Instances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-and-linking-virtual-machines">Creating and Linking Virtual Machines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zones-matter">Zones matter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-your-own-image">Creating your own image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#preemptilble-vms">Preemptilble VMs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#keen-to-make-something-useful">Keen to make something useful?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gcp-cloud-shell">GCP Cloud Shell</a></li>
 </ul>
@@ -271,7 +323,7 @@
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
 </ul>
 
 <div class="relations">

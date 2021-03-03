@@ -5,9 +5,12 @@ GCP Networking
 Networking Services
 ###################
 
+On the GCP networks are global and subnets are regional.
+
 .. topic:: Networking on the GCP
 
 	GCP allows for pure cloud networks and linking to on-premises networks.
+
 	The various services include:
 
 	- :ref:`Virtual Private Cloud <virtual private cloud>`
@@ -19,21 +22,30 @@ Networking Services
 	- Cloud Armor
 		- protects against denial-of-service attacks (DDoS)
 		- works with HTTP/S load-balancing
-	- Cloud CDN
-		- 
+	- Cloud Content Delivery Network (CDN)
+		- reduces latency with region-based provision
+		- ideal for large volumes of static content
+	- Cloud Interconnect
+		- connects private networks to Google's network
+		- provides an SLA
+		- alternative is VPN with reduced bandwidth
+
+
 
 Virtual Private Cloud
 #####################
 
 GCP's Virtual Private Cloud (VPC) supports networking with VM instances, Kubernetes Engine containers, and the App Engine flexible environment. A VPC network is an essential component of linking with VM instances, containers, or App Engine applications. Therefore, each GCP project creates a default network a soon as any of these services are started.
 
-The GCP supports 3 different Virtual Private Cloud (VPC) network types:
+The GCP supports 3 different VPC network types:
 
 - Default
 - Auto mode
 - Custom mode
 
 The default setup has one subnet per region and pre-set firewall rules. The Auto mode option includes regional IP allocation and a fixed /20 subnet per region, it comes with one subnet per region. The custom mode does not setup default subnets, it allows full control of IP ranges as well as regional IP allocation.
+
+VPC subnets have regional scope, i.e. they can span the zones that make up a region. 
 
 .. note:: Auto mode networks
 
@@ -55,13 +67,12 @@ The default setup has one subnet per region and pre-set firewall rules. The Auto
 You can connect using internal IP addresses from different network by using options such as VPC peering.
 
 
-=========
 Networks
 =========
 
 Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are actually mapped by DNS), even if they are in different regions. You can ping a VM instance by its name, for example, because VPC networks have an internal DNS service that allows you to address instances by their DNS names rather than their internal IP addresses. This is a very useful feature, because the internal IP address can change when you delete and re-create an instance.
 
-Conversely, even if VMs are in the same region, if they are on different networks they must use their external IPs to communicate.
+Conversely, even if VMs are in the same region, if they are on different networks they must use their public/external IPs to communicate.
 
 VPC networks function as a distributed firewall, with the firewall rules enforced across the entire network unless set to a specific instance only. 
 
@@ -71,7 +82,7 @@ To view your firewall rules use:
 
 		gcloud compute firewall-rules list --sort-by=NETWORK
 
-==============
+
 VPN Networking
 ==============
 
@@ -150,7 +161,6 @@ To view these networks:
 		gcloud compute networks list
 
 
-==================
 Instance Isolation
 ==================
 
@@ -158,7 +168,6 @@ A bastion host acts to isolate an instance for you.
 
 .. image:: ../images/bastion-host.PNG
 
-=====================
 Hybrid Infrastructure
 =====================
 

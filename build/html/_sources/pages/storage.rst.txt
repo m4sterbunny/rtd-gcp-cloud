@@ -2,6 +2,70 @@
 Storage
 ########
 
+
+Multiple Storage Options, which to use is determine by your requirements, such as:
+
++ Data Model  
+	+ Do you need a SQL pipeline?
++ Time To Access?
+	+ Nanoseconds
+	+ Microseconds
+	+ Miliseconds
+
+Options include:
+
++ Persistant disks for VMs
++ Object storage
++ Memorystore
+	Redis cache service for caching
++ Archival storage
+
+Cache
+-----
+
+While cache is an in-memory store with high-speed access it can't be considered storage as suck, because it does not persist if the machine is shut down.
+
+
+Memorystore
+------------
+
+This managed Redis service provides a larger cache which may be configured for high-availability. Memorystore integrates with:
+
++ Compute Engine
++ App Engine
++ Kubernetes Engine
+
+As with all GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default netwok and its IP range may be defined or labels added.
+
+Persistant Disks
+----------------
+
+Persistant storage can be associated with your VMs in Compute Engine and Kubernetes Engine.
+
+As block storage, such disks can support file systems. The drive is virtual and accessible via your VM. Local SSD (solid state, i.e. high-performace, low latency) drives are an option, but these do not persist through shutdown of the VM.
+
+SSDs are ideal for high-performance, whether with random access or sequential access patterns. They are more expensive than the longer latency, spinning hard disk drive (HDD). 
+
+HDDs can be a better option for storing large amounts of data and undertaking batch processing.
+
+Compare:
+
+NB Read/Write rates are measured per second per GB:
+
++------------+------------+-------------+-------------------------------------+
+| Drive      | Read       | Write       | Notes                               |
++============+============+=============+=====================================+
+|SSD         | local ~300 | local ~300  | network attached factor 10 smaller  |
++------------+------------+-------------+-------------------------------------+
+| HDD        | 0.75       | 1.5         |                                     |
++------------+------------+-------------+-------------------------------------+
+
+
+Object Storage
+---------------
+
+Cloud Bucket provides simple object storage.
+
 .. code-block:: bash
 
 	gsutil mb -l [location]
@@ -14,7 +78,7 @@ For example:
 
 
 
-Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangable). If you want to edit an image object, for example, you can grab it, edit it, and put it back into storage again - BUT the original will be there unchanged and you will generate a new URL.
+Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangable). If you want to edit an image object, for example, you can grab it, edit it, and put it back into storage again - XX BUT the original will be there unchanged and you will generate a new URL.
 
 GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT or PATCH.
 
@@ -41,7 +105,7 @@ GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT
 Buckets
 ========
 
-As with the rest of GCP location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point.
+As with the rest of GCP, location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point.
 
 
 .. topic:: Setup a bucket from the console
@@ -77,6 +141,35 @@ As with the rest of GCP location matters. When you create a bucket you set a reg
 		gsutil cp [MY_FILE] gs://[BUCKET_NAME]
 
 	NB If your filename has whitespaces, place single quotes around the filename. For example, gsutil cp ‘uploaded file.txt' gs://[BUCKET_NAME]
+
+It is just as simply to copy data from one bucket to another, e.g.:
+
+.. code-block:: bash
+
+	gsutil cp gs://$MY_BUCKET_NAME_1/image.jpg gs://$MY_BUCKET_NAME_2/image.jpg
+
+If you need to verify who has access to a file:
+
+.. code-block:: bash
+
+	gsutil acl get gs://$MY_BUCKET_NAME_1/image.jpg  > acl.txt
+
+	cat acl.txt
+
+To change who has access use:
+
+.. code-block:: bash
+
+	gsutil acl set private
+	gs://$MY_BUCKET_NAME_1/image.jpg
+
+A publically-hosted piece of content would requre my more open access, e.g.:
+
+.. code-block:: bash
+
+	gsutil iam ch allUsers:objectViewer gs://$MY_BUCKET_NAME_1
+
+From the Storage options in the GCP, you will be able to pickup the publically-available URL for this item.
 
 
 Storage Classes

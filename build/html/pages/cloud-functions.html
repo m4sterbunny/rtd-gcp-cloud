@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cloud Functions &#8212; Cloud Notes 0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cloud-functions">
+<h1>Cloud Functions<a class="headerlink" href="#cloud-functions" title="Permalink to this headline">¶</a></h1>
+<p>Cloud Functions supports the running of single-purpose functions that behave in isolation. The default time out is 1 minute and the max possible is 9 minutes.</p>
+<p>Cloud Functions is suited for logic tests and small, defined tasks. Have a photosharing tool? Cloud Functions can manage the code to check a user is uploading an image file and pass the T/F answer back to the app as part of the logic before the upload is accepted.</p>
+<p>In this example, an <em>Event</em>, an upload to Cloud Storage, this <em>Triggers</em> the <em>Function</em> to create an <em>Event</em> and send a message back to the app system, say via Cloud Pub/Sub’s messaging service.</p>
+<p>The integration options are myriad:</p>
+<ul class="simple">
+<li><p>Trigger an Event using HTTP verbs (the normal API POST, GET, PUT, DELETE) and OPTIONS</p></li>
+<li><p>Forward Stackdriver logs to Pub/Sub and trigger a response from there</p></li>
+<li><p>Upload, Delete, Update of metadata, and Archive in Cloud Storage</p></li>
+<li><p>Firebase database Events</p></li>
+</ul>
+<div class="section" id="runtime-environments">
+<h2>Runtime Environments<a class="headerlink" href="#runtime-environments" title="Permalink to this headline">¶</a></h2>
+<p>Currently include:</p>
+<ul class="simple">
+<li><p>Python 3</p></li>
+<li><p>Node.js 6 &amp; 8</p></li>
+</ul>
+<p>The supported languages (at time of writing) include:</p>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>Go</p></li>
+<li><p>JS / Node.js</p></li>
+</ul>
+</div>
+<div class="section" id="using-cloud-functions-on-the-gcp">
+<h2>Using Cloud Functions on the GCP<a class="headerlink" href="#using-cloud-functions-on-the-gcp" title="Permalink to this headline">¶</a></h2>
+<p>Requirements:</p>
+<ol class="arabic simple">
+<li><p>Cloud Functions Engine API</p></li>
+<li><p>Your SDK / Cloud Shell may need its environment updated to support your runtime environment</p></li>
+</ol>
+<p>Settings include:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Function Name</dt><dd><p>for use on GCP, different to the name of the function to be called!</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Name</dt><dd><p>of the function to execute</p>
+</dd>
+</dl>
+</li>
+<li><p>Memory allocation</p></li>
+<li><dl class="simple">
+<dt>Trigger</dt><dd><ul>
+<li><p>HTTP / Cloud Pub/Sub / Cloud Storage</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Event type</p></li>
+<li><p>Location of code</p></li>
+<li><p>Runtime environment</p></li>
+<li><p>Source Code</p></li>
+</ul>
+</div>
+<div class="section" id="cloud-functions-from-the-cli">
+<h2>Cloud Functions from the CLI<a class="headerlink" href="#cloud-functions-from-the-cli" title="Permalink to this headline">¶</a></h2>
+<p>The command to deploy is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud functions deploy <span class="o">{</span><span class="k">function</span>-name<span class="o">}</span>
+</pre></div>
+</div>
+<p>The command accepts 3 parameters:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>runtime</dt><dd><ul>
+<li><p>i.e. Python 3.7 or the Node version</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>trigger-resource</dt><dd><ul>
+<li><p>defines the bucket name if a Cloud Bucket is associated with this task</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>trigger-event</dt><dd><ul>
+<li><p>defines the event type</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>So the following function:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud functions deploy <span class="o">{</span><span class="k">function</span>-name<span class="o">}</span>
+        --runtime python37
+        --trigger-resource <span class="o">{</span>bucket-name<span class="o">}</span>
+        --trigger-event google.storage.object.delete
+</pre></div>
+</div>
+<p>is triggered by a delete occuring on a named bucket.</p>
+<p>As Cloud Function is simply yet another GCP API, it merrily provides a payload upon successful completion. This is presented as a log message.</p>
+</div>
+<div class="section" id="integration-with-cloud-pub-sub">
+<h2>Integration with Cloud Pub/Sub<a class="headerlink" href="#integration-with-cloud-pub-sub" title="Permalink to this headline">¶</a></h2>
+<p>If the trigger is to be Cloud Pub/Sub, this can be selected from the console (or coded in the CLI). You will then be prompted to identify the name of the Pub/Sub topic, if this name does not exist it will be automatically created.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Cloud Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, masterbunny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/cloud-functions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

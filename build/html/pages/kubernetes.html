@@ -34,11 +34,20 @@
             
   <div class="section" id="kubernetes">
 <h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title">K8s on the GCP SDK</p>
+<p>NB to use Kubernetes from the SDK you may need to install K8 (at least when it was in beta, this was the case).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud components install kubectl
+</pre></div>
+</div>
+<p>You also need to be a GKE admin.</p>
+</div>
 <p>Kubernetes orchestrates your containers. Need more, wait a mo and there you go. Don’t like to be charged for resources you ain’t using – shut ‘em down again. You do have a copy ready to roll, after all. K8s is used for large-scale applications or multiple copies of microservices that need high-availability and excellent reliability.</p>
 <p>The micro-service model works so well with K8s, because apps can be broken up according to business logic and served on as as-needed basis. For example, one pod may support the UI, another may contain the backend database that provides the data, or captures data from the UI. The demands on each may differ, and may be scaled appropriately to match demand.</p>
 <div class="section" id="containerization">
 <h2>Containerization<a class="headerlink" href="#containerization" title="Permalink to this headline">¶</a></h2>
-<p>Let’s just stick to one method that a) popular, so you are likely to use it at some point and b) short to read, and c) is open source; <a class="reference external" href="https://www.freecodecamp.org/news/the-docker-handbook/">Docker</a>. (The GCP provides cloud build as an alternative).</p>
+<p>Let’s just stick to one method that a) popular, so you are likely to use it at some point, b) short to read, and c) is open source; <a class="reference external" href="https://www.freecodecamp.org/news/the-docker-handbook/">Docker</a>. (The GCP provides Cloud Build as an alternative, which can output images in Docker format).</p>
+<p>The Docker tool lets you build and image and run it. Docker does not handle scaling.</p>
 <p>So, a docker container possesses everything your software needs to run. You need a library? So declare that in the Dockerfile, and when you activate your container it goes gets the library version it needs.</p>
 <p>Think a box around your code AND its dependencies. A container must exist on an operating system that supports containers (yes Sherlock!). The container is very portable and can move from development &gt; staging &gt; production without other changes (and without having to worry that the staging environment setup is different somehow to your development environment!).</p>
 <div class="section" id="step-1">
@@ -71,6 +80,10 @@
     <span class="n">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span> <span class="s2">&quot;app.py&quot;</span><span class="p">]</span>
 </pre></div>
 </td></tr></table></div>
+<p>The first statement is the base layer, pulling the Ubuntu Linux runtime environment from a public location.</p>
+<p>The copy command adds another layer. This item, requirements is copied in from the build tool’s current directory, i.e. probably a private location.</p>
+<p>The run command build you application and puts the result of the build into the 3rd layer.</p>
+<p>The 4th and final layer specifies what command to run within the container when it is launched.</p>
 </div>
 <div class="section" id="step-2">
 <h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h3>
@@ -85,12 +98,176 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span> <span class="n">py</span><span class="o">-</span><span class="n">server</span>
 </pre></div>
 </div>
+<p>This is an oversimplified flow, as best-practice these days is to build the application using a container separated from the container that ships and runs. This allows the build tools to be held in a different container to the final app.</p>
+<p>Launching a new container from an image adds an ephemeral, writable layer in which all app data can be written and modified. An application running in a container can only modify this upper layer. And, when the container is closed this data is lost. This is known as the container layer.</p>
+<p>Data storage should be separate from the container.</p>
+<div class="topic">
+<p class="topic-title">GCP’s Cloud Build</p>
+<p>The Cloud Build toolset requires the following APIs to be enabled:</p>
+<ul class="simple">
+<li><p>Cloud Build</p></li>
+<li><p>Container Registry</p></li>
+</ul>
+</div>
+<p>Cloud Build supports build configuration files (YAML or JSON files) to control the tasks to perform when building a container. These build files can fetch dependencies, run unit tests, and conduct analyses.</p>
+<p>E.g.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">steps</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&#39;gcr.io/cloud-builders/docker&#39;</span>
+  <span class="nt">args</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="s">&#39;build&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;-t&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;gcr.io/$PROJECT_ID/quickstart-image&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;.&#39;</span> <span class="p p-Indicator">]</span>
+<span class="nt">images</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="s">&#39;gcr.io/$PROJECT_ID/quickstart-image&#39;</span>
+</pre></div>
+</div>
+<p>This code:
+- instructs Cloud Build to apply Docker for the build
+- to tag it with “gcr.io/$PROJECT_ID/quickstart-image”
+- to push the image to the Container Registry</p>
+<p>To actually start a Cloud Build using this file use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud builds submit --config cloudbuild.yaml .
+</pre></div>
+</div>
+<p>You can see the image in Container Registry &gt; Images. NB different versions are nested under the image name, if they exist.</p>
 </div>
 </div>
 <div class="section" id="learning-to-love-k8s">
 <h2>Learning to love K8s<a class="headerlink" href="#learning-to-love-k8s" title="Permalink to this headline">¶</a></h2>
-<p>Kubernetes in the GCP is a managed service that abstracts away infrastructure chores. Much like App engine, it scales rapidly. Kubernetes offers an API to control its operation, the GCP simplifies interacting with this API.</p>
+<p>Kubernetes accepts declarative configuration. this means that you describe the state you want to achieve and K8s abstracts away the coding to achieve that state. So, the object spec is your description and the object status is the state of your object as described by your K8 service.</p>
+<p>Kubernetes in the GCP is a managed IaaS service that abstracts away infrastructure chores. Much like App engine, it scales rapidly. Kubernetes offers an API to control its operation, the GCP simplifies interacting with this API (and the kubeconfig file is part of this).</p>
+<p>The</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl
+</pre></div>
+</div>
+<p>command puts you in direct contact with the K8 API.</p>
+<p>When you communicate with the API, for example by providing a JSON payload as a manifest file, the first statement is apiVersion. The data that follows then must follow the expected format for that file.</p>
+<p>You can define several objects in the same YAML. Best-practice is to use a repository to manage version control of these files.</p>
+<p>E.g.:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apps/V1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+    <span class="nt">labels</span><span class="p">:</span>
+        <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+    <span class="nt">spec</span><span class="p">:</span>
+        <span class="nt">containers</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx:latest</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>‘Kind’ defines the object you want</p></li>
+<li><p>‘metadata’ helps identify the object</p></li>
+</ul>
+<p>The combination of kind + metadata name must be unique within one file, as this an object identifier that is keypaired with a K8 uid (unique identifier).</p>
+<p>Labels help you organise objects these can be created on-the-fly, i.e. in the example ‘app’ is not part of a schema, but a keypair label type:id created by the admin. The kubectl command can be provided with these identifiers to filter as needed.</p>
+<p>The <strong>kubelet</strong> agent service communicates with the K8 master node.</p>
 <p>A K8 cluster is composed of a master node and 1 or more worker nodes. In K8s a “node” is a compute instance. A GKE cluster can support different machine types and numbers of nodes. A K8 pod may contain clusters of nodes that contain containers. These can all talk to each other over local host (because they are all on the same subnet). Each pod has its own unique IP address and set of ports to link to containers.</p>
+<div class="topic">
+<p class="topic-title">Pods</p>
+<p>A pod is the smallest deployable K8 object. A pod is a single instance of a running process in a cluster. Pods represent one (typical) or more containers. Multiple containers share resources including storage. Each pod has its own IP and is assigned ports. Containers connect to these ports and can pass data across localhost.</p>
+<p>Multiple or single containers are treated as a single entity in the namespace and share the IP address and network ports.</p>
+<blockquote>
+<div><p>Pod status may be:</p>
+<ul class="simple">
+<li><p>Running</p></li>
+<li><p>Pending (image download/implementation in process)</p></li>
+<li><p>Succeeded (i.e. termination succeeded)</p></li>
+<li><p>Failed (i.e. master can’t communicate with the node)</p></li>
+</ul>
+</div></blockquote>
+<p>To retrieve status data use the:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud container ...
+</pre></div>
+</div>
+<p>commands.</p>
+<p>Pods run on a node. Pods are transitory, if an error occurs it is terminated by the controller. The node still persists.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Nodes</p>
+<p>Nodes are VMs that run on Compute Engine and execute containers that setup (as per the Dockerfile) and run applications. Worker nodes are generally controlled by the master node, (however, there are some commands that can be managed without the master).</p>
+<p>Workloads are distributed across nodes of a K8 cluster. NB K8s does not <strong>create</strong> nodes. Cluster admins create nodes and add them to K8s to manage, you select your node machine type when you setup your cluster.</p>
+<p>Each nodes runs:
+- kubelet</p>
+<blockquote>
+<div><p>K8s agent on each node, able to start pods</p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>kube proxy</dt><dd><p>for newtwork connectivity</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>To view information on your cluster/nodes on the GCP&gt; Kubernetes Engine&gt; Clusters. You will see:</p>
+<ul class="simple">
+<li><p>cluster name</p></li>
+<li><p>node pool name</p></li>
+<li><p>cluster size (number of nodes)</p></li>
+</ul>
+<p>The cluster may be managed from the SDK with the gcloud container clusters command, e.g. set pool size with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud container clusters resize <span class="o">{</span>clusterName<span class="o">}</span> --node-pool <span class="o">{</span>poolName<span class="o">}</span> --size <span class="m">8</span> --region<span class="o">={</span>yourClustersRegion<span class="o">}</span>
+</pre></div>
+</div>
+<p>A node pool is a subset of nodes within a cluster that share VM configurations. BUT, this is specific to GKE, not to Kubernetes standard.</p>
+<p>A cluster may be set up in a single zone in a single region, or a cluster may span multiple zones within 1 region. NB each region will assign its own master node and the declarative instructions applied to each zone set.</p>
+<p>A cluster may be private or exposed to the Public Internet or given access to authorized networks.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Services</p>
+<p>As pods and their ports/IPs are ephemeral, it is the service (an object providing API endpoints with a fixed IP) that acts as the connection point. Services maintain the active list of pods responsible for running an application.</p>
+<p>All data is held in the etcd database and the K8s server reads and updates this database to manage pods in real-time.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Controllers</p>
+<p>Controllers manage the state of the containers. Examples include:</p>
+<ul class="simple">
+<li><p>StatefulSets</p></li>
+<li><p>Deployments</p></li>
+<li><p>ReplicaSets</p></li>
+<li><p>DaemonSets</p></li>
+<li><p>Jobs</p></li>
+</ul>
+<p>The <em>ReplicaSet</em> is a controller that manages scaling. It is the ReplicaSet that adds, updates, and deletes pods.</p>
+<p>A <em>deployment</em> is much like a managed cluster of VMs, it is a controller object that manages a set of identical pods all running the same application with the same dependencies. They are a great choice for long-lived software components, e.g. webservers, especially when they are to be managed as a group.</p>
+<p>Pods are managed through their deployment and the deployment specifies the replicas. Change the number of replicas and you alter the number of pods.</p>
+<p>As a deployment is a Kubernetes-managed service you use the “kubectl” command, e.g.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl get deployments
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title">Config File</p>
+<p>Running the following command will set up the kubeconfig file on the named cluster:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud container clusters get-credentials --zone <span class="o">{</span>provide zone<span class="o">}</span> <span class="o">{</span>clusterName<span class="o">}</span>
+</pre></div>
+</div>
+<p>With the config file set up you can now grab useful data, e.g.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl get nodes
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl get pods
+</pre></div>
+</div>
+<p>For a more verbose response, use “describe”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl describe nodes
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title">Image File</p>
+<p>A container is a running instance of an image. The Container Registry stores container images. The GCP also provides pre-configured images. You may reach these from the SDK with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud container images list
+</pre></div>
+</div>
+<p>To examine the item you want use:</p>
+<blockquote>
+<div><p>gcloud container images describe {myInterestingImage}</p>
+</div></blockquote>
+</div>
+<div class="topic">
+<p class="topic-title">Namespaces</p>
+<p>To keep work organised, K8s allows for naming pods, deployments, and controllers. For example, Test, Staging, and Production.</p>
+<p>Namespaces can be used within the GCP to apply resource-consumption quotas across a cluster.</p>
+</div>
 <div class="section" id="using-k8s-on-the-gcp">
 <h3>Using K8s on the GCP<a class="headerlink" href="#using-k8s-on-the-gcp" title="Permalink to this headline">¶</a></h3>
 <p>Requirements:</p>
@@ -99,9 +276,10 @@
 <li><p>Container Registry API</p></li>
 </ol>
 <p>Verify these are active from GCP Console &gt; APIs &amp; Services</p>
+<p>Then create the credentials for your project (one-off).</p>
 </div>
-<div class="section" id="setting-up-k8s-from-the-gui">
-<h3>Setting up K8s from the GUI<a class="headerlink" href="#setting-up-k8s-from-the-gui" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="setting-up-a-k8-cluster-from-the-gui">
+<h3>Setting up a K8 Cluster from the GUI<a class="headerlink" href="#setting-up-a-k8-cluster-from-the-gui" title="Permalink to this headline">¶</a></h3>
 <p>GCP has made setting up Kubernetes (K8s) a simple procedure:</p>
 <p>Let’s make a K8 cluster on the GCP:</p>
 <div class="topic">
@@ -112,11 +290,12 @@
 </div>
 <p><strong>Done!</strong></p>
 <blockquote>
-<div><p>OR
-.. code-block:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">container</span> <span class="n">clusters</span> <span class="n">create</span> <span class="n">k1</span>
+<div><dl>
+<dt>OR</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">container</span> <span class="n">clusters</span> <span class="n">create</span> <span class="n">k1</span>
 </pre></div>
 </div>
+</dd>
+</dl>
 </div></blockquote>
 </div>
 <div class="section" id="setting-up-k8s-from-the-cli-in-cloud-shell">
@@ -153,15 +332,45 @@
 <p>The warning messages may be ignored.</p>
 </div>
 </div>
+<div class="section" id="deploying-application-pods">
+<h3>Deploying Application Pods<a class="headerlink" href="#deploying-application-pods" title="Permalink to this headline">¶</a></h3>
+<p>Now that you have a cluster you can use it to deploy an application.</p>
+<p>GCP&gt; Kubernetes Engine&gt; Create Deployment</p>
+<p>From the GUI, you have the following options:</p>
+<ul class="simple">
+<li><p>container image</p></li>
+<li><p>environment variables</p></li>
+<li><p>startup command</p></li>
+<li><p>app name</p></li>
+<li><p>labels</p></li>
+<li><p>namespace</p></li>
+<li><p>cluster to link to</p></li>
+</ul>
+</div>
+<div class="section" id="tying-it-together">
+<h3>Tying it Together<a class="headerlink" href="#tying-it-together" title="Permalink to this headline">¶</a></h3>
+<p>So, if you have a Docker image setup, a cluster ready to roll then you can start a deployment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl run <span class="o">{</span>cluster-name<span class="o">}</span> --<span class="o">{</span>image-name<span class="o">}</span> --port<span class="o">=</span><span class="m">8080</span>
+</pre></div>
+</div>
+<p>If you want to scale this deployment to 5 copies, use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl scale deployment <span class="o">{</span>cluster-name<span class="o">}</span> --replicas<span class="o">=</span><span class="m">5</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="speaking-to-k8s">
 <h2>Speaking to K8s<a class="headerlink" href="#speaking-to-k8s" title="Permalink to this headline">¶</a></h2>
 <p>With load balancing, you can go from zero instances to hero (billions). Much cheaper than keeping all those VMs running all the time.</p>
+<p>To setup autoscaling from the SDK:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud container clusters update <span class="o">{</span>clusterName<span class="o">}</span> --enable-autoscaling --min-nodes <span class="m">1</span> --max-nodes <span class="m">8</span> --zone <span class="o">{</span>yourClusterZone<span class="o">}</span> --node-pool <span class="o">{</span>poolName<span class="o">}</span>
+</pre></div>
+</div>
 <p>When you start a deployment of K8s you are setting up a group of replicas of the same pod, i.e. many instances of:
 1) setting up a pod to
 2) run your container/s</p>
 <p>A deployment may initiate a microservice or an entire application.</p>
-<p>There is a learning curve to tackle for running your K8s. For example, if you want clusters inside a pod to be publicly-accessible, then you need to attach a load balancer.</p>
+<p>There is a learning curve to tackle for running your K8s. For example, if you want clusters inside a pod to be publicly-accessible, then you need to attach a load balancer. Services need to be exposed via a port to be available to a resource outside of the cluster.</p>
 <p>example code:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  kubectl expose deployment app --type LoadBalancer <span class="se">\</span>
 --port <span class="m">80</span> --target-port <span class="m">8080</span>
@@ -216,14 +425,28 @@
 <div class="section" id="but-i-am-new-at-this">
 <h3>But, I am new at this!<a class="headerlink" href="#but-i-am-new-at-this" title="Permalink to this headline">¶</a></h3>
 <p>It helps when you are a novice to NOT have to use VIM!</p>
-<p>example code:</p>
+<p>example code to set nano as the editor:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">KUBE_EDITOR</span><span class="o">=</span><span class="s2">&quot;nano&quot;</span> kubectl edit deployment hello-node
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="kubernetes-engine-v-deployment-manager">
+<h2>Kubernetes Engine v Deployment Manager<a class="headerlink" href="#kubernetes-engine-v-deployment-manager" title="Permalink to this headline">¶</a></h2>
+<p>Deployment Manager on the GCP does exactly that - and gives you CLI to run scripts to manage deployments.</p>
+<p>E.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud deployment-manager create <span class="o">{</span>my deployment<span class="o">}</span> --config <span class="o">{</span>mydeploy-file.yaml<span class="o">}</span>
+</pre></div>
+</div>
+<p>You can view deployments using</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud deployment-manager deployments list
+</pre></div>
+</div>
+<p>So, even though the same term applies, this tool could be used to set up just 1 VM with no load balancing.</p>
+<p>It could be integrated with K8s, to use the config file to define the startup scripts and other important aspects of your VMs in a cluster.</p>
+</div>
 <div class="section" id="running-awesome-applications">
-<h2>Running awesome applications<a class="headerlink" href="#running-awesome-applications" title="Permalink to this headline">¶</a></h2>
+<h2>Running Awesome Applications<a class="headerlink" href="#running-awesome-applications" title="Permalink to this headline">¶</a></h2>
 <p>So, the reason cloud rocks is the ability to run applications in a way that your little ol’ PC can’t handle.</p>
 <p>I hope you are interested in achieving something in your cloud journey. For me, it is using R in awesome ways.</p>
 <p>That is why this is the next Kubernetes experiment for me:</p>
@@ -257,7 +480,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#containerization">Containerization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#learning-to-love-k8s">Learning to love K8s</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#speaking-to-k8s">Speaking to K8s</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-awesome-applications">Running awesome applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kubernetes-engine-v-deployment-manager">Kubernetes Engine v Deployment Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-awesome-applications">Running Awesome Applications</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
@@ -271,7 +495,7 @@
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
 </ul>
 
 <div class="relations">

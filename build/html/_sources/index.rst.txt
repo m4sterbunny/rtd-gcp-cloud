@@ -12,6 +12,8 @@ Welcome to an Eclectic set of GCP Notes
 
    pages/api.rst
    pages/accounts-billing.rst
+   pages/app-engine.rst
+   pages/cloud-functions.rst
    pages/cloud-shell.rst
    pages/kubernetes.rst
    pages/load-balancing.rst

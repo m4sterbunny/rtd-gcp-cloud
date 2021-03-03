@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>GCP Database Options &#8212; Cloud Notes 0.1 documentation</title>
+    <title>GCP Data Services &#8212; Cloud Notes 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -31,8 +31,10 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="gcp-database-options">
-<h1>GCP Database Options<a class="headerlink" href="#gcp-database-options" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="gcp-data-services">
+<h1>GCP Data Services<a class="headerlink" href="#gcp-data-services" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="gcp-database-options">
+<h2>GCP Database Options<a class="headerlink" href="#gcp-database-options" title="Permalink to this headline">¶</a></h2>
 <p>The GCP provides 6 different database options that fit into 4 categories:</p>
 <blockquote>
 <div><ul class="simple">
@@ -46,27 +48,35 @@
 <p>The Object storage option, for data such as images or other “blobs” is handled by Cloud Storage.</p>
 <p>The “Warehouse” storage option is infact a relational database, with data accessed using SQL. The reason it sits in its own category is that it is specifically set up to manage huge loads such as those created with data streaming, analytics, and reporting.</p>
 <div class="section" id="storage-retrival">
-<h2>Storage &amp; Retrival<a class="headerlink" href="#storage-retrival" title="Permalink to this headline">¶</a></h2>
+<h3>Storage &amp; Retrival<a class="headerlink" href="#storage-retrival" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="bigtable">
-<h3>BigTable<a class="headerlink" href="#bigtable" title="Permalink to this headline">¶</a></h3>
-<p><strong>NoSQL</strong> Fully-managed NoSQL (think little structure!) database</p>
-<p><strong>Analytical data</strong>
-<strong>Handles heavy read/write</strong></p>
-<p><strong>Security</strong> As with cloud storage, data is encrypted in transit and access controlled with IAM. Think G-mail!</p>
-<p><strong>Capacity</strong> Petabybes+</p>
-<p><strong>Unit size</strong> 10 + MB</p>
+<h4>BigTable<a class="headerlink" href="#bigtable" title="Permalink to this headline">¶</a></h4>
+<p>Cloud Bigtable can be considered as a persistent hashtable, i.e. each item in the database can be sparsely populated, and is looked up with a single key.</p>
+<p>A use case would be storing large volumes of streamed sensor data from IoT devices.</p>
+<ul class="simple">
+<li><p><strong>NoSQL</strong> Fully-managed NoSQL (think little structure/no schema!) database</p></li>
+<li><p><strong>Analytical data</strong></p></li>
+<li><p><strong>Handles heavy read/write</strong></p></li>
+<li><p><strong>Security</strong> As with cloud storage, data is encrypted in transit and access controlled with IAM. Think G-mail!</p></li>
+<li><p><strong>Capacity</strong> Petabybes+</p></li>
+<li><p><strong>Unit size</strong> 10 + MB</p></li>
+<li><p><strong>Highly scalable</strong></p></li>
+</ul>
 </div>
 <div class="section" id="cloud-datastore">
-<h3>Cloud Datastore<a class="headerlink" href="#cloud-datastore" title="Permalink to this headline">¶</a></h3>
-<p>e.g., stores structured data for App engine applications.</p>
-<p><strong>NoSQL</strong> Fully-managed NoSQL (with SQL-like queries)
-<strong>Handles transactions</strong>
-<strong>Unit size</strong> 1MB
-<strong>Handles sharding and replication</strong>
-<strong>Free daily quota</strong></p>
+<h4>Cloud Datastore<a class="headerlink" href="#cloud-datastore" title="Permalink to this headline">¶</a></h4>
+<p>Use case, is storing structured data for App Engine and Compute Engine applications, e.g. a small app whose application’s data storage could be free.</p>
+<ul class="simple">
+<li><p><strong>NoSQL</strong> Fully-managed NoSQL (with SQL-like queries)</p></li>
+<li><p><strong>Handles transactions</strong></p></li>
+<li><p><strong>Unit size</strong> 1MB</p></li>
+<li><p><strong>Handles sharding and replication</strong></p></li>
+<li><p><strong>Highly scalable</strong></p></li>
+<li><p><strong>Free daily quota</strong></p></li>
+</ul>
 </div>
 <div class="section" id="cloud-storage">
-<h3>Cloud Storage<a class="headerlink" href="#cloud-storage" title="Permalink to this headline">¶</a></h3>
+<h4>Cloud Storage<a class="headerlink" href="#cloud-storage" title="Permalink to this headline">¶</a></h4>
 <p>Think movies or large images. Immutable large stuff. Binary or object data.</p>
 <p><strong>Blob Store</strong>
 <strong>Capacity</strong> Petabybes+
@@ -74,25 +84,77 @@
 </div>
 </div>
 <div class="section" id="searchable">
-<h2>Searchable<a class="headerlink" href="#searchable" title="Permalink to this headline">¶</a></h2>
+<h3>Searchable<a class="headerlink" href="#searchable" title="Permalink to this headline">¶</a></h3>
 <p>All the following have database schemas, i.e., they are relational SQL databases.</p>
 <div class="section" id="cloud-sql">
-<h3>Cloud SQL<a class="headerlink" href="#cloud-sql" title="Permalink to this headline">¶</a></h3>
+<h4>Cloud SQL<a class="headerlink" href="#cloud-sql" title="Permalink to this headline">¶</a></h4>
 <p>Full SQL transaction processing: think user-credential verification, customer order processing.</p>
-<p>Scales vertically and horizontally.</p>
+<p>Scales vertically and horizontally, but limited by the size of the database instance that you choose.</p>
 <p>MySQL and POSTgreSQL.</p>
 <p>Accessible by GCP and external services.</p>
 </div>
 <div class="section" id="cloud-spanner">
-<h3>Cloud Spanner<a class="headerlink" href="#cloud-spanner" title="Permalink to this headline">¶</a></h3>
-<p>Full SQL transaction processing. Large database-driven applications, think job board, ecommerce.</p>
-<p><strong>Capacity &gt;2TB</strong> Petabybes+
+<h4>Cloud Spanner<a class="headerlink" href="#cloud-spanner" title="Permalink to this headline">¶</a></h4>
+<p>Full SQL transaction processing at a global scale. Large database-driven applications, think job board, ecommerce.</p>
+<p>Cloud Spanner provides strong transactional consistency and seamless scaling.</p>
+<p><strong>Capacity &gt;2TB</strong> Petabytes+
 <strong>Horizonal scalability</strong></p>
 </div>
-<div class="section" id="bigquery">
-<h3>BigQuery<a class="headerlink" href="#bigquery" title="Permalink to this headline">¶</a></h3>
-<p>Umm Storage? Processing? Processing? Aces heavy read/write.</p>
 </div>
+</div>
+<div class="section" id="gcp-big-data-services">
+<h2>GCP Big Data Services<a class="headerlink" href="#gcp-big-data-services" title="Permalink to this headline">¶</a></h2>
+<p>The GCP provides 5 data handling tools:</p>
+<ul class="simple">
+<li><p>Cloud Dataproc</p></li>
+<li><p>Cloud Dataflow</p></li>
+<li><p>BigQuery</p></li>
+<li><p>Cloud Pub/Sun</p></li>
+<li><p>Cloud Datalab</p></li>
+</ul>
+<p>Big Query is a good choice for data analytics warehousing. It supports fast SQL queries against large datasets. Aces heavy on read/write, able to stream data at 100,000 rows per second.</p>
+<ul class="simple">
+<li><p>Analytics data warehouse</p></li>
+<li><p>supports SQL</p></li>
+<li><p>load or stream data in</p></li>
+<li><p>free monthly quota</p></li>
+<li><p>data can be held regionally for local compliance</p></li>
+<li><p>People you share data with pay for their own queries</p></li>
+</ul>
+<p>Managed Hadoop, MapReduce, Spark, Pig, and Hive service.</p>
+<ul class="simple">
+<li><p>By-second billing</p></li>
+<li><p>Can take advantage of preemtible VMs</p></li>
+</ul>
+<p>Use cases include fraud detection, point of sale segmentation analyses, personalization experiences.</p>
+<ul class="simple">
+<li><p>Streak and batch processing for unified and simplified pipelines</p></li>
+<li><p>For data of unpredictable size and rate</p></li>
+<li><p>ETL</p></li>
+<li><p>Orchestration tasks</p></li>
+<li><p>Each step in the pipeline is elastically scaled (i.e. all resources are by demand)</p></li>
+</ul>
+<p>Flexible, scalable enterprise messaging. Operates in a decoupled way. A use case is email or IOT data analyses as the data streams.</p>
+<ul class="simple">
+<li><p>Supports many-to-many asynchronous messaging</p></li>
+<li><p>Offline support</p></li>
+<li><p>“at least once delivery”</p></li>
+<li><p>1 million+ messages per second</p></li>
+<li><p>pairs well with Dataflow</p></li>
+<li><p>push OR pull messages</p></li>
+</ul>
+<p>Data exploration in Python.</p>
+<ul class="simple">
+<li><p>Notebooks and comments supported e.g. Jupyter Notebook</p></li>
+</ul>
+<p>The ML platform is used for:
++ content personalisation
++ fraud detection
++ sentiment analyses</p>
+<p>TensorFlow is an opensource software library. It links with dedicated hardware for large workloads.</p>
+<p>CloudVision API classifies images by category, it can provide the metadata on your image catalog, filter offensive material, or provide sentiment analysis.</p>
+<p>Cloud Natural Language API recognises 80+languages. It can transcribe audio into text.</p>
+<p>Cloud Video Intelligence API identifies nouns in video content to make it searcable.</p>
 </div>
 </div>
 
@@ -130,9 +192,9 @@
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">GCP Database Options</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#storage-retrival">Storage &amp; Retrival</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#searchable">Searchable</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GCP Data Services</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gcp-database-options">GCP Database Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gcp-big-data-services">GCP Big Data Services</a></li>
 </ul>
 </li>
 </ul>

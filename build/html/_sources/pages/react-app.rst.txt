@@ -6,6 +6,8 @@
 Set Up a Ubuntu Environment on GCP
 ==================================
 
+WORK IN PROGRESS
+
 1. Ubuntu VM Setup
 -------------------
 

@@ -14,8 +14,6 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Cloud Shell" href="cloud-shell.html" />
-    <link rel="prev" title="A World of API" href="api.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -50,13 +48,12 @@
 <p class="topic-title">Principles to Secure By</p>
 <p>InfoSec and data-management best practice dictate: <em>only assign access to those that **must*</em> have it*.</p>
 <p>OR - <em>the principle of least privilege</em></p>
-<p>PoLP is vital because of the heirachial nature of policy inheritance. Say you give a user Owner permissions at the project level, you CAN NOT restrict them to View permission by applying a more restrictive policy directly to a particular resource.</p>
 </div>
 <p>Constraints are restrictions on services. By constraining roles, the GCP determines, using lists or a boolean switch, who can do what - where.</p>
 <p>The GCP applies the following resource hierarchy:
-+ Organisation (optional)
-+ Folder (only exists within an organisation)
-+ Project (required) linked with Project ID a uid</p>
++ Organisation
++ Folder
++ Project</p>
 <p>Google offers Identity as a Service (IDaaS). By using a Google identity through G Suite, you can create an organisation in your GCP hierarchy. If your company does not use G Suite, you can use Cloud Identity, Google’s other IDaaS offering.</p>
 <div class="topic">
 <p class="topic-title">Go to:</p>
@@ -141,7 +138,6 @@ cannot be disabled or overridden by objects lower in the hierarchy, an effective
 <li><p>pre-defined</p></li>
 <li><p>custom</p></li>
 </ul>
-<p>Primitive roles affect all resources in a GCP project whereas predefined roles apply to a particular service in a project.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>DRY</p>
@@ -187,29 +183,6 @@ Which grants read-only access to applications.
 <p>A service account can be created and then given access permissions. Because they are linked to a what, such as a VM, they may be considered a resources. On the other hand they may be as abstracted as providing a user access to a database via a service account that is associated with an app - in this instance it is behaving like a resource.</p>
 <p>You may create up to 100 user-defined service accounts.</p>
 <p>Service accounts are often created in the background. For example, if you create an App Engine app, then it is assigned a service account to control what it has access to. This service account will be assigned the editor roles for the project in which it is active.</p>
-<p>As with the other functions, cloud shell supports CLI control of service accounts:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud iam service-accounts create test-service-account2 --display-name <span class="s2">&quot;test-service-account2&quot;</span>
-</pre></div>
-</div>
-<p>Of course, a service account is not much use unless it has permission to do something at least!</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<p>gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT –member serviceAccount:test-service-account2&#64;${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com –role roles/viewer</p>
-<p>A service account can be provided with keys for authentication when it is set up.</p>
-<p>In this example a JSON key {credentials.json} was generated and uploaded into the Cloud Shell environment.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud auth activate-service-account --key-file credentials.json
-</pre></div>
-</div>
-<p>Applies the key and authenticates the account.</p>
-<p>OR you could apply an open policy, such as allowing all users to see website content:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil iam ch allUsers:objectViewer gs://<span class="nv">$MY_BUCKET_NAME_1</span>
-</pre></div>
-</div>
-<p>Service accounts provide multiple functions, such as:
-- enabling authentication between different components of GCP’s services
-- Providing users with service account permissions
-- Restricting what actions a resource (e.g. a VM) can do</p>
 </div>
 <div class="section" id="billing-accounts">
 <h2>Billing Accounts<a class="headerlink" href="#billing-accounts" title="Permalink to this headline">¶</a></h2>
@@ -296,18 +269,8 @@ Which grants read-only access to applications.
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Accounts &amp; Billing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#gcp-resource-hierarchy">GCP Resource Hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#organisation-policies">Organisation Policies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#roles">Roles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#primitive-role-descriptions">Primitive Role Descriptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#service-accounts">Service Accounts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#billing-accounts">Billing Accounts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#alerts">Alerts</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
@@ -321,15 +284,13 @@ Which grants read-only access to applications.
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="api.html" title="previous chapter">A World of API</a></li>
-      <li>Next: <a href="cloud-shell.html" title="next chapter">Cloud Shell</a></li>
   </ul></li>
 </ul>
 </div>
@@ -363,7 +324,7 @@ Which grants read-only access to applications.
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../_sources/pages/accounts-billing.rst.txt"
+      <a href="../_sources/pages/accountsbilling.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

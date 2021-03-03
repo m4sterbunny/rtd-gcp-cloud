@@ -34,6 +34,89 @@
             
   <div class="section" id="storage">
 <h1>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h1>
+<p>Multiple Storage Options, which to use is determine by your requirements, such as:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Data Model</dt><dd><ul>
+<li><p>Do you need a SQL pipeline?</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Time To Access?</dt><dd><ul>
+<li><p>Nanoseconds</p></li>
+<li><p>Microseconds</p></li>
+<li><p>Miliseconds</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Options include:</p>
+<ul class="simple">
+<li><p>Persistant disks for VMs</p></li>
+<li><p>Object storage</p></li>
+<li><dl class="simple">
+<dt>Memorystore</dt><dd><p>Redis cache service for caching</p>
+</dd>
+</dl>
+</li>
+<li><p>Archival storage</p></li>
+</ul>
+<div class="section" id="cache">
+<h2>Cache<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h2>
+<p>While cache is an in-memory store with high-speed access it can’t be considered storage as suck, because it does not persist if the machine is shut down.</p>
+</div>
+<div class="section" id="memorystore">
+<h2>Memorystore<a class="headerlink" href="#memorystore" title="Permalink to this headline">¶</a></h2>
+<p>This managed Redis service provides a larger cache which may be configured for high-availability. Memorystore integrates with:</p>
+<ul class="simple">
+<li><p>Compute Engine</p></li>
+<li><p>App Engine</p></li>
+<li><p>Kubernetes Engine</p></li>
+</ul>
+<p>As with all GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default netwok and its IP range may be defined or labels added.</p>
+</div>
+<div class="section" id="persistant-disks">
+<h2>Persistant Disks<a class="headerlink" href="#persistant-disks" title="Permalink to this headline">¶</a></h2>
+<p>Persistant storage can be associated with your VMs in Compute Engine and Kubernetes Engine.</p>
+<p>As block storage, such disks can support file systems. The drive is virtual and accessible via your VM. Local SSD (solid state, i.e. high-performace, low latency) drives are an option, but these do not persist through shutdown of the VM.</p>
+<p>SSDs are ideal for high-performance, whether with random access or sequential access patterns. They are more expensive than the longer latency, spinning hard disk drive (HDD).</p>
+<p>HDDs can be a better option for storing large amounts of data and undertaking batch processing.</p>
+<p>Compare:</p>
+<p>NB Read/Write rates are measured per second per GB:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 18%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Drive</p></th>
+<th class="head"><p>Read</p></th>
+<th class="head"><p>Write</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SSD</p></td>
+<td><p>local ~300</p></td>
+<td><p>local ~300</p></td>
+<td><p>network attached factor 10 smaller</p></td>
+</tr>
+<tr class="row-odd"><td><p>HDD</p></td>
+<td><p>0.75</p></td>
+<td><p>1.5</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="object-storage">
+<h2>Object Storage<a class="headerlink" href="#object-storage" title="Permalink to this headline">¶</a></h2>
+<p>Cloud Bucket provides simple object storage.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil mb -l <span class="o">[</span>location<span class="o">]</span>
 </pre></div>
 </div>
@@ -41,7 +124,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil mb -l US <span class="o">[</span>projectID-name<span class="o">]</span>
 </pre></div>
 </div>
-<p>Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangable). If you want to edit an image object, for example, you can grab it, edit it, and put it back into storage again - BUT the original will be there unchanged and you will generate a new URL.</p>
+<p>Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangable). If you want to edit an image object, for example, you can grab it, edit it, and put it back into storage again - XX BUT the original will be there unchanged and you will generate a new URL.</p>
 <p>GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT or PATCH.</p>
 <div class="topic">
 <p class="topic-title">Security</p>
@@ -62,8 +145,8 @@
 <p>If you don’t turn on versioning then a new file will always overwrite old with no recourse.</p>
 </div>
 <div class="section" id="buckets">
-<h2>Buckets<a class="headerlink" href="#buckets" title="Permalink to this headline">¶</a></h2>
-<p>As with the rest of GCP location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point.</p>
+<h3>Buckets<a class="headerlink" href="#buckets" title="Permalink to this headline">¶</a></h3>
+<p>As with the rest of GCP, location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point.</p>
 <div class="topic">
 <p class="topic-title">Setup a bucket from the console</p>
 <p>GCP&gt; Storage&gt; Browser</p>
@@ -92,12 +175,34 @@
 </div>
 <p>NB If your filename has whitespaces, place single quotes around the filename. For example, gsutil cp ‘uploaded file.txt’ gs://[BUCKET_NAME]</p>
 </div>
+<p>It is just as simply to copy data from one bucket to another, e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil cp gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg gs://<span class="nv">$MY_BUCKET_NAME_2</span>/image.jpg
+</pre></div>
+</div>
+<p>If you need to verify who has access to a file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil acl get gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg  &gt; acl.txt
+
+cat acl.txt
+</pre></div>
+</div>
+<p>To change who has access use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil acl <span class="nb">set</span> private
+gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
+</pre></div>
+</div>
+<p>A publically-hosted piece of content would requre my more open access, e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil iam ch allUsers:objectViewer gs://<span class="nv">$MY_BUCKET_NAME_1</span>
+</pre></div>
+</div>
+<p>From the Storage options in the GCP, you will be able to pickup the publically-available URL for this item.</p>
 </div>
 <div class="section" id="storage-classes">
-<h2>Storage Classes<a class="headerlink" href="#storage-classes" title="Permalink to this headline">¶</a></h2>
+<h3>Storage Classes<a class="headerlink" href="#storage-classes" title="Permalink to this headline">¶</a></h3>
 <p>Multi-regional and regional storage are for buckets that are accessed frequently. The cost drops as you enter the long-term storage options.</p>
+</div>
+</div>
 <div class="section" id="gcp-storage-options">
-<h3>GCP Storage Options<a class="headerlink" href="#gcp-storage-options" title="Permalink to this headline">¶</a></h3>
+<h2>GCP Storage Options<a class="headerlink" href="#gcp-storage-options" title="Permalink to this headline">¶</a></h2>
 <p>The various Cloud Storage options:</p>
 <blockquote>
 <div><ul class="simple">
@@ -110,12 +215,11 @@
 <p>Multi-regional is intended for use with data accessed frequently, with regional being the same - with the expectation that this occurs from a particular region.</p>
 <p>Nearline is for data that is accessed less than one per month, while Coldline is for data accessed less than annually.</p>
 <p>Charges are applied per GB of data stored per month, varying according to the type. Accessing of data is also charged.</p>
-</div>
-</div>
 <div class="section" id="moving-data">
-<h2>Moving Data<a class="headerlink" href="#moving-data" title="Permalink to this headline">¶</a></h2>
+<h3>Moving Data<a class="headerlink" href="#moving-data" title="Permalink to this headline">¶</a></h3>
 <p>The <cite>gsutil</cite> command is all well and good if you have small requirements that can be handled by your bandwith via the Chrome browser. If you want to schedule batch transfers there is an HTTPS endpoint service that can connect to an upload facility. Up to a pedabyte of data may be transferred this way. Or, you can post your data on a drive (!).</p>
 <p>It gets fancy, BigQuery and App Engine can both submit data to cloud storage.</p>
+</div>
 </div>
 </div>
 
@@ -140,6 +244,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app-engine.html">App Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-functions.html">Cloud Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
@@ -149,16 +255,18 @@
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Storage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#buckets">Buckets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#storage-classes">Storage Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#moving-data">Moving Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cache">Cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#memorystore">Memorystore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#persistant-disks">Persistant Disks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#object-storage">Object Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gcp-storage-options">GCP Storage Options</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
 </ul>
 
 <div class="relations">

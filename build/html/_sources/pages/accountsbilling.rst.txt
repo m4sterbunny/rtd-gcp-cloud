@@ -26,15 +26,12 @@ GCP Resource Hierarchy
 
 	OR - *the principle of least privilege*
 
-	PoLP is vital because of the heirachial nature of policy inheritance. Say you give a user Owner permissions at the project level, you CAN NOT restrict them to View permission by applying a more restrictive policy directly to a particular resource.
-
-
 Constraints are restrictions on services. By constraining roles, the GCP determines, using lists or a boolean switch, who can do what - where.
 
 The GCP applies the following resource hierarchy: 
-+ Organisation (optional)
-+ Folder (only exists within an organisation)
-+ Project (required) linked with Project ID a uid
++ Organisation
++ Folder
++ Project
 
 Google offers Identity as a Service (IDaaS). By using a Google identity through G Suite, you can create an organisation in your GCP hierarchy. If your company does not use G Suite, you can use Cloud Identity, Google’s other IDaaS offering.
 
@@ -144,7 +141,6 @@ Roles may be
 + pre-defined
 + custom
 
-Primitive roles affect all resources in a GCP project whereas predefined roles apply to a particular service in a project.
 
 .. warning:: DRY
 	
@@ -217,39 +213,6 @@ You may create up to 100 user-defined service accounts.
 
 Service accounts are often created in the background. For example, if you create an App Engine app, then it is assigned a service account to control what it has access to. This service account will be assigned the editor roles for the project in which it is active.
 
-
-As with the other functions, cloud shell supports CLI control of service accounts:
-
-.. code-block:: bash
-
-	gcloud iam service-accounts create test-service-account2 --display-name "test-service-account2"
-
-Of course, a service account is not much use unless it has permission to do something at least! 
-
-.. code-block:: bash
-
-gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member serviceAccount:test-service-account2@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com --role roles/viewer
-
-A service account can be provided with keys for authentication when it is set up.
-
-In this example a JSON key {credentials.json} was generated and uploaded into the Cloud Shell environment.
-
-.. code-block:: bash
-
-	gcloud auth activate-service-account --key-file credentials.json
-
-Applies the key and authenticates the account.
-
-OR you could apply an open policy, such as allowing all users to see website content:
-
-.. code-block:: bash
-
-	gsutil iam ch allUsers:objectViewer gs://$MY_BUCKET_NAME_1
-
-Service accounts provide multiple functions, such as:
-- enabling authentication between different components of GCP's services
-- Providing users with service account permissions
-- Restricting what actions a resource (e.g. a VM) can do
 
 Billing Accounts
 =================
