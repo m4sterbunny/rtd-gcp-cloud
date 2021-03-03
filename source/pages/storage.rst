@@ -10,11 +10,11 @@ Multiple Storage Options, which to use is determine by your requirements, such a
 + Time To Access?
 	+ Nanoseconds
 	+ Microseconds
-	+ Miliseconds
+	+ Milliseconds
 
 Options include:
 
-+ Persistant disks for VMs
++ Persistent disks for VMs
 + Object storage
 + Memorystore
 	Redis cache service for caching
@@ -24,6 +24,8 @@ Cache
 -----
 
 While cache is an in-memory store with high-speed access it can't be considered storage as suck, because it does not persist if the machine is shut down.
+
+It is possible to save cache contents to a persistent storage solution at intervals, but the recovery point would not be the same as the shutdown point.
 
 
 Memorystore
@@ -35,14 +37,14 @@ This managed Redis service provides a larger cache which may be configured for h
 + App Engine
 + Kubernetes Engine
 
-As with all GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default netwok and its IP range may be defined or labels added.
+As with most GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default network and its IP range may be defined or labels added.
 
-Persistant Disks
+Persistent Disks
 ----------------
 
-Persistant storage can be associated with your VMs in Compute Engine and Kubernetes Engine.
+Persistent storage can be associated with your VMs in Compute Engine and Kubernetes Engine. Capacity of up to 64TB. Data is encrypted at rest. Zonal storage or regional storage is available. If zonal is chosen, the data is stored across multiple physical drives. If regional storage is selected, then the date is replicated across zones providing redundancy.
 
-As block storage, such disks can support file systems. The drive is virtual and accessible via your VM. Local SSD (solid state, i.e. high-performace, low latency) drives are an option, but these do not persist through shutdown of the VM.
+As block storage, such disks can support file systems. The drive is virtual and accessible via your VM. Local SSD (solid state, i.e. high-performance, low latency) drives are an option, but these do not persist through shutdown of the VM.
 
 SSDs are ideal for high-performance, whether with random access or sequential access patterns. They are more expensive than the longer latency, spinning hard disk drive (HDD). 
 
@@ -60,11 +62,14 @@ NB Read/Write rates are measured per second per GB:
 | HDD        | 0.75       | 1.5         |                                     |
 +------------+------------+-------------+-------------------------------------+
 
+Snapshots of disks can be created as data backups. Once a snapshot disk has been mounted to a new machine, it act like a normal disk, i.e. supports read and write access.
 
 Object Storage
 ---------------
 
-Cloud Bucket provides simple object storage.
+Cloud Bucket provides simple object storage  for exabyte-volumes of data, or data that needs to be shared widely. No data structures is required, each item is -- an "object". Buckets share a global namespace and, therefore, bucket name must be unique. Using project id as part of the name is a simple method to find a unique key.
+
+The gsutil commands make buckets, like so:
 
 .. code-block:: bash
 
@@ -76,11 +81,17 @@ For example:
 
 	gsutil mb -l US [projectID-name]
 
+Cloud Storage Fuse
+------------------
 
+There is no file system or folder system with buckets, each object sits at the same level. To create a file structure, Cloud Storage Fuse can be used on Linux O.S. to mount a bucket. This allows file structure to be created from the point of view of the VM/s that possess these mount instructions.
 
-Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangable). If you want to edit an image object, for example, you can grab it, edit it, and put it back into storage again - XX BUT the original will be there unchanged and you will generate a new URL.
+Unique URL
+----------
 
-GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT or PATCH.
+Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangeable). If you want to edit an image object, for example, you can overwrite the image held in that bucket, with no impact on the URL.
+
+GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT or PATCH. No fragment of a bucket may be updated, it is all or nothing.
 
 .. topic:: Security
 
@@ -101,11 +112,39 @@ GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT
 
 	If you don't turn on versioning then a new file will always overwrite old with no recourse.
 
+.. topic:: Lifecycle Policies
 
-Buckets
-========
+	A set of rules can be applied to buckets. For example, once a bucket reaches a specified age it can be moved to Nearline or Coldline storage. 
 
-As with the rest of GCP, location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point.
+	Multiregional & regional objects can > Nearline or Coldline
+	Nearline can > Coldline
+
+
+Storage Classes
+================
+
+As with the rest of GCP, location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point. OR for global access, chose multiregional. Multi-regional and regional storage are for buckets that are accessed frequently. The cost drops as you enter the long-term storage options.
+
+GCP Storage Options
+-------------------
+
+The various Cloud Storage options:
+
+	+ Multi-regional
+	+ Regional
+	+ Nearline
+		30-day minimum storage
+		for data that is accessed less than one per month
+	+ Coldline
+		90-day minimum storage
+		for data accessed less than annually
+
+Multi-regional is intended for use with data accessed frequently, with regional being the same - with the expectation that this occurs from a particular region.
+
+Charges are applied per GB of data stored per month, varying according to the type. Accessing of data is also charged.
+
+Have a Go
+---------
 
 
 .. topic:: Setup a bucket from the console
@@ -163,7 +202,7 @@ To change who has access use:
 	gsutil acl set private
 	gs://$MY_BUCKET_NAME_1/image.jpg
 
-A publically-hosted piece of content would requre my more open access, e.g.:
+A publicly-hosted piece of content would require my more open access, e.g.:
 
 .. code-block:: bash
 
@@ -171,27 +210,6 @@ A publically-hosted piece of content would requre my more open access, e.g.:
 
 From the Storage options in the GCP, you will be able to pickup the publically-available URL for this item.
 
-
-Storage Classes
-================
-
-Multi-regional and regional storage are for buckets that are accessed frequently. The cost drops as you enter the long-term storage options.
-
-GCP Storage Options
--------------------
-
-The various Cloud Storage options:
-
-	+ Multi-regional
-	+ Regional
-	+ Nearline
-	+ Coldline
-
-Multi-regional is intended for use with data accessed frequently, with regional being the same - with the expectation that this occurs from a particular region.
-
-Nearline is for data that is accessed less than one per month, while Coldline is for data accessed less than annually.
-
-Charges are applied per GB of data stored per month, varying according to the type. Accessing of data is also charged.
 
 Moving Data
 ===========

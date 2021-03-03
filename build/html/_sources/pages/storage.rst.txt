@@ -35,12 +35,12 @@ This managed Redis service provides a larger cache which may be configured for h
 + App Engine
 + Kubernetes Engine
 
-As with all GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default netwok and its IP range may be defined or labels added.
+As with most GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default netwok and its IP range may be defined or labels added.
 
 Persistant Disks
 ----------------
 
-Persistant storage can be associated with your VMs in Compute Engine and Kubernetes Engine.
+Persistant storage can be associated with your VMs in Compute Engine and Kubernetes Engine. Capacity of up to 64TB. Data is encrypted at rest. Zonal storage or regional storage is available. If zonal is chosen, the data is stored across multiple physical drives. If regional storage is selected, then the date is replicated across zones providing redundancy.
 
 As block storage, such disks can support file systems. The drive is virtual and accessible via your VM. Local SSD (solid state, i.e. high-performace, low latency) drives are an option, but these do not persist through shutdown of the VM.
 
@@ -60,11 +60,14 @@ NB Read/Write rates are measured per second per GB:
 | HDD        | 0.75       | 1.5         |                                     |
 +------------+------------+-------------+-------------------------------------+
 
+Snapshots of disks can be created as data backups. Once a snapshot disk has been mounted to a new machine, it act like a normal disk, i.e. supports read and write access.
 
 Object Storage
 ---------------
 
-Cloud Bucket provides simple object storage.
+Cloud Bucket provides simple object storage  for exabyte-volumes of data, or data that needs to be shared widely. No data structures is required, each item is -- an "object". Buckets share a global namespace and, therefore, bucket name must be unique. Using project id as part of the name is a simple method to find a unique key.
+
+The gsutil commands make buckets, like so:
 
 .. code-block:: bash
 
@@ -76,11 +79,17 @@ For example:
 
 	gsutil mb -l US [projectID-name]
 
+Cloud Storage Fuse
+------------------
 
+There is no file system or folder system with buckets, each object sits at the same level. To create a file structure, Cloud Storage Fuse can be used on Linuz O.S. to mount a bucket. This allows file structure to be created from the point of view of the VM/s that possess these mount instructions.
 
-Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangable). If you want to edit an image object, for example, you can grab it, edit it, and put it back into storage again - XX BUT the original will be there unchanged and you will generate a new URL.
+Unique URL
+----------
 
-GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT or PATCH.
+Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangable). If you want to edit an image object, for example, you can overwite the image held in that bucket, with no impact on the URL.
+
+GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT or PATCH. No fragment of a bucket may be updated, it is all or nothing.
 
 .. topic:: Security
 
@@ -102,10 +111,32 @@ GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT
 	If you don't turn on versioning then a new file will always overwrite old with no recourse.
 
 
-Buckets
-========
 
-As with the rest of GCP, location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point.
+Storage Classes
+================
+
+As with the rest of GCP, location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point. OR for global access, chose multiregional. Multi-regional and regional storage are for buckets that are accessed frequently. The cost drops as you enter the long-term storage options.
+
+GCP Storage Options
+-------------------
+
+The various Cloud Storage options:
+
+	+ Multi-regional
+	+ Regional
+	+ Nearline
+		30-day minimum storage
+	+ Coldline
+		90-day minimum storage
+
+Multi-regional is intended for use with data accessed frequently, with regional being the same - with the expectation that this occurs from a particular region.
+
+Nearline is for data that is accessed less than one per month, while Coldline is for data accessed less than annually.
+
+Charges are applied per GB of data stored per month, varying according to the type. Accessing of data is also charged.
+
+Have a Go
+---------
 
 
 .. topic:: Setup a bucket from the console
@@ -171,27 +202,6 @@ A publically-hosted piece of content would requre my more open access, e.g.:
 
 From the Storage options in the GCP, you will be able to pickup the publically-available URL for this item.
 
-
-Storage Classes
-================
-
-Multi-regional and regional storage are for buckets that are accessed frequently. The cost drops as you enter the long-term storage options.
-
-GCP Storage Options
--------------------
-
-The various Cloud Storage options:
-
-	+ Multi-regional
-	+ Regional
-	+ Nearline
-	+ Coldline
-
-Multi-regional is intended for use with data accessed frequently, with regional being the same - with the expectation that this occurs from a particular region.
-
-Nearline is for data that is accessed less than one per month, while Coldline is for data accessed less than annually.
-
-Charges are applied per GB of data stored per month, varying according to the type. Accessing of data is also charged.
 
 Moving Data
 ===========
