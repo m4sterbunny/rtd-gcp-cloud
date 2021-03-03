@@ -69,7 +69,7 @@ Indices and tables
    :description lang=en: An eclectic collection of snippets of information useful to a wanna be Google Cloud Engineer.
 
 =================================
-The Google Clound Engineer Exam
+The Google Cloud Engineer Exam
 =================================
 
 
@@ -110,7 +110,7 @@ The ACE exam certifies that you are able to build, deploy, and manage the cloud 
     + Virtual Machines (VMs)
     + Kubernetes
 
-  Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by kubernetes cluster (GKE) abstracting away much of the admin required in managing a kubernetes cluster. 
+  Computing resources may be allocated as individual VMs or clusters of VMs that you manage. Clusters may be managed by Kubernetes cluster (GKE) abstracting away much of the admin required in managing a Kubernetes cluster. 
 
   Kubernetes is just one of the serverless computing options offered by GC. GC is geared toward supporting microservices, that is code run in a containerized environment managed by the cloud provider or in a compute platform designed for short-running code.
 
@@ -158,17 +158,17 @@ GCP Resources Overview
 
         + Big Query
         + Cloud Bigtable
-        + Cloud Datastore
+        + Cloud Datastore / Firestore
         + Cloud Spanner
         + Cloud SQL
         + Cloud Storage
 
+.. can I comment out with tabs?
+  New To This?
+  ------------
 
-New To This?
-------------
+  For anyone new to GCP who wants to make a start, check out:
 
-For anyone new to GCP who wants to make a start, check out:
+  pages/react-app.rst
 
-pages/react-app.rst
-
-as a great first activity. 
+  as a great first activity. 
