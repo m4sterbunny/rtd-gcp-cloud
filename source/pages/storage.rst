@@ -7,6 +7,8 @@ Multiple Storage Options, which to use is determine by your requirements, such a
 
 + Data Model  
 	+ Do you need a SQL pipeline?
+	+ Do you use NoSQL
+	+ Just have objects?
 + Time To Access?
 	+ Nanoseconds
 	+ Microseconds
@@ -14,11 +16,23 @@ Multiple Storage Options, which to use is determine by your requirements, such a
 
 Options include:
 
++ Cache
 + Persistent disks for VMs
 + Object storage
 + Memorystore
 	Redis cache service for caching
 + Archival storage
+
+Structured data:
+
++ `Cloud SQL <database-services.html>`_
++ `Cloud Spanner <database-services.html>`_
+
+Non Structured data:
+
++ Cloud Datastore
++ Cloud Firestore
++ Cloud Bigtable
 
 Cache
 -----
@@ -38,6 +52,7 @@ This managed Redis service provides a larger cache which may be configured for h
 + Kubernetes Engine
 
 As with most GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default network and its IP range may be defined or labels added.
+
 
 Persistent Disks
 ----------------
@@ -67,7 +82,7 @@ Snapshots of disks can be created as data backups. Once a snapshot disk has been
 Object Storage
 ---------------
 
-Cloud Bucket provides simple object storage  for exabyte-volumes of data, or data that needs to be shared widely. No data structures is required, each item is -- an "object". Buckets share a global namespace and, therefore, bucket name must be unique. Using project id as part of the name is a simple method to find a unique key.
+Cloud Bucket provides simple object storage for exabyte-volumes of data, or data that needs to be shared widely. No data structures is required, each item is -- an "object". Buckets share a global namespace and, therefore, bucket name must be unique. Using project id as part of the name is a simple method to find a unique key.
 
 The gsutil commands make buckets, like so:
 
@@ -214,6 +229,6 @@ From the Storage options in the GCP, you will be able to pickup the publically-a
 Moving Data
 ===========
 
-The `gsutil` command is all well and good if you have small requirements that can be handled by your bandwith via the Chrome browser. If you want to schedule batch transfers there is an HTTPS endpoint service that can connect to an upload facility. Up to a pedabyte of data may be transferred this way. Or, you can post your data on a drive (!).
+The `gsutil` command is all well and good if you have small requirements that can be handled by your bandwidth via the Chrome browser. If you want to schedule batch transfers there is an HTTPS endpoint service that can connect to an upload facility. Up to a pedabyte of data may be transferred this way. Or, you can post your data on a drive (!).
 
 It gets fancy, BigQuery and App Engine can both submit data to cloud storage.

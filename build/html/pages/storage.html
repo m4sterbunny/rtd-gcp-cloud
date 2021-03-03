@@ -39,6 +39,8 @@
 <li><dl class="simple">
 <dt>Data Model</dt><dd><ul>
 <li><p>Do you need a SQL pipeline?</p></li>
+<li><p>Do you use NoSQL</p></li>
+<li><p>Just have objects?</p></li>
 </ul>
 </dd>
 </dl>
@@ -47,7 +49,7 @@
 <dt>Time To Access?</dt><dd><ul>
 <li><p>Nanoseconds</p></li>
 <li><p>Microseconds</p></li>
-<li><p>Miliseconds</p></li>
+<li><p>Milliseconds</p></li>
 </ul>
 </dd>
 </dl>
@@ -55,7 +57,8 @@
 </ul>
 <p>Options include:</p>
 <ul class="simple">
-<li><p>Persistant disks for VMs</p></li>
+<li><p>Cache</p></li>
+<li><p>Persistent disks for VMs</p></li>
 <li><p>Object storage</p></li>
 <li><dl class="simple">
 <dt>Memorystore</dt><dd><p>Redis cache service for caching</p>
@@ -64,9 +67,21 @@
 </li>
 <li><p>Archival storage</p></li>
 </ul>
+<p>Structured data:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="database-services.html">Cloud SQL</a></p></li>
+<li><p><a class="reference external" href="database-services.html">Cloud Spanner</a></p></li>
+</ul>
+<p>Non Structured data:</p>
+<ul class="simple">
+<li><p>Cloud Datastore</p></li>
+<li><p>Cloud Firestore</p></li>
+<li><p>Cloud Bigtable</p></li>
+</ul>
 <div class="section" id="cache">
 <h2>Cache<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h2>
 <p>While cache is an in-memory store with high-speed access it can’t be considered storage as suck, because it does not persist if the machine is shut down.</p>
+<p>It is possible to save cache contents to a persistent storage solution at intervals, but the recovery point would not be the same as the shutdown point.</p>
 </div>
 <div class="section" id="memorystore">
 <h2>Memorystore<a class="headerlink" href="#memorystore" title="Permalink to this headline">¶</a></h2>
@@ -76,12 +91,12 @@
 <li><p>App Engine</p></li>
 <li><p>Kubernetes Engine</p></li>
 </ul>
-<p>As with most GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default netwok and its IP range may be defined or labels added.</p>
+<p>As with most GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default network and its IP range may be defined or labels added.</p>
 </div>
-<div class="section" id="persistant-disks">
-<h2>Persistant Disks<a class="headerlink" href="#persistant-disks" title="Permalink to this headline">¶</a></h2>
-<p>Persistant storage can be associated with your VMs in Compute Engine and Kubernetes Engine. Capacity of up to 64TB. Data is encrypted at rest. Zonal storage or regional storage is available. If zonal is chosen, the data is stored across multiple physical drives. If regional storage is selected, then the date is replicated across zones providing redundancy.</p>
-<p>As block storage, such disks can support file systems. The drive is virtual and accessible via your VM. Local SSD (solid state, i.e. high-performace, low latency) drives are an option, but these do not persist through shutdown of the VM.</p>
+<div class="section" id="persistent-disks">
+<h2>Persistent Disks<a class="headerlink" href="#persistent-disks" title="Permalink to this headline">¶</a></h2>
+<p>Persistent storage can be associated with your VMs in Compute Engine and Kubernetes Engine. Capacity of up to 64TB. Data is encrypted at rest. Zonal storage or regional storage is available. If zonal is chosen, the data is stored across multiple physical drives. If regional storage is selected, then the date is replicated across zones providing redundancy.</p>
+<p>As block storage, such disks can support file systems. The drive is virtual and accessible via your VM. Local SSD (solid state, i.e. high-performance, low latency) drives are an option, but these do not persist through shutdown of the VM.</p>
 <p>SSDs are ideal for high-performance, whether with random access or sequential access patterns. They are more expensive than the longer latency, spinning hard disk drive (HDD).</p>
 <p>HDDs can be a better option for storing large amounts of data and undertaking batch processing.</p>
 <p>Compare:</p>
@@ -117,7 +132,7 @@
 </div>
 <div class="section" id="object-storage">
 <h2>Object Storage<a class="headerlink" href="#object-storage" title="Permalink to this headline">¶</a></h2>
-<p>Cloud Bucket provides simple object storage  for exabyte-volumes of data, or data that needs to be shared widely. No data structures is required, each item is – an “object”. Buckets share a global namespace and, therefore, bucket name must be unique. Using project id as part of the name is a simple method to find a unique key.</p>
+<p>Cloud Bucket provides simple object storage for exabyte-volumes of data, or data that needs to be shared widely. No data structures is required, each item is – an “object”. Buckets share a global namespace and, therefore, bucket name must be unique. Using project id as part of the name is a simple method to find a unique key.</p>
 <p>The gsutil commands make buckets, like so:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil mb -l <span class="o">[</span>location<span class="o">]</span>
 </pre></div>
@@ -129,11 +144,11 @@
 </div>
 <div class="section" id="cloud-storage-fuse">
 <h2>Cloud Storage Fuse<a class="headerlink" href="#cloud-storage-fuse" title="Permalink to this headline">¶</a></h2>
-<p>There is no file system or folder system with buckets, each object sits at the same level. To create a file structure, Cloud Storage Fuse can be used on Linuz O.S. to mount a bucket. This allows file structure to be created from the point of view of the VM/s that possess these mount instructions.</p>
+<p>There is no file system or folder system with buckets, each object sits at the same level. To create a file structure, Cloud Storage Fuse can be used on Linux O.S. to mount a bucket. This allows file structure to be created from the point of view of the VM/s that possess these mount instructions.</p>
 </div>
 <div class="section" id="unique-url">
 <h2>Unique URL<a class="headerlink" href="#unique-url" title="Permalink to this headline">¶</a></h2>
-<p>Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangable). If you want to edit an image object, for example, you can overwite the image held in that bucket, with no impact on the URL.</p>
+<p>Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangeable). If you want to edit an image object, for example, you can overwrite the image held in that bucket, with no impact on the URL.</p>
 <p>GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT or PATCH. No fragment of a bucket may be updated, it is all or nothing.</p>
 <div class="topic">
 <p class="topic-title">Security</p>
@@ -153,6 +168,12 @@
 <p>A history of modifications can be kept if you turn on object versioning of your bucket/s.</p>
 <p>If you don’t turn on versioning then a new file will always overwrite old with no recourse.</p>
 </div>
+<div class="topic">
+<p class="topic-title">Lifecycle Policies</p>
+<p>A set of rules can be applied to buckets. For example, once a bucket reaches a specified age it can be moved to Nearline or Coldline storage.</p>
+<p>Multiregional &amp; regional objects can &gt; Nearline or Coldline
+Nearline can &gt; Coldline</p>
+</div>
 <div class="section" id="storage-classes">
 <h3>Storage Classes<a class="headerlink" href="#storage-classes" title="Permalink to this headline">¶</a></h3>
 <p>As with the rest of GCP, location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point. OR for global access, chose multiregional. Multi-regional and regional storage are for buckets that are accessed frequently. The cost drops as you enter the long-term storage options.</p>
@@ -166,19 +187,20 @@
 <li><p>Multi-regional</p></li>
 <li><p>Regional</p></li>
 <li><dl class="simple">
-<dt>Nearline</dt><dd><p>30-day minimum storage</p>
+<dt>Nearline</dt><dd><p>30-day minimum storage
+for data that is accessed less than one per month</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Coldline</dt><dd><p>90-day minimum storage</p>
+<dt>Coldline</dt><dd><p>90-day minimum storage
+for data accessed less than annually</p>
 </dd>
 </dl>
 </li>
 </ul>
 </div></blockquote>
 <p>Multi-regional is intended for use with data accessed frequently, with regional being the same - with the expectation that this occurs from a particular region.</p>
-<p>Nearline is for data that is accessed less than one per month, while Coldline is for data accessed less than annually.</p>
 <p>Charges are applied per GB of data stored per month, varying according to the type. Accessing of data is also charged.</p>
 </div>
 <div class="section" id="have-a-go">
@@ -226,14 +248,14 @@ cat acl.txt
 gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
 </pre></div>
 </div>
-<p>A publically-hosted piece of content would requre my more open access, e.g.:</p>
+<p>A publicly-hosted piece of content would require my more open access, e.g.:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil iam ch allUsers:objectViewer gs://<span class="nv">$MY_BUCKET_NAME_1</span>
 </pre></div>
 </div>
 <p>From the Storage options in the GCP, you will be able to pickup the publically-available URL for this item.</p>
 <div class="section" id="moving-data">
 <h3>Moving Data<a class="headerlink" href="#moving-data" title="Permalink to this headline">¶</a></h3>
-<p>The <cite>gsutil</cite> command is all well and good if you have small requirements that can be handled by your bandwith via the Chrome browser. If you want to schedule batch transfers there is an HTTPS endpoint service that can connect to an upload facility. Up to a pedabyte of data may be transferred this way. Or, you can post your data on a drive (!).</p>
+<p>The <cite>gsutil</cite> command is all well and good if you have small requirements that can be handled by your bandwidth via the Chrome browser. If you want to schedule batch transfers there is an HTTPS endpoint service that can connect to an upload facility. Up to a pedabyte of data may be transferred this way. Or, you can post your data on a drive (!).</p>
 <p>It gets fancy, BigQuery and App Engine can both submit data to cloud storage.</p>
 </div>
 </div>
@@ -273,7 +295,7 @@ gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cache">Cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#memorystore">Memorystore</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#persistant-disks">Persistant Disks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#persistent-disks">Persistent Disks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#object-storage">Object Storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-storage-fuse">Cloud Storage Fuse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#unique-url">Unique URL</a></li>

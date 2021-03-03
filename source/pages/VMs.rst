@@ -70,8 +70,6 @@ Setting one up from the console is a simple task:
 
 .. topic:: Launch GCP's `Cloud Shell <cloud-shell.html>`_
 	
-	:ref:`Cloud Shell <cloud-shell>`_
-
 	This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that *you* create.
 
 
@@ -295,4 +293,6 @@ One of the great features of the Cloud Shell environment is that you may use bas
 			
 See more about the :ref:`GCP cloud shell <Cloud Shell>`
 
-.. the above line applies the extension in conf.py to grab headers as a link reference (best practice is to use labels rather than the header itself to allow for headings to change)
+.. the above line applies the extension in conf.py to grab file names and headers as a link reference (best practice is to use labels rather than the header itself to allow for headings to change)
+
+.. this ref syntax does not do well inside topics or bullet lists

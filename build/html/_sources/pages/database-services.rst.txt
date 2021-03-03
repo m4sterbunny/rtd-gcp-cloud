@@ -98,7 +98,7 @@ The GCP provides 5 data handling tools:
 - Cloud Datalab
 
 BigQuery
-========
+---------
 
 Big Query is a good choice for data analytics warehousing. It supports fast SQL queries against large datasets. Aces heavy on read/write, able to stream data at 100,000 rows per second.
 
