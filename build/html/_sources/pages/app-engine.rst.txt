@@ -2,7 +2,7 @@
 App Engine
 ===========
 
-App Engine was introduced to run language specific environments. However, App Engine Flexible can run deployments in containers, allowing a microservice and language-independent approach to building apps. With the App Engine Flexible Environment you also have a wider range of languages available, because you can upload your own runtime to run code in a language of your choice. It also supports SSH access to the VM running the environment.
+App Engine was introduced to run language specific environments. However, App Engine Flexible can run deployments in containers, allowing a microservice and language-independent approach to building apps. With the App Engine Flexible Environment a wider range of languages is available, because you can upload your own runtime to run code in a language of your choice. It also supports SSH access to the VM running the environment.
 
 App Engine scales an application automatically in response to the amount of traffic it receives, i.e., billing can drop to zero in the standard environment. This makes App Engine especially suited for applications where the workload is highly variable, such as web apps.
 
@@ -10,12 +10,12 @@ App Engine offers services such as a NoSQL databases, in-memory caching, load ba
 
 
 App Engine has native support for languages such as:
+
 - Go
-- Python
 - Java
+- Node.js
 - PHP
-
-
+- Python
 
 .. topic:: Application
 
@@ -35,7 +35,11 @@ App Engine has native support for languages such as:
 
 	When a version executes, it creates an instance of the app.
 
+	.. code-block:: 
 
+		gcloud app versions list --hide-no-traffic
+
+	Will give details of the traffic going to different versions.
 
 App Engine from the SDK / Cloud Shell
 -------------------------------------
@@ -58,26 +62,28 @@ The files required to run your app must be uploaded into the Cloud Shell environ
 
 	gcloud app deploy app.yml
 
-(Although as the file has the default the non-verbose version is gcloud app deploy).
+(Although as the file has the default name, the non-verbose version is `gcloud app deploy`).
 
 NB this is an environment-dependent command, so you must issue it from the working folder that contains that app.yaml file.
 
 Optional parameters include:
 
-+ --version (provides a tag for version ID)
-+ --project (for admins on multiple projects)
-+ --no-promote (to override the default deploy with routing traffic)
++ version (provides a tag for version ID)
++ project (for admins on multiple projects)
++ no-promote (to override the default deploy with routing traffic)
 
 The App Engine service creates a human-readable link to the app, not just an external IP. This is provided in the output once you run the command.
 
-If you have your own domain, this URL can be updated from the GCP> App Engine >Services. The default is the project name followed by ".appspot.com".
+.. sidebar:: URL
+
+	If you have your own domain, this URL can be updated from the GCP> App Engine> Services. The default is the project name followed by ".appspot.com".
 
 App Engine Scaling
 -------------------
 
 App Engine's dynamic instances can add and remove instances according to demand. Autoscaling or dynamic scaling are controlled with key-value pairs in the app.yaml configuration file.
 
-Much like the Kubernetes Engine, deployment is a declarative strategy, you declare the conditions that you want your app to run to and the GCP attempts to match those. Setting up Autoscaling in app.yaml:
+Much like the Kubernetes Engine, deployment is a declarative strategy, you declare the conditions that you want your app to run to and the GCP attempts to match those. Set up autoscaling in app.yaml:
 
 .. code-block:: python
 
@@ -101,7 +107,7 @@ Basic scaling does not support configuring a minimum number of instances as auto
 + idle_time
 + max_instances
 
-Instances may also be configured to "manual scaling" to be permanent, thus removing any cold-start latency issues. These are known as resident instances.
+Instances may also be configured to "manual scaling" to be permanent, thus mitigating cold-start latency issues. These are known as resident instances.
 
 .. code-block:: python
 
@@ -131,11 +137,13 @@ A cookie is best to provide a consistent experience for the user, so that their 
 
 .. code-block:: bash
 
-	gcloud app services set-traffic serV1 --split V1=0.5,v2=0.5 --split-by cookie
+	gcloud app services set-traffic \
+	--splits=v2=.5,v1=.5
+	--split-by=cookie
 
 This would give you a 50:50 split.
 
-You can also retire a version and redirect its traffic elsewhere with migrate (from the console or the cli).
+You can also retire a version and redirect its traffic elsewhere with migrate (from the console or the CLI).
 
 .. code-block:: bash
 	

@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitoring &#8212; Cloud Notes 0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Storage" href="storage.html" />
+    <link rel="prev" title="Load-balancing" href="load-balancing.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="monitoring">
+<h1>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h1>
+<p>Monitoring assists with system performance management, regulatory compliance, and billing analyses.</p>
+<div class="section" id="stackdriver">
+<h2>Stackdriver<a class="headerlink" href="#stackdriver" title="Permalink to this headline">¶</a></h2>
+<p>Stackdriver is one of those buy-ups that the big G has begun. Along with Quiklabs, they have grabbed a very useful tool. Folk who are waaay past the need for GCP introduction notes may be using Stackdriver to monitor their AWS entities <em>and</em> their GCP entities.</p>
+<dl class="simple">
+<dt>Stackdriver is a tool for:</dt><dd><ul class="simple">
+<li><p>monitoring</p></li>
+<li><p>logging</p></li>
+<li><p>debugging</p></li>
+</ul>
+</dd>
+</dl>
+<p>Stackdriver coordinates collection of performance metrics, event logs, and event data from multiple sources including GCP resources.</p>
+<div class="topic">
+<p class="topic-title">Example Predefined Metrics</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 32%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Service</p></th>
+<th class="head" colspan="2"><p>Metric Monitored</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>VM</p></td>
+<td colspan="2"><p>CPU % utilised</p></td>
+</tr>
+<tr class="row-odd"><td><p>BigQuery</p></td>
+<td colspan="2"><p>Time for executions</p></td>
+</tr>
+<tr class="row-even"><td><p>Functions</p></td>
+<td colspan="2"><p>Execution count</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="using-stackdriver">
+<h3>Using Stackdriver<a class="headerlink" href="#using-stackdriver" title="Permalink to this headline">¶</a></h3>
+<div class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Monitoring</p>
+</div>
+<p>To monitor a VM, Stackdriver must have an agent installed on that VM. If you have a Linux machine, then using curl from bash you can call and install the agent via the SSH connection to that VM:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -sSO https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
+sudo bash add-monitoring-agent-repo.sh <span class="o">&amp;&amp;</span> <span class="se">\</span>
+sudo apt-get update
+</pre></div>
+</div>
+<p>You will have to select a version number and install the latest as per the <a class="reference external" href="https://cloud.google.com/monitoring/agent/installation#agent-install-debian-ubuntu">GCP’s directions</a>.</p>
+<p>The agent needs a Stackdriver workspace to send data to. Stackdriver can be setup via the GCP console. Each project can have a space or projects may be added to another project’s space.</p>
+<p>Stackdriver can be set up to email reports on a cycle or to send alterts. These setting are held in a policy. The policy configuration can use labels given to VMs, or general properties such as zone, region, project ID. If no labels were applied to VMs, instance ID can be applied to pick up individual VMs.</p>
+<p>The Stackdriver report is highly customisable:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Aligning, grouping data, e.g. data every 20s can be reported as av. per min</p></li>
+<li><p>Reducing, consolidating data into max, min, mean, standard deviation</p></li>
+</ul>
+</div></blockquote>
+<p>Alerts can be set for these reports, e.g. CPU usage &gt;85% for 2 minutes. Alert channels include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>email</p></li>
+<li><p>Slack / HipChat</p></li>
+<li><p>GCP console</p></li>
+<li><p>PagerDuty</p></li>
+<li><p>Campfire</p></li>
+</ul>
+</div></blockquote>
+<div class="topic">
+<p class="topic-title">Custom Metrics</p>
+<p>If none of the predefined variables measures what you need, then create custom metrics.</p>
+<dl class="simple">
+<dt>There are 2 APIs that GCP recommends:</dt><dd><ul class="simple">
+<li><p>Stackdriver’s own</p></li>
+<li><p>OpenCensus</p></li>
+</ul>
+</dd>
+</dl>
+<p>A custom metric must be programmed to call the monitoring API in a language such as Python, etc.</p>
+</div>
+</div>
+<div class="section" id="configuring-log-sinks">
+<h3>Configuring Log Sinks<a class="headerlink" href="#configuring-log-sinks" title="Permalink to this headline">¶</a></h3>
+<p>The default data-retention period in Stackdriver is 30 days. To assist with long-term storage or advanced analytics, Cloud Storage (with lifecycle management) and BigQuery are useful tools.</p>
+<p>Stackdriver&gt; Exports form assists with exporting data to a “sink”. You need to configure the sink:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>name</p></li>
+<li><p>service (BigQuery, Storage/Bucket, Pub/Sub, custom)</p></li>
+<li><p>destination</p></li>
+</ul>
+</div></blockquote>
+<p>When setting up a GCP service, the form with allow export to an existing location or create a new service item.</p>
+</div>
+</div>
+<div class="section" id="cloud-trace">
+<h2>Cloud Trace<a class="headerlink" href="#cloud-trace" title="Permalink to this headline">¶</a></h2>
+<div class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Trace</p>
+</div>
+<p>Cloud Trace is a service that collects latency data from a GCP app. This assists with performance monitoring, e.g. to identify bottle-necks.</p>
+<p>Traces are only generated when applications are programmed to call Cloud Trace. As with Stackdriver, the reports are customisable.</p>
+</div>
+<div class="section" id="cloud-debugger">
+<h2>Cloud Debugger<a class="headerlink" href="#cloud-debugger" title="Permalink to this headline">¶</a></h2>
+<div class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Debugger</p>
+</div>
+<p>Cloud Debug assists developers to inspect the state of a running instance. It can take snapshots of the state of an app in App Engine and can also be enabled on CE and GKE.</p>
+<div class="section" id="using-debugger">
+<h3>Using Debugger<a class="headerlink" href="#using-debugger" title="Permalink to this headline">¶</a></h3>
+<p>The GCP console form provides a drop-down of deployments such as an App Engine app. From here the code can be examined line by line, and any <strong>line of interest</strong> can be clicked to create a snapshot of the instance when that line of code executes. Alternatively a log point may be placed at that line.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Cloud Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app-engine.html">App Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-functions.html">Cloud Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-services.html">GCP Data Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment-manager.html">Deployment Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Monitoring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#stackdriver">Stackdriver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-trace">Cloud Trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-debugger">Cloud Debugger</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="load-balancing.html" title="previous chapter">Load-balancing</a></li>
+      <li>Next: <a href="storage.html" title="next chapter">Storage</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, masterbunny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/monitoring.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

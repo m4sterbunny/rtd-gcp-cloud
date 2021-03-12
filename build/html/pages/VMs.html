@@ -14,8 +14,8 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="GCP Networking" href="virtual-networking.html" />
-    <link rel="prev" title="Stackdriver" href="stackdriver.html" />
+    <link rel="next" title="Set Up a Ubuntu Environment on GCP" href="react-app.html" />
+    <link rel="prev" title="GCP Networking" href="virtual-networking.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -59,16 +59,19 @@
 </dd>
 </dl>
 </div>
-<div class="section" id="vm-instances">
-<h2>VM Instances<a class="headerlink" href="#vm-instances" title="Permalink to this headline">¶</a></h2>
-<p>A group of VMs that run the same configuration are called instance groups. They are managed as a single entity and created from a group template (default is/was the n1-standard1 image). Instance groups may contain VMs that span a region (i.e. across multiple zones), providing greater resiliency.</p>
-<p>Managed groups are identical VMs that can be set to autoscale and be managed with a load balancer. Scaling may be triggered by:</p>
+<div class="section" id="managed-instance-groups">
+<h2>Managed Instance Groups<a class="headerlink" href="#managed-instance-groups" title="Permalink to this headline">¶</a></h2>
+<p>A group of VMs that run the same configuration are called managed instance groups (MIGs). They are managed as a single entity and created from a group template (default is/was the n1-standard1 image). Instance groups may contain VMs that span a region (i.e. cross multiple zones), providing greater resiliency.</p>
+<p>Managed groups are identical VMs that can be set to autoscale and be managed with a load balancer and monitored with a health check. Scaling may be triggered by:</p>
 <ul class="simple">
 <li><p>CPU utilization</p></li>
 <li><p>load-balancing metrics</p></li>
 <li><p>que-based workload metrics</p></li>
+<li><p>request rate</p></li>
+<li><p>response latencies</p></li>
 <li><p>or, a specified monitoring KPI</p></li>
 </ul>
+<p>Automatic scaling creates dynamic instances based on such metrics. However, you may also specify a minimum number idle instances. This will retain that specified number of instances as resident instances while leaving any additional instances as dynamic.</p>
 <p>Unmanaged groups are possible where the VMs have different configurations.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -304,11 +307,16 @@
 <li class="toctree-l1"><a class="reference internal" href="app-engine.html">App Engine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-functions.html">Cloud Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-services.html">GCP Data Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment-manager.html">Deployment Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Machines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#vm-instances">VM Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#managed-instance-groups">Managed Instance Groups</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-and-linking-virtual-machines">Creating and Linking Virtual Machines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zones-matter">Zones matter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-your-own-image">Creating your own image</a></li>
@@ -316,23 +324,18 @@
 <li class="toctree-l2"><a class="reference internal" href="#gcp-cloud-shell">GCP Cloud Shell</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="stackdriver.html" title="previous chapter">Stackdriver</a></li>
-      <li>Next: <a href="virtual-networking.html" title="next chapter">GCP Networking</a></li>
+      <li>Previous: <a href="virtual-networking.html" title="previous chapter">GCP Networking</a></li>
+      <li>Next: <a href="react-app.html" title="next chapter">Set Up a Ubuntu Environment on GCP</a></li>
   </ul></li>
 </ul>
 </div>

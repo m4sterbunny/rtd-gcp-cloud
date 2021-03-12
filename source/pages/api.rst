@@ -129,9 +129,12 @@ Enabling APIs
 
 GCP's services are available through their API services. From creating a VM, to a Cloud Storage bucket — you are using API functions in the background.
 
+.. sidebar:: Console
+
+	GCP > APIs & Services
+
 .. topic:: Enable APIs in the GCP
 	
-	GCP > APIs & Services
 
 	most APIs are not enabled by default.
 

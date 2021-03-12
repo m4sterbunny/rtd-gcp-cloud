@@ -14,6 +14,8 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cloud Functions" href="cloud-functions.html" />
+    <link rel="prev" title="Accounts &amp; Billing" href="accounts-billing.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -32,14 +34,17 @@
             
   <div class="section" id="app-engine">
 <h1>App Engine<a class="headerlink" href="#app-engine" title="Permalink to this headline">¶</a></h1>
-<p>App Engine was introduced to run language specific environments. However, App Engine Flexible can run deployments in containers, allowing a microservice and language-independent approach to building apps. With the App Engine Flexible Environment you also have a wider range of languages available, because you can upload your own runtime to run code in a language of your choice. It also supports SSH access to the VM running the environment.</p>
+<p>App Engine was introduced to run language specific environments. However, App Engine Flexible can run deployments in containers, allowing a microservice and language-independent approach to building apps. With the App Engine Flexible Environment a wider range of languages is available, because you can upload your own runtime to run code in a language of your choice. It also supports SSH access to the VM running the environment.</p>
 <p>App Engine scales an application automatically in response to the amount of traffic it receives, i.e., billing can drop to zero in the standard environment. This makes App Engine especially suited for applications where the workload is highly variable, such as web apps.</p>
 <p>App Engine offers services such as a NoSQL databases, in-memory caching, load balancing, health checks, logging, and user authentication to applications running in it.</p>
-<p>App Engine has native support for languages such as:
-- Go
-- Python
-- Java
-- PHP</p>
+<p>App Engine has native support for languages such as:</p>
+<ul class="simple">
+<li><p>Go</p></li>
+<li><p>Java</p></li>
+<li><p>Node.js</p></li>
+<li><p>PHP</p></li>
+<li><p>Python</p></li>
+</ul>
 <div class="topic">
 <p class="topic-title">Application</p>
 <p>Each project can run one application and each app is linked to a region. All resources linked to an app are held in the region specified.</p>
@@ -54,6 +59,10 @@
 <p class="topic-title">App Version</p>
 <p>It is the combination of App:Service that defines the “version” of the app. Change the source <strong>or</strong> the Service configuration file and you just made a new App version.</p>
 <p>When a version executes, it creates an instance of the app.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">app</span> <span class="n">versions</span> <span class="nb">list</span> <span class="o">--</span><span class="n">hide</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">traffic</span>
+</pre></div>
+</div>
+<p>Will give details of the traffic going to different versions.</p>
 </div>
 <div class="section" id="app-engine-from-the-sdk-cloud-shell">
 <h2>App Engine from the SDK / Cloud Shell<a class="headerlink" href="#app-engine-from-the-sdk-cloud-shell" title="Permalink to this headline">¶</a></h2>
@@ -69,21 +78,24 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud app deploy app.yml
 </pre></div>
 </div>
-<p>(Although as the file has the default the non-verbose version is gcloud app deploy).</p>
+<p>(Although as the file has the default name, the non-verbose version is <cite>gcloud app deploy</cite>).</p>
 <p>NB this is an environment-dependent command, so you must issue it from the working folder that contains that app.yaml file.</p>
 <p>Optional parameters include:</p>
 <ul class="simple">
-<li><p>–version (provides a tag for version ID)</p></li>
-<li><p>–project (for admins on multiple projects)</p></li>
-<li><p>–no-promote (to override the default deploy with routing traffic)</p></li>
+<li><p>version (provides a tag for version ID)</p></li>
+<li><p>project (for admins on multiple projects)</p></li>
+<li><p>no-promote (to override the default deploy with routing traffic)</p></li>
 </ul>
 <p>The App Engine service creates a human-readable link to the app, not just an external IP. This is provided in the output once you run the command.</p>
-<p>If you have your own domain, this URL can be updated from the GCP&gt; App Engine &gt;Services. The default is the project name followed by “.appspot.com”.</p>
+<div class="sidebar">
+<p class="sidebar-title">URL</p>
+<p>If you have your own domain, this URL can be updated from the GCP&gt; App Engine&gt; Services. The default is the project name followed by “.appspot.com”.</p>
+</div>
 </div>
 <div class="section" id="app-engine-scaling">
 <h2>App Engine Scaling<a class="headerlink" href="#app-engine-scaling" title="Permalink to this headline">¶</a></h2>
 <p>App Engine’s dynamic instances can add and remove instances according to demand. Autoscaling or dynamic scaling are controlled with key-value pairs in the app.yaml configuration file.</p>
-<p>Much like the Kubernetes Engine, deployment is a declarative strategy, you declare the conditions that you want your app to run to and the GCP attempts to match those. Setting up Autoscaling in app.yaml:</p>
+<p>Much like the Kubernetes Engine, deployment is a declarative strategy, you declare the conditions that you want your app to run to and the GCP attempts to match those. Set up autoscaling in app.yaml:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="p">:</span> <span class="n">python</span> <span class="mf">3.7</span><span class="o">.</span><span class="mi">7</span>
 <span class="n">api_version</span><span class="p">:</span> <span class="mf">2.8</span>
 <span class="n">threadsafe</span><span class="p">:</span> <span class="n">true</span>
@@ -104,7 +116,7 @@
 <li><p>idle_time</p></li>
 <li><p>max_instances</p></li>
 </ul>
-<p>Instances may also be configured to “manual scaling” to be permanent, thus removing any cold-start latency issues. These are known as resident instances.</p>
+<p>Instances may also be configured to “manual scaling” to be permanent, thus mitigating cold-start latency issues. These are known as resident instances.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="p">:</span> <span class="n">python</span> <span class="mf">3.7</span><span class="o">.</span><span class="mi">7</span>
 <span class="n">api_version</span><span class="p">:</span> <span class="mf">2.8</span>
 <span class="n">threadsafe</span><span class="p">:</span> <span class="n">true</span>
@@ -127,11 +139,13 @@
 <li><p>Randomly (use case would be testing new version, rather than English variant!)</p></li>
 </ul>
 <p>A cookie is best to provide a consistent experience for the user, so that their changing IP does not alter the end experience.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud app services set-traffic serV1 --split <span class="nv">V1</span><span class="o">=</span><span class="m">0</span>.5,v2<span class="o">=</span><span class="m">0</span>.5 --split-by cookie
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud app services set-traffic <span class="se">\</span>
+--splits<span class="o">=</span><span class="nv">v2</span><span class="o">=</span>.5,v1<span class="o">=</span>.5
+--split-by<span class="o">=</span>cookie
 </pre></div>
 </div>
 <p>This would give you a 50:50 split.</p>
-<p>You can also retire a version and redirect its traffic elsewhere with migrate (from the console or the cli).</p>
+<p>You can also retire a version and redirect its traffic elsewhere with migrate (from the console or the CLI).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud app services set-traffic --migrate V1,V2
 </pre></div>
 </div>
@@ -156,29 +170,39 @@
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">App Engine</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#app-engine-from-the-sdk-cloud-shell">App Engine from the SDK / Cloud Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-your-app">Deploy your App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app-engine-scaling">App Engine Scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#traffic-by-version">Traffic by Version</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-functions.html">Cloud Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-services.html">GCP Data Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment-manager.html">Deployment Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="accounts-billing.html" title="previous chapter">Accounts &amp; Billing</a></li>
+      <li>Next: <a href="cloud-functions.html" title="next chapter">Cloud Functions</a></li>
   </ul></li>
 </ul>
 </div>

@@ -14,8 +14,8 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Kubernetes" href="kubernetes.html" />
-    <link rel="prev" title="Accounts &amp; Billing" href="accounts-billing.html" />
+    <link rel="next" title="GCP Data Services" href="data-services.html" />
+    <link rel="prev" title="Cloud Functions" href="cloud-functions.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -66,9 +66,8 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">compute</span> <span class="n">instances</span> <span class="n">create</span> <span class="n">vm</span><span class="o">-</span><span class="mi">1</span>
 </pre></div>
 </div>
-</div>
 <div class="section" id="basic-commands">
-<h2>Basic Commands<a class="headerlink" href="#basic-commands" title="Permalink to this headline">¶</a></h2>
+<h3>Basic Commands<a class="headerlink" href="#basic-commands" title="Permalink to this headline">¶</a></h3>
 <p>Try this from console</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> account <span class="sb">`</span>ACCOUNT<span class="sb">`</span>
 </pre></div>
@@ -84,6 +83,12 @@
 <li><p>list project ID with:</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config list project
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>list organisation ID with:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">organizations</span> <span class="nb">list</span>
 </pre></div>
 </div>
 <p>Of course, similar information may be pulled using the Compute Engine command:</p>
@@ -102,17 +107,17 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud projects list
 </pre></div>
 </div>
-<p>A really useful tool is saving environment variables on that VM machine to allow your commands to be written in a kinda <a class="reference external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> manner.</p>
+<p>A really useful tool is saving environment variables on that VM machine using bash to allow your commands to be written in a kinda <a class="reference external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> manner.</p>
 <ul class="simple">
 <li><p>set an environment variable; Hipster Shop version:</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">HIPSTER_VERSION</span><span class="o">=</span><span class="m">1</span>.0.0
 </pre></div>
 </div>
-<p>Notice that here you are using bash, rather than the gcloud command. NB the local SDK does not include bash.</p>
+<p>Notice that here you are using bash, rather than the gcloud command. NB the SDK does not include bash. It is the Linux VM that is providing bash.</p>
 </div>
 <div class="section" id="i-like-this-is-there-more">
-<h2>I like this - is there more?<a class="headerlink" href="#i-like-this-is-there-more" title="Permalink to this headline">¶</a></h2>
+<h3>I like this - is there more?<a class="headerlink" href="#i-like-this-is-there-more" title="Permalink to this headline">¶</a></h3>
 <p>The big G has, of course, documented the <a class="reference external" href="https://cloud.google.com/sdk/">lot</a></p>
 <p>But here are a few more firm favorites:</p>
 <div class="topic">
@@ -177,7 +182,7 @@
 </div>
 </div>
 <div class="section" id="sdk">
-<h2>SDK<a class="headerlink" href="#sdk" title="Permalink to this headline">¶</a></h2>
+<h3>SDK<a class="headerlink" href="#sdk" title="Permalink to this headline">¶</a></h3>
 <p>GCP’s SDK has client libraries for:</p>
 <ul class="simple">
 <li><p>Java</p></li>
@@ -188,6 +193,7 @@
 <li><p>.NET</p></li>
 </ul>
 <p>This means that it can be a useful environment in itself. For example, I am using Python’s Sphinx to generate this static site from a PC by typing commands in the GCP SDK installed locally on my machine.</p>
+</div>
 </div>
 </div>
 
@@ -212,34 +218,31 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app-engine.html">App Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-functions.html">Cloud Functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cloud Shell</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#function-trees">Function Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#basic-commands">Basic Commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#i-like-this-is-there-more">I like this - is there more?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sdk">SDK</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="data-services.html">GCP Data Services</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Database Options</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="accounts-billing.html" title="previous chapter">Accounts &amp; Billing</a></li>
-      <li>Next: <a href="kubernetes.html" title="next chapter">Kubernetes</a></li>
+      <li>Previous: <a href="cloud-functions.html" title="previous chapter">Cloud Functions</a></li>
+      <li>Next: <a href="data-services.html" title="next chapter">GCP Data Services</a></li>
   </ul></li>
 </ul>
 </div>

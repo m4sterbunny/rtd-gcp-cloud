@@ -15,16 +15,16 @@ Welcome to an Eclectic set of GCP Notes
    pages/app-engine.rst
    pages/cloud-functions.rst
    pages/cloud-shell.rst
+   pages/data-services.rst
+   pages/deployment-manager.rst
    pages/kubernetes.rst
    pages/load-balancing.rst
-   pages/stackdriver.rst
-   pages/VMs.rst
-   pages/virtual-networking.rst
-   pages/accounts-billing-quiz.rst
+   pages/monitoring.rst
    pages/storage.rst
-   pages/ace-exam.rst
+   pages/virtual-networking.rst
+   pages/VMs.rst
    pages/react-app.rst
-   pages/database-services.rst
+   pages/ace-exam.rst
  
 
 
@@ -78,7 +78,7 @@ Quick navigation
 ----------------
 
 
-.. comment::  
+..  
   # I like the markdown table like so
   # | About Snowplow             | Project & Community              | Setup Guide          | Technical Documentation                  |
   # |----------------------------|---------------------------------|-------------------------------|---------------------------|
@@ -103,7 +103,7 @@ Quick navigation
 
 .. topic:: ACE Exam Requirements
 
-The ACE exam certifies that you are able to build, deploy, and manage the cloud services.
+  The ACE exam certifies that you are able to build, deploy, and manage the cloud services.
 
   You will be expected to understand different ways of delivering cloud computing resources such as:
 

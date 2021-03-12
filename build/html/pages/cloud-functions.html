@@ -14,6 +14,8 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cloud Shell" href="cloud-shell.html" />
+    <link rel="prev" title="App Engine" href="app-engine.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -34,7 +36,7 @@
 <h1>Cloud Functions<a class="headerlink" href="#cloud-functions" title="Permalink to this headline">¶</a></h1>
 <p>Cloud Functions supports the running of single-purpose functions that behave in isolation. The default time out is 1 minute and the max possible is 9 minutes.</p>
 <p>Cloud Functions is suited for logic tests and small, defined tasks. Have a photosharing tool? Cloud Functions can manage the code to check a user is uploading an image file and pass the T/F answer back to the app as part of the logic before the upload is accepted.</p>
-<p>In this example, an <em>Event</em>, an upload to Cloud Storage, this <em>Triggers</em> the <em>Function</em> to create an <em>Event</em> and send a message back to the app system, say via Cloud Pub/Sub’s messaging service.</p>
+<p>In this example, an <em>Event</em>, an upload to Cloud Storage, <em>Triggers</em> the <em>Function</em> to create an <em>Event</em> and send a message back to the app system, say via Cloud Pub/Sub’s messaging service.</p>
 <p>The integration options are myriad:</p>
 <ul class="simple">
 <li><p>Trigger an Event using HTTP verbs (the normal API POST, GET, PUT, DELETE) and OPTIONS</p></li>
@@ -55,9 +57,12 @@
 <li><p>Go</p></li>
 <li><p>JS / Node.js</p></li>
 </ul>
-</div>
 <div class="section" id="using-cloud-functions-on-the-gcp">
-<h2>Using Cloud Functions on the GCP<a class="headerlink" href="#using-cloud-functions-on-the-gcp" title="Permalink to this headline">¶</a></h2>
+<h3>Using Cloud Functions on the GCP<a class="headerlink" href="#using-cloud-functions-on-the-gcp" title="Permalink to this headline">¶</a></h3>
+<div class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Compute&gt; Cloud Functions</p>
+</div>
 <p>Requirements:</p>
 <ol class="arabic simple">
 <li><p>Cloud Functions Engine API</p></li>
@@ -88,6 +93,7 @@
 <li><p>Runtime environment</p></li>
 <li><p>Source Code</p></li>
 </ul>
+</div>
 </div>
 <div class="section" id="cloud-functions-from-the-cli">
 <h2>Cloud Functions from the CLI<a class="headerlink" href="#cloud-functions-from-the-cli" title="Permalink to this headline">¶</a></h2>
@@ -153,29 +159,38 @@
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app-engine.html">App Engine</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cloud Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-environments">Runtime Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-functions-from-the-cli">Cloud Functions from the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-with-cloud-pub-sub">Integration with Cloud Pub/Sub</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-services.html">GCP Data Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment-manager.html">Deployment Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html">Review Questions Billing &amp; Accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accounts-billing-quiz.html#answers-billing-accounts">Answers Billing &amp; Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database-services.html">GCP Data Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="app-engine.html" title="previous chapter">App Engine</a></li>
+      <li>Next: <a href="cloud-shell.html" title="next chapter">Cloud Shell</a></li>
   </ul></li>
 </ul>
 </div>

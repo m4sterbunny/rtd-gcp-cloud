@@ -24,7 +24,7 @@ Unleash the command line interface (CLI) with VMs on your console_.
 		
 
 Function Trees
----------------
+===============
 
 Cloud Shell's commands are split by function into:
 
@@ -68,6 +68,12 @@ There are a ton of great tools on this bash- + Google SDK-hosting machine. Here 
 
 	gcloud config list project 
 
+- list organisation ID with:
+
+.. code-block:: 
+
+	gcloud organizations list
+
 Of course, similar information may be pulled using the Compute Engine command:
 
 .. code-block:: bash
@@ -86,7 +92,7 @@ Of course, similar information may be pulled using the Compute Engine command:
 
 	gcloud projects list
 
-A really useful tool is saving environment variables on that VM machine to allow your commands to be written in a kinda DRY_ manner.
+A really useful tool is saving environment variables on that VM machine using bash to allow your commands to be written in a kinda DRY_ manner.
 
 - set an environment variable; Hipster Shop version:
 
@@ -94,7 +100,7 @@ A really useful tool is saving environment variables on that VM machine to allow
 
     export HIPSTER_VERSION=1.0.0
 
-Notice that here you are using bash, rather than the gcloud command. NB the local SDK does not include bash.
+Notice that here you are using bash, rather than the gcloud command. NB the SDK does not include bash. It is the Linux VM that is providing bash.
 
 I like this - is there more?
 -----------------------------
@@ -113,15 +119,15 @@ But here are a few more firm favorites:
 .. topic:: display all available zones
 
 
-		.. code-block:: bash
+	.. code-block:: bash
 
-			gcloud compute zones list 
+		gcloud compute zones list 
 
 .. topic:: display all available zones in selected region
 
-		.. code-block:: bash
+	.. code-block:: bash
 
-			gcloud compute zones list | grep us-central1
+		gcloud compute zones list | grep us-central1
 		
 
 Rather than administer each VM directly, you may configure them all through settings.

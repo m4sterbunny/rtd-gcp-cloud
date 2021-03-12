@@ -32,17 +32,21 @@ Virtual Machines
 		- the instance *must* be set to terminate during maintenance 
 
 
-VM Instances
-============
+Managed Instance Groups
+=======================
 
-A group of VMs that run the same configuration are called instance groups. They are managed as a single entity and created from a group template (default is/was the n1-standard1 image). Instance groups may contain VMs that span a region (i.e. across multiple zones), providing greater resiliency.
+A group of VMs that run the same configuration are called managed instance groups (MIGs). They are managed as a single entity and created from a group template (default is/was the n1-standard1 image). Instance groups may contain VMs that span a region (i.e. cross multiple zones), providing greater resiliency.
 
-Managed groups are identical VMs that can be set to autoscale and be managed with a load balancer. Scaling may be triggered by:
+Managed groups are identical VMs that can be set to autoscale and be managed with a load balancer and monitored with a health check. Scaling may be triggered by:
 
 - CPU utilization
 - load-balancing metrics
 - que-based workload metrics
+- request rate
+- response latencies
 - or, a specified monitoring KPI
+
+Automatic scaling creates dynamic instances based on such metrics. However, you may also specify a minimum number idle instances. This will retain that specified number of instances as resident instances while leaving any additional instances as dynamic.
 
 Unmanaged groups are possible where the VMs have different configurations.
 
@@ -71,6 +75,7 @@ Setting one up from the console is a simple task:
 .. topic:: Launch GCP's `Cloud Shell <cloud-shell.html>`_
 	
 	This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that *you* create.
+
 
 
 .. topic:: Setup a VM from the command line

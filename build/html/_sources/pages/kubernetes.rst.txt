@@ -15,7 +15,7 @@ Kubernetes
 
     You also need to be a GKE admin.
 
-Kubernetes orchestrates your containers. Need more, wait a mo and there you go. Don't like to be charged for resources you ain't using -- shut 'em down again. You do have a copy ready to roll, after all. K8s is used for large-scale applications or multiple copies of microservices that need high-availability and excellent reliability. 
+Kubernetes orchestrates your containers. Need more, wait a mo and there you go. Don't like to be charged for resources you ain't using -- shut 'em down again. You do have a copy ready to roll after all. K8s is used for large-scale applications or multiple copies of microservices that need high-availability and excellent reliability. 
 
 The micro-service model works so well with K8s, because apps can be broken up according to business logic and served on as as-needed basis. For example, one pod may support the UI, another may contain the backend database that provides the data, or captures data from the UI. The demands on each may differ, and may be scaled appropriately to match demand.
 
@@ -24,9 +24,9 @@ Containerization
 
 Let's just stick to one method that a) popular, so you are likely to use it at some point, b) short to read, and c) is open source; Docker_. (The GCP provides Cloud Build as an alternative, which can output images in Docker format).
 
-The Docker tool lets you build and image and run it. Docker does not handle scaling.
+The Docker tool lets you build an image and run it. Docker does not handle scaling.
 
-So, a docker container possesses everything your software needs to run. You need a library? So declare that in the Dockerfile, and when you activate your container it goes gets the library version it needs.
+So, a docker container possesses everything your software needs to run. You need a library? Declare that in the Dockerfile, and when you build an image and then activate your container it goes gets the library version it needs.
 
 Think a box around your code AND its dependencies. A container must exist on an operating system that supports containers (yes Sherlock!). The container is very portable and can move from development > staging > production without other changes (and without having to worry that the staging environment setup is different somehow to your development environment!).
 
@@ -37,7 +37,7 @@ Create a docker file to specify how your code is packaged into a container. This
 
 #. gets the operating system it needs, 
 #. updates the OS 
-#. goes grabs python and 
+#. goes grabs Python and 
 #. grabs the file requirements.txt 
 #. sets up a folder
 #. sets up the environment as defined in requirements.txt (setting up the application's dependencies)
@@ -61,7 +61,7 @@ The first statement is the base layer, pulling the Ubuntu Linux runtime environm
 
 The copy command adds another layer. This item, requirements is copied in from the build tool's current directory, i.e. probably a private location.
 
-The run command build you application and puts the result of the build into the 3rd layer.
+The run command builds your application and puts the result of the build into the 3rd layer.
 
 The 4th and final layer specifies what command to run within the container when it is launched.
 
@@ -94,8 +94,8 @@ Data storage should be separate from the container.
 
     The Cloud Build toolset requires the following APIs to be enabled:
 
-    - Cloud Build
-    - Container Registry
+        - Cloud Build
+        - Container Registry
 
 Cloud Build supports build configuration files (YAML or JSON files) to control the tasks to perform when building a container. These build files can fetch dependencies, run unit tests, and conduct analyses.
 
@@ -110,9 +110,10 @@ E.g.
     - 'gcr.io/$PROJECT_ID/quickstart-image'
 
 This code:
-- instructs Cloud Build to apply Docker for the build
-- to tag it with "gcr.io/$PROJECT_ID/quickstart-image"
-- to push the image to the Container Registry
+
+#. instructs Cloud Build to apply Docker for the build
+#. to tag it with "gcr.io/$PROJECT_ID/quickstart-image"
+#. to push the image to the Container Registry
 
 To actually start a Cloud Build using this file use:
 
@@ -192,6 +193,10 @@ A K8 cluster is composed of a master node and 1 or more worker nodes. In K8s a "
 
     Pods run on a node. Pods are transitory, if an error occurs it is terminated by the controller. The node still persists.
 
+.. sidebar:: Console
+
+        To view information on your cluster/nodes on the GCP> Kubernetes Engine> Clusters. 
+
 .. topic:: Nodes
 
     Nodes are VMs that run on Compute Engine and execute containers that setup (as per the Dockerfile) and run applications. Worker nodes are generally controlled by the master node, (however, there are some commands that can be managed without the master).
@@ -199,22 +204,24 @@ A K8 cluster is composed of a master node and 1 or more worker nodes. In K8s a "
     Workloads are distributed across nodes of a K8 cluster. NB K8s does not **create** nodes. Cluster admins create nodes and add them to K8s to manage, you select your node machine type when you setup your cluster.
 
     Each nodes runs:
-    - kubelet
-        K8s agent on each node, able to start pods
-    - kube proxy
-        for newtwork connectivity
 
-    To view information on your cluster/nodes on the GCP> Kubernetes Engine> Clusters. You will see:
+        - kubelet (K8s agent on each node, able to start pods)
+        - kube proxy (for newtwork connectivity)
 
-    - cluster name
-    - node pool name
-    - cluster size (number of nodes)
+    You will see:
+
+        - cluster name
+        - node pool name
+        - cluster size (number of nodes)
 
     The cluster may be managed from the SDK with the gcloud container clusters command, e.g. set pool size with:
 
     .. code-block:: bash
 
-        gcloud container clusters resize {clusterName} --node-pool {poolName} --size 8 --region={yourClustersRegion}
+        gcloud container clusters resize {clusterName} \
+        --node-pool {poolName} \
+        --size 8 \
+        --region={yourClustersRegion}
 
     A node pool is a subset of nodes within a cluster that share VM configurations. BUT, this is specific to GKE, not to Kubernetes standard.
 
@@ -256,7 +263,8 @@ A K8 cluster is composed of a master node and 1 or more worker nodes. In K8s a "
 
     .. code-block:: bash
 
-        gcloud container clusters get-credentials --zone {provide zone} {clusterName}
+        gcloud container clusters get-credentials \
+        --zone {provide zone} {clusterName}
 
     With the config file set up you can now grab useful data, e.g.
 
@@ -283,6 +291,8 @@ A K8 cluster is composed of a master node and 1 or more worker nodes. In K8s a "
         gcloud container images list
 
     To examine the item you want use:
+
+    .. code-block:: 
 
         gcloud container images describe {myInterestingImage}
 
@@ -313,26 +323,26 @@ GCP has made setting up Kubernetes (K8s) a simple procedure:
 
 Let's make a K8 cluster on the GCP:
 
-.. topic:: Make a cluster
+.. sidebar:: Console
 
 	GCP> Kubernetes> Clusters> create cluster
 
-	and create your cluster.
+.. topic:: Make a cluster
+
+	Create your cluster.
 	
 	choose the number of nodes (1 for test purposes)
 
-**Done!**
+    **Done!**
 
     OR 
-        .. code-block::
+    .. code-block::
 
-            gcloud container clusters create k1
-
+        gcloud container clusters create {k1}
 
 
 Setting up K8s from the CLI in cloud shell
--------------------------------------------
-
+--------------------------------------------
 
 1. Set up an environment variable with your cluster name:
 
@@ -366,7 +376,9 @@ Deploying Application Pods
 
 Now that you have a cluster you can use it to deploy an application. 
 
-GCP> Kubernetes Engine> Create Deployment
+.. sidebar:: Console
+
+    GCP> Kubernetes Engine> Create Deployment
 
 From the GUI, you have the following options:
 
@@ -404,7 +416,9 @@ To setup autoscaling from the SDK:
 
 .. code-block:: bash
 
-    gcloud container clusters update {clusterName} --enable-autoscaling --min-nodes 1 --max-nodes 8 --zone {yourClusterZone} --node-pool {poolName}
+    gcloud container clusters update {clusterName} \
+    --enable-autoscaling --min-nodes 1 --max-nodes 8 \
+    --zone {yourClusterZone} --node-pool {poolName}
 
 When you start a deployment of K8s you are setting up a group of replicas of the same pod, i.e. many instances of:
 1) setting up a pod to
@@ -444,7 +458,7 @@ A key concept of K8s is the ability to scale. Such scaling can be automated. For
 .. code-block::
 
     kubectl autoscale nginx 
-    -- min=10 
+    --min=10 
     --max=15 
     --cpu=80
 
@@ -468,6 +482,20 @@ If you want to see from the service-level, how many replicas are running:
 
     kubectl get deployments
 
+
+You can use preemptible VMs in your GKE clusters or node pools to run batch or fault-tolerant jobs that are less sensitive to the ephemeral, non-guaranteed nature of preemptible VMs.
+
+GKE’s autoscaler tries to first scale the node pool with cheaper (preemtible) VMs. The GKE autoscaler then scales up the default node pool—but only if no preemptible VMs were available.
+
+
+The **Horizontal Pod Autoscaler** scales up and down a Kubernetes workload by automatically controlling the number of Pods in response to conditions set:
+
+- the workload's CPU
+- memory consumption
+- custom metrics (reported from within Kubernetes or external metrics from sources outside of your cluster)
+
+Notice this is the number of pods within a node that is being scaled, not the number of nodes.  
+
 Automatic Versioning
 --------------------
 
@@ -481,9 +509,20 @@ It would actually be pretty rare to be setting such commands up from the CLI to 
 
 .. code-block:: 
 
-    kubectl apply
+    kubectl apply -f deployment.yaml \
+    kubectl apply -f service.yaml
 
 
+Sandboxing
+-----------
+
+Containers for your containers?!  
+
+Containers are able to communicate with each other, thanks to K8s management. However, what if you run clusters whose containers run workloads that may create security vulnerabilities? You would not wish those to have access to other clusters. Any app that allows users to upload and run code could pose a risk. 
+
+To mitigate this you can enable GKE's Sandbox on a node pool. The node creates a sandbox for each Pod it runs. Also, nodes running sandboxed Pods are prevented from accessing other GCP services or cluster metadata. Each sandbox uses its own userspace kernel. 
+
+An example sandbox setup is to set `type` to `gvisor` and configure the deployment spec with a `runtimeClassName` of `gvisor`.
 
 But, I am new at this!
 ----------------------
@@ -494,18 +533,19 @@ example code to set nano as the editor:
 
 .. code-block:: bash
 
-    KUBE_EDITOR="nano" kubectl edit deployment hello-node
+    KUBE_EDITOR="nano" kubectl edit deployment {hello-node}
 
 Kubernetes Engine v Deployment Manager
 =======================================
 
-Deployment Manager on the GCP does exactly that - and gives you CLI to run scripts to manage deployments.
+`Deployment Manager <deployment-manager.html>`_ on the GCP does exactly that -- and gives you CLI to run scripts to manage deployments.
 
 E.g.:
 
 .. code-block:: bash
 
-    gcloud deployment-manager create {my deployment} --config {mydeploy-file.yaml}
+    gcloud deployment-manager create {my-deployment} \
+    --config {mydeploy-file.yaml}
 
 You can view deployments using 
 
@@ -513,10 +553,27 @@ You can view deployments using
 
     gcloud deployment-manager deployments list
 
-So, even though the same term applies, this tool could be used to set up just 1 VM with no load balancing.
+So, even though the same term "deployment" applies, this separate tool could be used to set up just 1 VM with no load balancing. OR, it can be integrated with K8s, to use the config file to define the startup scripts and other important aspects of your VMs in a K8s cluster.
 
-It could be integrated with K8s, to use the config file to define the startup scripts and other important aspects of your VMs in a cluster.
+For example, a *type provider* exposes all resources of a third-party API to Deployment Manager as base types that can then be utilised in your configurations. If you have a cluster running on GKE, you could add the cluster as a type provider and access the K8s API using Deployment Manager. 
 
+Using these inherited APIs, you could create a DaemonSet. 
+
+DaemonSets
+===========
+
+A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to a cluster pods are added also. As nodes are removed from the cluster, those Pods are retired. Deleting a DaemonSet will clean up the Pods it created.
+
+Some typical uses of a DaemonSet are:
+
+- running a cluster storage daemon on every node
+- running a logs collection daemon on every node
+- running a node-monitoring daemon on every node
+
+Cloud Run
+=========
+
+Cloud Run implements the Knative serving API, an open-source project to run serverless workloads on top of Kubernetes. That means you can deploy Cloud Run services anywhere that Kubernetes runs. 
 
 Running Awesome Applications
 =============================

@@ -6,7 +6,7 @@ Cloud Functions supports the running of single-purpose functions that behave in 
 
 Cloud Functions is suited for logic tests and small, defined tasks. Have a photosharing tool? Cloud Functions can manage the code to check a user is uploading an image file and pass the T/F answer back to the app as part of the logic before the upload is accepted.
 
-In this example, an *Event*, an upload to Cloud Storage, this *Triggers* the *Function* to create an *Event* and send a message back to the app system, say via Cloud Pub/Sub's messaging service.
+In this example, an *Event*, an upload to Cloud Storage, *Triggers* the *Function* to create an *Event* and send a message back to the app system, say via Cloud Pub/Sub's messaging service.
 
 The integration options are myriad:
 
@@ -30,8 +30,12 @@ The supported languages (at time of writing) include:
 + JS / Node.js
 
 Using Cloud Functions on the GCP
---------------------------------
+================================
 
+.. sidebar:: Console
+
+	GCP> Compute> Cloud Functions
+	
 Requirements:
 
 1. Cloud Functions Engine API

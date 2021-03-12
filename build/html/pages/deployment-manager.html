@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Deployment Manager &#8212; Cloud Notes 0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kubernetes" href="kubernetes.html" />
+    <link rel="prev" title="GCP Data Services" href="data-services.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="deployment-manager">
+<h1>Deployment Manager<a class="headerlink" href="#deployment-manager" title="Permalink to this headline">¶</a></h1>
+<p>Deployment manager can make implementing a complex deployment configuration as easy as “shopping” in GCP’s Cloud Launcher market place. Deployment manager simplifies the deployment process by having pre-defined declarative configurations written in YAML.</p>
+<p>Having your configurations recorded in one file simplifies the reuse of common deployment paradigms, e.g. MIGs, load-balanced, auto-scaled instance groups. You can also deploy multiple resources simultaneously.</p>
+<p>With deployment manager, you can preview an update you want to make before committing any changes. The Deployment Manager service previews the configuration by expanding the full configuration and creating “shell” resources. Deployment Manager does not actually set up any actual resources when you preview a configuration. This allows you to see the deployment before committing to it.</p>
+<p>Google best practice is to script infrastructure and deploy using Deployment Manager. Each deployment file can have full version control and mangement through tools such as Git.</p>
+<div class="section" id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
+<p>A YAML configuration for deployment starts with resources:</p>
+<ul class="simple">
+<li><p>type of resource (i.e. name of compute engine instance e.g. compute.v1.instance)</p></li>
+<li><p>name internal name of the resource</p></li>
+<li><dl class="simple">
+<dt>properties, i.e. key-value pairs describing settings such as:</dt><dd><ul>
+<li><p>machine type</p></li>
+<li><p>disks</p></li>
+<li><p>network interfaces</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h2>
+<p>Templates can exists in another file and be called into the main configuration file. Such templates may be written in:</p>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>Jinja2</p></li>
+<li><p>templating language</p></li>
+</ul>
+<p>GCP recommends Python.</p>
+<p>You can launch a deployment template with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud deployment-manager deployments create <span class="o">{</span>my-new-deployment<span class="o">}</span> <span class="se">\</span>
+--mydeploy-file.yaml
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Cloud Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app-engine.html">App Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-functions.html">Cloud Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-services.html">GCP Data Services</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deployment Manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#templates">Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="data-services.html" title="previous chapter">GCP Data Services</a></li>
+      <li>Next: <a href="kubernetes.html" title="next chapter">Kubernetes</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, masterbunny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/deployment-manager.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
