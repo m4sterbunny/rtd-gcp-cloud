@@ -7,11 +7,11 @@ Welcome to an eclectic set of Cloud Notes
 =========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-   pages/GCP/gcp-main.rst
-   pages/AWS/aws-main.rst
+   /pages/GCP/gcp-main.rst
+   /pages/AWS/aws-main.rst
  
 
 
@@ -44,4 +44,9 @@ Indices and tables
 .. :Dedication:
 
     For anyone on the journey; #150DaysOfALC4.
+
+.. meta::
+   :keywords: google cloud, reStructuredText, demonstration, demo, parser, virtual machine, data storage, kubernetes, app engine
+   :description lang=en: An eclectic collection of snippets of information useful to a wanna be Cloud Engineer.
+
 
