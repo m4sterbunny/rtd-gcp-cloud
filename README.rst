@@ -13,6 +13,8 @@ Like this simple site? Try this great rST guide:
 
 Guide_
 
+or `Get Started <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`_
+
 What is rST?
 ------------
 

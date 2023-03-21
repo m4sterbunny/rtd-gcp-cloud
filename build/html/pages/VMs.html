@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Virtual Machines &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Set Up a Ubuntu Environment on GCP" href="react-app.html" />
@@ -32,21 +32,21 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="virtual-machines">
-<h1>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this headline">¶</a></h1>
-<div class="topic">
+  <section id="virtual-machines">
+<h1>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this heading">¶</a></h1>
+<aside class="topic">
 <p class="topic-title">Preemptible VMs</p>
 <p>Use case may be a short-lived VM to crunch a specific workload, for example, cyclic reporting you may set up a VM that will persist for up to 24 hours. A preemptible VM may be interrupted with only 30s warning, which is why they are cheaper and not suitable for service-delivery.</p>
 <p>You can even split workloads across “permanent VMs” and preemptible VMs.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Labels</p>
 <p>Labels become vital when you have large numbers of VMs. They can be used to filter the VM list from the console.</p>
 <p>VMs may also be filtered by:
 - Status
 - Membership of instance group</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">GPU</p>
 <p>A GPU can take on workload to relieve the CPU. These are usually used for intensitve processes such as visualising data, machine learning, and image processing.</p>
 <p>A GPU is often supported by libraries that will need to be installed. This may be achieved by selecting the relevant boot disk image from the options, or by creating your own.</p>
@@ -58,9 +58,9 @@
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="managed-instance-groups">
-<h2>Managed Instance Groups<a class="headerlink" href="#managed-instance-groups" title="Permalink to this headline">¶</a></h2>
+</aside>
+<section id="managed-instance-groups">
+<h2>Managed Instance Groups<a class="headerlink" href="#managed-instance-groups" title="Permalink to this heading">¶</a></h2>
 <p>A group of VMs that run the same configuration are called managed instance groups (MIGs). They are managed as a single entity and created from a group template (default is/was the n1-standard1 image). Instance groups may contain VMs that span a region (i.e. cross multiple zones), providing greater resiliency.</p>
 <p>Managed groups are identical VMs that can be set to autoscale and be managed with a load balancer and monitored with a health check. Scaling may be triggered by:</p>
 <ul class="simple">
@@ -78,12 +78,12 @@
 <p>warning</p>
 <p>When autoscaling, allow time for VMs to come online, otherwise new VMs may be added that are not required.</p>
 </div>
-</div>
-<div class="section" id="creating-and-linking-virtual-machines">
-<h2>Creating and Linking Virtual Machines<a class="headerlink" href="#creating-and-linking-virtual-machines" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="creating-and-linking-virtual-machines">
+<h2>Creating and Linking Virtual Machines<a class="headerlink" href="#creating-and-linking-virtual-machines" title="Permalink to this heading">¶</a></h2>
 <p>Virtual Machines (VMs) are a basic unit of cloud computing.</p>
 <p>Setting one up from the console is a simple task:</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Setup a VM from GCP</p>
 <p>GCP &gt; Compute Engine &gt; VM Instances</p>
 <blockquote>
@@ -95,75 +95,75 @@
 <li><p>Modify the firewall to allow HTTP or HTTPS traffic</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Launch GCP’s <a class="reference external" href="cloud-shell.html">Cloud Shell</a></p>
 <p>This sets up a VM in the cloud, provisioned with an OS and the GCP SDK. This VM is configured to connect with the VM instances that <em>you</em> create.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Setup a VM from the command line</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-new-vm&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;my-new-vm&quot;</span>
 </pre></div>
 </div>
 <p>You will be prompted for a Zone, because the high-level separation of services offered on the GCP are segregated by geographical zones.</p>
 <p>&gt; 46 for us-central1-a</p>
 <p>This minimal command creates a VM with default settings which, if you have not previously setup configurations, will be:</p>
 <img alt="../_images/baseVM.PNG" class="align-center" src="../_images/baseVM.PNG" />
-</div>
+</aside>
 <p>Let’s be a little more decisive and prescribe some VM configurations this time. We will create 2 VMs from the command line and connect them.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Create &amp; Connect 2 VMs</p>
 <p>First set your zone as a configuration setting:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>compute/zone<span class="w"> </span>us-central1-a
 </pre></div>
 </div>
 <p>Then create the first VM:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;vm1-zonea&quot;</span> <span class="se">\</span>
---machine-type <span class="s2">&quot;n1-standard-1&quot;</span> <span class="se">\</span>
---image-project <span class="s2">&quot;debian-cloud&quot;</span> <span class="se">\</span>
---image <span class="s2">&quot;debian-9-stretch-v20190213&quot;</span> <span class="se">\</span>
---subnet <span class="s2">&quot;default&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;vm1-zonea&quot;</span><span class="w"> </span><span class="se">\</span>
+--machine-type<span class="w"> </span><span class="s2">&quot;n1-standard-1&quot;</span><span class="w"> </span><span class="se">\</span>
+--image-project<span class="w"> </span><span class="s2">&quot;debian-cloud&quot;</span><span class="w"> </span><span class="se">\</span>
+--image<span class="w"> </span><span class="s2">&quot;debian-9-stretch-v20190213&quot;</span><span class="w"> </span><span class="se">\</span>
+--subnet<span class="w"> </span><span class="s2">&quot;default&quot;</span>
 </pre></div>
 </div>
 <p>Then set your zone for the next VM:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-b
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>compute/zone<span class="w"> </span>us-central1-b
 </pre></div>
 </div>
 <p>… and create the 2nd VM</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;vm2-zoneb&quot;</span> <span class="se">\</span>
---machine-type <span class="s2">&quot;n1-standard-1&quot;</span> <span class="se">\</span>
---image-project <span class="s2">&quot;debian-cloud&quot;</span> <span class="se">\</span>
---image <span class="s2">&quot;debian-9-stretch-v20190213&quot;</span> <span class="se">\</span>
---subnet <span class="s2">&quot;default&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;vm2-zoneb&quot;</span><span class="w"> </span><span class="se">\</span>
+--machine-type<span class="w"> </span><span class="s2">&quot;n1-standard-1&quot;</span><span class="w"> </span><span class="se">\</span>
+--image-project<span class="w"> </span><span class="s2">&quot;debian-cloud&quot;</span><span class="w"> </span><span class="se">\</span>
+--image<span class="w"> </span><span class="s2">&quot;debian-9-stretch-v20190213&quot;</span><span class="w"> </span><span class="se">\</span>
+--subnet<span class="w"> </span><span class="s2">&quot;default&quot;</span>
 </pre></div>
 </div>
 <p>Let’s see if our 2 VMs can connect.</p>
 <p>SSH into vm2-zoneb</p>
 <p>GCP&gt; Compute Engine&gt; VM instances&gt; SSH</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping my-vm-1 -c <span class="m">3</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>my-vm-1<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
 <p>NB if you don’t set the count for the number of pings then use Ctrl+C to abort the ping command.</p>
 <p>OR, using the SSH for VM2 which opens a CLI interface to VM2, you can SSH directly into VM1 (well if your pings works, then you are connected – right?!)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh my-vm-1.us-central1-a
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>my-vm-1.us-central1-a
 </pre></div>
 </div>
 <p>Try something out, perhaps install a webserver on your VM1 via VM2?</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install nginx-light -y
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>nginx-light<span class="w"> </span>-y
 </pre></div>
 </div>
 <p>Then mess with the landing page</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano /var/www/html/index.nginx-debian.html
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/var/www/html/index.nginx-debian.html
 </pre></div>
 </div>
 <p>Write something witty in your index and watch it come back at you. Using the SSH from VM2 into VM1. Note that the CLIcur tells you which machine you are connected with (it will have my-vm-1 right there).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl http://localhost/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost/
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="zones-matter">
-<h2>Zones matter<a class="headerlink" href="#zones-matter" title="Permalink to this headline">¶</a></h2>
+</aside>
+</section>
+<section id="zones-matter">
+<h2>Zones matter<a class="headerlink" href="#zones-matter" title="Permalink to this heading">¶</a></h2>
 <p>VM instances are assigned to a zone, that is a sub-region. Zones within a region are better connected that zones between regions. You have to specify your zone when you set up your VM.</p>
 <p>Zone selection may be vital if the following affect you:</p>
 <blockquote>
@@ -183,83 +183,83 @@
 </li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="creating-your-own-image">
-<h2>Creating your own image<a class="headerlink" href="#creating-your-own-image" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="creating-your-own-image">
+<h2>Creating your own image<a class="headerlink" href="#creating-your-own-image" title="Permalink to this heading">¶</a></h2>
 <p>Once you have chosen an image that is close to what you need, either from the GCP itself, its marketplace, by uploading your own custom image, or sourcing from a 3rd party, you may make additional changes to it.</p>
 <p>This may include updating or adding data, libraries, or software.</p>
 <p>If your project is not simply a one off, then you may use this as a base-image for future projects by creating a snapshot, i.e. by grabbing an image from the boot disk of your VM.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Restarting VMs</p>
 <p>If a VM is restarted the contents of memory are lost. This means that essential data must be preserved in a persistent disk or Cloud Storage.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Snapshots</p>
 <p>A snapshot is a copy of data held on a persistent disk. This is useful for restoring data. The first snapshot is a full copy of the data. Subsequent snapshots record updated data only.</p>
 <p>If data is held in memory, flush disk buffers <strong>before</strong> creating the snapshot to ensure the storage of all data.</p>
 <p>NB to work with snapshots, the user must have the <strong>Compute Storage Admin</strong> role setup from IAM.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Image v Snapshot</p>
 <p>Both images and snapshots are copies of disk contents. Snapshots make data available on a disk, images are used to create VMs.</p>
-</div>
-</div>
-<div class="section" id="keen-to-make-something-useful">
-<h2>Keen to make something useful?<a class="headerlink" href="#keen-to-make-something-useful" title="Permalink to this headline">¶</a></h2>
+</aside>
+</section>
+<section id="keen-to-make-something-useful">
+<h2>Keen to make something useful?<a class="headerlink" href="#keen-to-make-something-useful" title="Permalink to this heading">¶</a></h2>
 <p>It is tough to learn system setup in isolation of normal day to day requirements.</p>
 <p>Let’s go through a real-world example to bust through the rather abstract ones - e.g., setting up a VM to act as a server for a web page.</p>
 <p>Activate Cloud Shell and use the GCP SDK that it provides.</p>
 <p>First, set your zone as a configuration setting:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config <span class="nb">set</span> compute/zone us-central1-a
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>compute/zone<span class="w"> </span>us-central1-a
 </pre></div>
 </div>
 </div></blockquote>
 <p>Setup a new VM:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute instances create <span class="s2">&quot;my-web-server&quot;</span>
---machine-type <span class="s2">&quot;n1-standard-1&quot;</span> <span class="se">\</span>
---image-project <span class="s2">&quot;debian-cloud&quot;</span> <span class="se">\</span>
---image <span class="s2">&quot;debian-9-stretch-v20190213&quot;</span> <span class="se">\</span>
---subnet <span class="s2">&quot;default&quot;</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;my-web-server&quot;</span>
+--machine-type<span class="w"> </span><span class="s2">&quot;n1-standard-1&quot;</span><span class="w"> </span><span class="se">\</span>
+--image-project<span class="w"> </span><span class="s2">&quot;debian-cloud&quot;</span><span class="w"> </span><span class="se">\</span>
+--image<span class="w"> </span><span class="s2">&quot;debian-9-stretch-v20190213&quot;</span><span class="w"> </span><span class="se">\</span>
+--subnet<span class="w"> </span><span class="s2">&quot;default&quot;</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>Allow HTTP traffic with</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud compute firewall-rules create my-web-server --allow tcp:80
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>my-web-server<span class="w"> </span>--allow<span class="w"> </span>tcp:80
 </pre></div>
 </div>
 </div></blockquote>
 <p>From the GCP console connect to your VM with SSH to set up Apache2 HTTP Server:</p>
 <p>GCP&gt; Compute Engine&gt; VM Instances&gt; my-web-server &gt; SSH</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get update
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install apache2 php7.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>apache2<span class="w"> </span>php7.0
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo service apache2 restart
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>service<span class="w"> </span>apache2<span class="w"> </span>restart
 </pre></div>
 </div>
 </div></blockquote>
 <p>Return to your GCP console and click on the External IP for your VM. This should take you through to your apache landing page.</p>
 <p>OR use curl from the SSH connection to your VM’s command line:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl http://<span class="o">[</span>Your-External-IP<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://<span class="o">[</span>Your-External-IP<span class="o">]</span>
 </pre></div>
 </div>
 <p>Either option should return the apache web server’s landing page.</p>
-</div>
-<div class="section" id="gcp-cloud-shell">
-<h2>GCP Cloud Shell<a class="headerlink" href="#gcp-cloud-shell" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="gcp-cloud-shell">
+<h2>GCP Cloud Shell<a class="headerlink" href="#gcp-cloud-shell" title="Permalink to this heading">¶</a></h2>
 <p>Google’s Cloud Shell is a Linux VM that is pre-loaded with development tools including GCP’s SDK. It provides a persistent 5GB home directory and runs on the GCP. Google’s Cloud Shell provides command-line access to your GCP resources.</p>
 <p>One of the great features of the Cloud Shell environment is that you may use bash to store environment variables. This enables you to work with features such as multiple projects without having to return to the console.</p>
 <p>..topic:: Storing project id as an environment variable</p>
 <blockquote>
 <div><p>If you have multiple projects storing their id with a simple name can speed up work immensely.</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud config list <span class="p">|</span> grep project
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>config<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>project
 </pre></div>
 </div>
 </div></blockquote>
@@ -280,8 +280,8 @@
 </div></blockquote>
 </div></blockquote>
 <p>See more about the <a class="reference internal" href="cloud-shell.html#cloud-shell"><span class="std std-ref">GCP cloud shell</span></a></p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -300,7 +300,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
@@ -312,7 +312,6 @@
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Machines</a><ul>
@@ -343,12 +342,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -365,7 +364,7 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

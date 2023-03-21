@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>App Engine &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Cloud Functions" href="cloud-functions.html" />
@@ -32,8 +32,8 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="app-engine">
-<h1>App Engine<a class="headerlink" href="#app-engine" title="Permalink to this headline">¶</a></h1>
+  <section id="app-engine">
+<h1>App Engine<a class="headerlink" href="#app-engine" title="Permalink to this heading">¶</a></h1>
 <p>App Engine was introduced to run language specific environments. However, App Engine Flexible can run deployments in containers, allowing a microservice and language-independent approach to building apps. With the App Engine Flexible Environment a wider range of languages is available, because you can upload your own runtime to run code in a language of your choice. It also supports SSH access to the VM running the environment.</p>
 <p>App Engine scales an application automatically in response to the amount of traffic it receives, i.e., billing can drop to zero in the standard environment. This makes App Engine especially suited for applications where the workload is highly variable, such as web apps.</p>
 <p>App Engine offers services such as a NoSQL databases, in-memory caching, load balancing, health checks, logging, and user authentication to applications running in it.</p>
@@ -45,17 +45,17 @@
 <li><p>PHP</p></li>
 <li><p>Python</p></li>
 </ul>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Application</p>
 <p>Each project can run one application and each app is linked to a region. All resources linked to an app are held in the region specified.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Service</p>
 <p>App:Service is potentially a 1:many relationship, i.e. each App has at least one service.</p>
 <p>A service can have multiple versions thus supporting CICD and previous version maintenance.</p>
 <p>For service think microservice. A service is typically configured to handle a single function.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">App Version</p>
 <p>It is the combination of App:Service that defines the “version” of the app. Change the source <strong>or</strong> the Service configuration file and you just made a new App version.</p>
 <p>When a version executes, it creates an instance of the app.</p>
@@ -63,19 +63,19 @@
 </pre></div>
 </div>
 <p>Will give details of the traffic going to different versions.</p>
-</div>
-<div class="section" id="app-engine-from-the-sdk-cloud-shell">
-<h2>App Engine from the SDK / Cloud Shell<a class="headerlink" href="#app-engine-from-the-sdk-cloud-shell" title="Permalink to this headline">¶</a></h2>
+</aside>
+<section id="app-engine-from-the-sdk-cloud-shell">
+<h2>App Engine from the SDK / Cloud Shell<a class="headerlink" href="#app-engine-from-the-sdk-cloud-shell" title="Permalink to this heading">¶</a></h2>
 <p>Because of the language specificity assumed for most Apps, it is essential to update the environment to accomodate the language you need. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud components install app-engine-python
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>components<span class="w"> </span>install<span class="w"> </span>app-engine-python
 </pre></div>
 </div>
 <p>will update the Python library (if required).</p>
-</div>
-<div class="section" id="deploy-your-app">
-<h2>Deploy your App<a class="headerlink" href="#deploy-your-app" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="deploy-your-app">
+<h2>Deploy your App<a class="headerlink" href="#deploy-your-app" title="Permalink to this heading">¶</a></h2>
 <p>The files required to run your app must be uploaded into the Cloud Shell environment. The default name for the configuration file is app.yaml, this can be deployed with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud app deploy app.yml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>app<span class="w"> </span>deploy<span class="w"> </span>app.yml
 </pre></div>
 </div>
 <p>(Although as the file has the default name, the non-verbose version is <cite>gcloud app deploy</cite>).</p>
@@ -87,16 +87,16 @@
 <li><p>no-promote (to override the default deploy with routing traffic)</p></li>
 </ul>
 <p>The App Engine service creates a human-readable link to the app, not just an external IP. This is provided in the output once you run the command.</p>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">URL</p>
 <p>If you have your own domain, this URL can be updated from the GCP&gt; App Engine&gt; Services. The default is the project name followed by “.appspot.com”.</p>
-</div>
-</div>
-<div class="section" id="app-engine-scaling">
-<h2>App Engine Scaling<a class="headerlink" href="#app-engine-scaling" title="Permalink to this headline">¶</a></h2>
+</aside>
+</section>
+<section id="app-engine-scaling">
+<h2>App Engine Scaling<a class="headerlink" href="#app-engine-scaling" title="Permalink to this heading">¶</a></h2>
 <p>App Engine’s dynamic instances can add and remove instances according to demand. Autoscaling or dynamic scaling are controlled with key-value pairs in the app.yaml configuration file.</p>
 <p>Much like the Kubernetes Engine, deployment is a declarative strategy, you declare the conditions that you want your app to run to and the GCP attempts to match those. Set up autoscaling in app.yaml:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="p">:</span> <span class="n">python</span> <span class="mf">3.7</span><span class="o">.</span><span class="mi">7</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="p">:</span> <span class="n">python</span> <span class="mf">3.7.7</span>
 <span class="n">api_version</span><span class="p">:</span> <span class="mf">2.8</span>
 <span class="n">threadsafe</span><span class="p">:</span> <span class="n">true</span>
 
@@ -117,7 +117,7 @@
 <li><p>max_instances</p></li>
 </ul>
 <p>Instances may also be configured to “manual scaling” to be permanent, thus mitigating cold-start latency issues. These are known as resident instances.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="p">:</span> <span class="n">python</span> <span class="mf">3.7</span><span class="o">.</span><span class="mi">7</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="p">:</span> <span class="n">python</span> <span class="mf">3.7.7</span>
 <span class="n">api_version</span><span class="p">:</span> <span class="mf">2.8</span>
 <span class="n">threadsafe</span><span class="p">:</span> <span class="n">true</span>
 
@@ -129,9 +129,9 @@
         <span class="n">instances</span><span class="p">:</span> <span class="mi">3</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="traffic-by-version">
-<h2>Traffic by Version<a class="headerlink" href="#traffic-by-version" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="traffic-by-version">
+<h2>Traffic by Version<a class="headerlink" href="#traffic-by-version" title="Permalink to this heading">¶</a></h2>
 <p>If you have different versions of the App, say in Arabic and English then you can split traffic to the correct version by:</p>
 <ul class="simple">
 <li><p>user IP</p></li>
@@ -139,18 +139,18 @@
 <li><p>Randomly (use case would be testing new version, rather than English variant!)</p></li>
 </ul>
 <p>A cookie is best to provide a consistent experience for the user, so that their changing IP does not alter the end experience.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud app services set-traffic <span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>app<span class="w"> </span>services<span class="w"> </span>set-traffic<span class="w"> </span><span class="se">\</span>
 --splits<span class="o">=</span><span class="nv">v2</span><span class="o">=</span>.5,v1<span class="o">=</span>.5
 --split-by<span class="o">=</span>cookie
 </pre></div>
 </div>
 <p>This would give you a 50:50 split.</p>
 <p>You can also retire a version and redirect its traffic elsewhere with migrate (from the console or the CLI).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud app services set-traffic --migrate V1,V2
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>app<span class="w"> </span>services<span class="w"> </span>set-traffic<span class="w"> </span>--migrate<span class="w"> </span>V1,V2
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -169,7 +169,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
@@ -187,7 +187,6 @@
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
@@ -210,12 +209,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -232,7 +231,7 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

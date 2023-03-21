@@ -1,21 +1,21 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Storage &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="GCP Networking" href="virtual-networking.html" />
-    <link rel="prev" title="Stackdriver" href="stackdriver.html" />
+    <link rel="prev" title="Monitoring" href="monitoring.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -34,8 +34,8 @@
             
   <div class="toctree-wrapper compound">
 </div>
-<div class="section" id="storage">
-<h1>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h1>
+<section id="storage">
+<h1>Storage<a class="headerlink" href="#storage" title="Permalink to this heading">¶</a></h1>
 <p>Multiple Storage Options, which to use is determine by your requirements, such as:</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -80,13 +80,13 @@
 <li><p>Cloud Firestore</p></li>
 <li><p>Cloud Bigtable</p></li>
 </ul>
-<div class="section" id="cache">
-<h2>Cache<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h2>
+<section id="cache">
+<h2>Cache<a class="headerlink" href="#cache" title="Permalink to this heading">¶</a></h2>
 <p>While cache is an in-memory store with high-speed access it can’t be considered storage as such, because it does not persist if the machine is shut down.</p>
 <p>It is possible to save cache contents to a persistent storage solution at intervals, but the recovery point would not be the same as the shutdown point.</p>
-</div>
-<div class="section" id="memorystore">
-<h2>Memorystore<a class="headerlink" href="#memorystore" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="memorystore">
+<h2>Memorystore<a class="headerlink" href="#memorystore" title="Permalink to this heading">¶</a></h2>
 <p>This managed Redis service provides a larger cache which may be configured for high-availability. Memorystore integrates with:</p>
 <ul class="simple">
 <li><p>Compute Engine</p></li>
@@ -94,27 +94,21 @@
 <li><p>Kubernetes Engine</p></li>
 </ul>
 <p>As with most GCP services, choose region and zone. A basic instance is cheapest, but does not support replicas. The Redis instance will be available on your default network and its IP range may be defined or labels added.</p>
-</div>
-<div class="section" id="persistent-disks">
-<h2>Persistent Disks<a class="headerlink" href="#persistent-disks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="persistent-disks">
+<h2>Persistent Disks<a class="headerlink" href="#persistent-disks" title="Permalink to this heading">¶</a></h2>
 <p>Persistent storage can be associated with your VMs in Compute Engine and Kubernetes Engine. Capacity of up to 64TB. Data is encrypted at rest. Zonal storage or regional storage is available. If zonal is chosen, the data is stored across multiple physical drives. If regional storage is selected, then the date is replicated across zones providing redundancy.</p>
 <p>As block storage, such disks can support file systems. The drive is virtual and accessible via your VM. Local SSD (solid state, i.e. high-performance, low latency) drives are an option, but these do not persist through shutdown of the VM.</p>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">Protect your Data</p>
 <p>Setting the <cite>deletionProtection</cite> flag on a VM instance prevents accidental shutdown of a VM, and subsequent loss of all data on the persistent disks.</p>
 <p>However, the VM can still be shutdown from within its own operating system. It can also still be stopped, reset, and suspended from the console!</p>
-</div>
+</aside>
 <p>SSDs are ideal for high-performance (input/output IOPS-intensive), whether with random access or sequential access patterns. They are more expensive than the longer latency, spinning hard disk drive (HDD).</p>
 <p>HDDs can be a better option for storing large amounts of data and undertaking batch processing.</p>
 <p>Compare:</p>
 <p>NB Read/Write rates are measured per second per GB:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 18%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Drive</p></th>
 <th class="head"><p>Read</p></th>
@@ -136,14 +130,14 @@
 </tbody>
 </table>
 <p>Snapshots of disks can be created as data backups. Once a snapshot disk has been made into an image and mounted to a new machine, it behaves like a normal disk, i.e. supports read and write access.</p>
-</div>
-<div class="section" id="object-storage">
-<h2>Object Storage<a class="headerlink" href="#object-storage" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="object-storage">
+<h2>Object Storage<a class="headerlink" href="#object-storage" title="Permalink to this heading">¶</a></h2>
 <p>Cloud Bucket provides simple object storage for exabyte-volumes of data, or data that needs to be shared widely. No data structures is required, each item is – an “object”. Buckets share a global namespace and, therefore, bucket name must be unique. Using project ID as part of the name is a simple method to find a unique key.</p>
 <p>Buckets are regional resources and are replicated across zones in a region.</p>
-</div>
-<div class="section" id="using-buckets">
-<h2>Using Buckets<a class="headerlink" href="#using-buckets" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-buckets">
+<h2>Using Buckets<a class="headerlink" href="#using-buckets" title="Permalink to this heading">¶</a></h2>
 <p>How buckets behave depends on their metadata tags. For example if you are going to make a PDF document available to all users and wish the functionality from the web to be more than just a download option, then use:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">pdf</span>
 </pre></div>
@@ -154,27 +148,27 @@
 </pre></div>
 </div>
 <p>The gsutil command makes buckets, like so:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil mb -l <span class="o">[</span>location<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>mb<span class="w"> </span>-l<span class="w"> </span><span class="o">[</span>location<span class="o">]</span>
 </pre></div>
 </div>
 <p>For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil mb -l US <span class="o">[</span>projectID-name<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>mb<span class="w"> </span>-l<span class="w"> </span>US<span class="w"> </span><span class="o">[</span>projectID-name<span class="o">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cloud-storage-fuse">
-<h2>Cloud Storage Fuse<a class="headerlink" href="#cloud-storage-fuse" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="cloud-storage-fuse">
+<h2>Cloud Storage Fuse<a class="headerlink" href="#cloud-storage-fuse" title="Permalink to this heading">¶</a></h2>
 <p>There is no file system or folder system with buckets, each object sits at the same level. To create a file structure, Cloud Storage Fuse can be used on Linux O.S. to mount a bucket. This allows file structure to be created from the point of view of the VM/s that possess these mount instructions.</p>
-</div>
-<div class="section" id="bucket-url">
-<h2>Bucket URL<a class="headerlink" href="#bucket-url" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="bucket-url">
+<h2>Bucket URL<a class="headerlink" href="#bucket-url" title="Permalink to this heading">¶</a></h2>
 <p>Each object in cloud storage has its own URL. The objects are held in buckets. These object are immutable (unchangeable). If you want to edit an image object, for example, you can overwrite the image held in that bucket, with no impact on the URL.</p>
 <p>GCP cloud storage is like an API that gives you POST, GET, and DELETE but no PUT or PATCH. No fragment of a bucket may be updated, it is all or nothing.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Security</p>
 <p>So, how are my objects kept safe? When in transit, objects are transferred over HTTPS. When in storage, it is the IAM that controls who/what can get their hands on the object.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Access</p>
 <p>An Access Control List (ACL) gives fine-grained control over who/what can access the object.</p>
 <p>ACLs have:</p>
@@ -182,22 +176,22 @@
 <li><p>Scope = Who/What has access</p></li>
 <li><p>Permissions = What can be done</p></li>
 </ol>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Auditing Access logs</p>
 <p>Data access logging is not enabled by default and needs to be enabled when setting up the bucket. Data Access audit logs do not record all the data-access operations on resources:
 - not those that are publicly shared (available to All Users or All Authenticated Users)
 - not those that can be accessed without logging into Google Cloud</p>
 <p>Logs can be tracked with Stackdriver and accessed through reports and filters.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Version Control</p>
 <p>A history of modifications can be kept if you turn on object versioning of your bucket/s.</p>
 <p>If you don’t turn on versioning then a new file will always overwrite old with no recourse.</p>
-</div>
-</div>
-<div class="section" id="bucket-lifecycle-policies">
-<h2>Bucket Lifecycle Policies<a class="headerlink" href="#bucket-lifecycle-policies" title="Permalink to this headline">¶</a></h2>
+</aside>
+</section>
+<section id="bucket-lifecycle-policies">
+<h2>Bucket Lifecycle Policies<a class="headerlink" href="#bucket-lifecycle-policies" title="Permalink to this heading">¶</a></h2>
 <p>A set of rules can be applied to buckets. For example, once a bucket reaches a specified age it can be moved to Nearline or Coldline storage.</p>
 <ul class="simple">
 <li><p>Multiregional &amp; regional objects can &gt; Nearline or Coldline</p></li>
@@ -211,13 +205,13 @@
 </div>
 <p>enables you to set the lifecycle configuration on a bucket based on a JSON configuration file. The config-json-file specified on the command line should be a path to a local file containing this document.</p>
 </div></blockquote>
-<div class="section" id="storage-classes">
-<h3>Storage Classes<a class="headerlink" href="#storage-classes" title="Permalink to this headline">¶</a></h3>
+<section id="storage-classes">
+<h3>Storage Classes<a class="headerlink" href="#storage-classes" title="Permalink to this heading">¶</a></h3>
 <p>As with the rest of GCP, location matters. When you create a bucket you set a region that will minimize latency for your typical user/access point. OR for global access, chose multiregional. Multi-regional and regional storage are for buckets that are accessed frequently. The cost drops as you enter the long-term storage options.</p>
-</div>
-</div>
-<div class="section" id="gcp-storage-options">
-<h2>GCP Storage Options<a class="headerlink" href="#gcp-storage-options" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="gcp-storage-options">
+<h2>GCP Storage Options<a class="headerlink" href="#gcp-storage-options" title="Permalink to this heading">¶</a></h2>
 <p>The various Cloud Storage options:</p>
 <blockquote>
 <div><ul class="simple">
@@ -243,10 +237,10 @@ for data accessed less than annually</p>
 <p>Storage class can be changed on the fly to some extent.</p>
 <p>Multi-regional is intended for use with data accessed frequently, with regional being the same – with the expectation that this occurs from a particular region.</p>
 <p>Charges are applied per GB of data stored per month, varying according to the type. Accessing of data is also charged with nearline and coldline.</p>
-</div>
-<div class="section" id="have-a-go">
-<h2>Have a Go<a class="headerlink" href="#have-a-go" title="Permalink to this headline">¶</a></h2>
-<div class="topic">
+</section>
+<section id="have-a-go">
+<h2>Have a Go<a class="headerlink" href="#have-a-go" title="Permalink to this heading">¶</a></h2>
+<aside class="topic">
 <p class="topic-title">Setup a bucket from the console</p>
 <p>GCP&gt; Storage&gt; Browser</p>
 <ol class="arabic simple">
@@ -254,14 +248,14 @@ for data accessed less than annually</p>
 <li><p>Provide a globally unique bucket name (think project ID + name)</p></li>
 <li><p>Click Create.</p></li>
 </ol>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Setup a bucket from cloud shell</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil mb gs://&lt;BUCKET_NAME&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>mb<span class="w"> </span>gs://&lt;BUCKET_NAME&gt;
 </pre></div>
 </div>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Upload a file via Cloud Shell</p>
 <ol class="arabic simple">
 <li><p>Click the three dots icon in the Cloud Shell toolbar to display further options.</p></li>
@@ -269,14 +263,14 @@ for data accessed less than annually</p>
 <li><p>In Cloud Shell’s CLI, type ls to confirm that the file was uploaded.</p></li>
 <li><p>Copy the file into a pre-existing bucket</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil cp <span class="o">[</span>MY_FILE<span class="o">]</span> gs://<span class="o">[</span>BUCKET_NAME<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>cp<span class="w"> </span><span class="o">[</span>MY_FILE<span class="o">]</span><span class="w"> </span>gs://<span class="o">[</span>BUCKET_NAME<span class="o">]</span>
 </pre></div>
 </div>
 <p>NB If your filename has whitespaces, place single quotes around the filename. For example, gsutil cp ‘uploaded file.txt’ gs://[BUCKET_NAME]</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Copy via CLI</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil cp <span class="o">{</span>location-on-your-machine<span class="o">}</span> gs://<span class="o">{</span>bucket-name<span class="o">}</span>/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>cp<span class="w"> </span><span class="o">{</span>location-on-your-machine<span class="o">}</span><span class="w"> </span>gs://<span class="o">{</span>bucket-name<span class="o">}</span>/
 </pre></div>
 </div>
 <p>Or grab a bucket’s contents with:</p>
@@ -284,7 +278,7 @@ for data accessed less than annually</p>
 </pre></div>
 </div>
 <p>It is just as simple to copy data from one bucket to another, e.g.:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil cp gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg <span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>cp<span class="w"> </span>gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg<span class="w"> </span><span class="se">\</span>
 gs://<span class="nv">$MY_BUCKET_NAME_2</span>/image.jpg
 </pre></div>
 </div>
@@ -294,35 +288,35 @@ gs://<span class="nv">$MY_BUCKET_NAME_2</span>/image.jpg
 <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">destination</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">name</span><span class="p">}{</span><span class="n">destination</span><span class="o">-</span><span class="nb">object</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
 </pre></div>
 </div>
-</div>
+</aside>
 <p>Move can be use in the abstract to rename a bucket:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gsutil</span> <span class="n">mv</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">old</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">name</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">old</span><span class="o">-</span><span class="n">filename</span><span class="p">}</span> \
 <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">new</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">name</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">new</span><span class="o">-</span><span class="n">filename</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>If you need to verify who has access to a file (acess control list, or acl):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil acl get gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg  &gt; acl.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>acl<span class="w"> </span>get<span class="w"> </span>gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg<span class="w">  </span>&gt;<span class="w"> </span>acl.txt
 
-cat acl.txt
+cat<span class="w"> </span>acl.txt
 </pre></div>
 </div>
 <p>To change who has access use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil acl <span class="nb">set</span> private
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>acl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>private
 gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
 </pre></div>
 </div>
 <p>A publicly-hosted piece of content would require my more open access, e.g.:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil iam ch allUsers:objectViewer gs://<span class="o">{</span>MY_BUCKET_NAME_1<span class="o">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>iam<span class="w"> </span>ch<span class="w"> </span>allUsers:objectViewer<span class="w"> </span>gs://<span class="o">{</span>MY_BUCKET_NAME_1<span class="o">}</span>
 </pre></div>
 </div>
 <p>From the Storage options in the GCP, you will be able to pickup the publically-available URL for this item.</p>
-<div class="section" id="moving-data">
-<h3>Moving Data<a class="headerlink" href="#moving-data" title="Permalink to this headline">¶</a></h3>
+<section id="moving-data">
+<h3>Moving Data<a class="headerlink" href="#moving-data" title="Permalink to this heading">¶</a></h3>
 <p>The <cite>gsutil</cite> command is all well and good if you have small requirements that can be handled by your bandwidth via the Chrome browser. If you want to schedule batch transfers there is an HTTPS endpoint service that can connect to an upload facility. Up to a petabyte of data may be transferred this way. Or, you can post your data on a drive (!).</p>
 <p>It gets fancy, BigQuery and App Engine can both submit data to cloud storage.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -341,7 +335,7 @@ gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
@@ -353,7 +347,6 @@ gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cache">Cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#memorystore">Memorystore</a></li>
@@ -379,7 +372,7 @@ gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="stackdriver.html" title="previous chapter">Stackdriver</a></li>
+      <li>Previous: <a href="monitoring.html" title="previous chapter">Monitoring</a></li>
       <li>Next: <a href="virtual-networking.html" title="next chapter">GCP Networking</a></li>
   </ul></li>
 </ul>
@@ -388,12 +381,12 @@ gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -410,7 +403,7 @@ gs://<span class="nv">$MY_BUCKET_NAME_1</span>/image.jpg
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

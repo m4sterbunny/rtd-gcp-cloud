@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Accounts &amp; Billing &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="App Engine" href="app-engine.html" />
@@ -32,26 +32,26 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="accounts-billing">
-<h1>Accounts &amp; Billing<a class="headerlink" href="#accounts-billing" title="Permalink to this headline">¶</a></h1>
-<div class="topic">
+  <section id="accounts-billing">
+<h1>Accounts &amp; Billing<a class="headerlink" href="#accounts-billing" title="Permalink to this heading">¶</a></h1>
+<aside class="topic">
 <p class="topic-title">today’s Princess Bride quote (adapted)</p>
 <p>You told me to go back to the beginning. … So it’s the beginning, and I’m staying till I understand …</p>
-</div>
+</aside>
 <p>GCP’s Identity and Access Management (IAM) policies are a key component to issues around accounts and billing.</p>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP &gt; IAM &amp; Admin</p>
-</div>
+</aside>
 <p>For all billing and organisation services.</p>
-<div class="section" id="gcp-resource-hierarchy">
-<h2>GCP Resource Hierarchy<a class="headerlink" href="#gcp-resource-hierarchy" title="Permalink to this headline">¶</a></h2>
-<div class="topic">
+<section id="gcp-resource-hierarchy">
+<h2>GCP Resource Hierarchy<a class="headerlink" href="#gcp-resource-hierarchy" title="Permalink to this heading">¶</a></h2>
+<aside class="topic">
 <p class="topic-title">Principles to Secure By</p>
 <p>InfoSec and data-management best practice dictate: <em>only assign access to those that **must*</em> have it*.</p>
 <p>OR - <em>the principle of least privilege</em></p>
 <p>PoLP is vital because of the hierarchical nature of policy inheritance. Say you give a user Owner permissions at the project level, you CAN NOT restrict them to View permission by applying a more restrictive policy directly to a particular resource.</p>
-</div>
+</aside>
 <p>Constraints are restrictions on services. By constraining roles, the GCP determines, using lists or a boolean switch, who can do what – where.</p>
 <p>The GCP applies the following resource hierarchy:</p>
 <ul class="simple">
@@ -60,10 +60,10 @@
 <li><p>Project (required) linked with Project ID a uid</p></li>
 </ul>
 <p>Google offers Identity as a Service (IDaaS). By using a Google identity through G Suite, you can create an organisation in your GCP hierarchy. If your company does not use G Suite, you can use Cloud Identity, Google’s other IDaaS offering.</p>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP&gt; IAM &amp; admin&gt; Identity &amp; Organization</p>
-</div>
+</aside>
 <p>All users are assigned project creator and billing account creator by default – i.e. every user may initiate a service that creates costs.</p>
 <p>Further responsibility may be assigned, for example a super-user position would have the Organization Administrator IAM role assigned. These users can then assign that role to other selected users.</p>
 <p>The constraints that GCP supports include:</p>
@@ -74,13 +74,13 @@
 <li><p>allow all allowed values</p></li>
 <li><p>deny all values</p></li>
 </ul>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">constraints rule</p>
 <p>To deny access to serial ports on VMs, you can set these constraints:</p>
 <p><code class="docutils literal notranslate"><span class="pre">compute.disableSerialPortAccess</span> <span class="pre">to</span> <span class="pre">TRUE</span></code></p>
 <p>If you set these constraints at the organisation level, then any VM set up by someone with access to a project will configure to that setting.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Binding roles</p>
 <p>With a top down hierarchy, roles can be assigned at a high-level and filter down. For example, let’s say you have a VPC set up and wish for someone within the organisation to have a set of administrator rights (<cite>compute.xpnAdmin</cite>) you could bind these to an organisation folder using their id, like so:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
@@ -93,9 +93,9 @@
 <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/compute.xpnAdmin</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="organisation">
-<h3>Organisation<a class="headerlink" href="#organisation" title="Permalink to this headline">¶</a></h3>
+</aside>
+<section id="organisation">
+<h3>Organisation<a class="headerlink" href="#organisation" title="Permalink to this heading">¶</a></h3>
 <p>An Organization is the highest level of a collection of GCP services. Setting rights at the Organization level allows those rights to be applied at all levels below.</p>
 <p>The Organization Administrator role allows users to:</p>
 <ul class="simple">
@@ -103,35 +103,35 @@
 <li><p>define and apply IAM policies for other users</p></li>
 </ul>
 <p>All projects and billing accounts are children of an organisation.</p>
-</div>
-<div class="section" id="folders">
-<h3>Folders<a class="headerlink" href="#folders" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="folders">
+<h3>Folders<a class="headerlink" href="#folders" title="Permalink to this heading">¶</a></h3>
 <p>Folders sit under the Organisation level.</p>
 <p>Organisation administrators may give users access to specific folders. A developer, for example, would need access to Dev, Test, Staging, and Production. A developer would not need access to Accounts, nor an accountant to Dev.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">did you know?</p>
 <p>A folder can contain another folder and/or project/s</p>
-</div>
-</div>
-<div class="section" id="projects">
-<h3>Projects<a class="headerlink" href="#projects" title="Permalink to this headline">¶</a></h3>
+</aside>
+</section>
+<section id="projects">
+<h3>Projects<a class="headerlink" href="#projects" title="Permalink to this heading">¶</a></h3>
 <p>All services and resources are associated with a project. A project can sit inside a folder, or directly below your organisation. The default IAM for all users is that they have the <cite>resourcemanager.projects.create</cite> role assigned, the big G is in it to make money after all.</p>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP&gt; IAM &amp; Admin&gt; Manage Resources&gt; Create</p>
-</div>
-</div>
-</div>
-<div class="section" id="organisation-policies">
-<h2>Organisation Policies<a class="headerlink" href="#organisation-policies" title="Permalink to this headline">¶</a></h2>
-<div class="topic">
+</aside>
+</section>
+</section>
+<section id="organisation-policies">
+<h2>Organisation Policies<a class="headerlink" href="#organisation-policies" title="Permalink to this heading">¶</a></h2>
+<aside class="topic">
 <p class="topic-title">Inheritance is key</p>
 <p>Policies are inherited and
 cannot be disabled or overridden by objects lower in the hierarchy, an effective way to apply a policy across an entire organisation’s resources.</p>
-</div>
+</aside>
 <p>The organisation policy service works together with IAM. It allows super-users to specify limits on the ways that resources may be used.</p>
 <p>Think of IAM as the control over <em>who</em> can do things. While the policies determine <em>what</em> can be done.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">did you know?</p>
 <p>that it is possible to apply multiple policies at multiple levels:</p>
 <ul class="simple">
@@ -139,19 +139,19 @@ cannot be disabled or overridden by objects lower in the hierarchy, an effective
 <li><p>folder</p></li>
 <li><p>project</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="roles">
-<h2>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
-<div class="sidebar">
+</aside>
+</section>
+<section id="roles">
+<h2>Roles<a class="headerlink" href="#roles" title="Permalink to this heading">¶</a></h2>
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP&gt; IAM &amp; Admin&gt; IAM&gt; Roles</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Manage Roles</p>
 <p>Select project from drop-down on blue bar</p>
 <p>You can add members/groups of members and roles to a project</p>
-</div>
+</aside>
 <p>A role is a collection of permissions.</p>
 <p>A user has an identity such as <a class="reference external" href="mailto:ab1&#37;&#52;&#48;gmail&#46;com">ab1<span>&#64;</span>gmail<span>&#46;</span>com</a>, which is how roles are assigned to Alice Babel (of <a class="reference external" href="mailto:ab1&#37;&#52;&#48;gmail&#46;com">ab1<span>&#64;</span>gmail<span>&#46;</span>com</a> fame).</p>
 <p>Roles may be</p>
@@ -166,62 +166,62 @@ cannot be disabled or overridden by objects lower in the hierarchy, an effective
 <p class="admonition-title">Warning</p>
 <p>DRY</p>
 <p>Use pre-defined roles before making your own <em>custom</em> role. Consider these 3 and how many more are out there:</p>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.appAdmin
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>appengine.appAdmin
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Which grants identities the ability to read, write, and modify all application settings within App Engine (notice the role is confined to the <em>service</em> App Engine).</p>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.ServiceAdmin
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>appengine.ServiceAdmin
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>which grants read-only access to application settings and write-level access to module-level and version-level settings.</p>
-<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>appengine.appViewer
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>appengine.appViewer
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Which grants read-only access to applications.</p>
 </div>
 <p>Predefined roles are a fast way to provide users with group permissions that are typically required to carry out a set of tasks.</p>
-</div>
-<div class="section" id="primitive-role-descriptions">
-<h2>Primitive Role Descriptions<a class="headerlink" href="#primitive-role-descriptions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="primitive-role-descriptions">
+<h2>Primitive Role Descriptions<a class="headerlink" href="#primitive-role-descriptions" title="Permalink to this heading">¶</a></h2>
 <p>Primitive roles are coarse-grained and may provide a greater scope than you wish to assign a user. This is why permissions may be constrained using scopes.</p>
 <p>There is a huge difference between assigning someone on your team a viewer role and the entire world a primitive viewer role.</p>
 <p>The following open policy allows all users to see website content:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil iam ch allUsers:objectViewer gs://<span class="o">{</span>MY_BUCKET_NAME_1<span class="o">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsutil<span class="w"> </span>iam<span class="w"> </span>ch<span class="w"> </span>allUsers:objectViewer<span class="w"> </span>gs://<span class="o">{</span>MY_BUCKET_NAME_1<span class="o">}</span>
 </pre></div>
 </div>
 <p>This is a granular policy that only applies to the named bucket. Users do not even need to exist on you Google domain to get viewer access. The primitive roles are broad policies that apply only to users that exist in your GSuite or Cloud Identity group/s.</p>
-<div class="section" id="viewer">
-<h3>Viewer<a class="headerlink" href="#viewer" title="Permalink to this headline">¶</a></h3>
+<section id="viewer">
+<h3>Viewer<a class="headerlink" href="#viewer" title="Permalink to this heading">¶</a></h3>
 <p>Permission for read-only actions that can not affect state, such as viewing (but not modifying) existing resources or data.</p>
-</div>
-<div class="section" id="editor">
-<h3>Editor<a class="headerlink" href="#editor" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="editor">
+<h3>Editor<a class="headerlink" href="#editor" title="Permalink to this heading">¶</a></h3>
 <p>All viewer permissions &amp; permissions for actions that modify states, such as changing existing resources.</p>
-</div>
-<div class="section" id="owner">
-<h3>Owner<a class="headerlink" href="#owner" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="owner">
+<h3>Owner<a class="headerlink" href="#owner" title="Permalink to this heading">¶</a></h3>
 <p>All editor permissions &amp; permissions for the following actions:</p>
 <ul class="simple">
 <li><p>Manage roles and permissions for a project and all resources within the project.</p></li>
 <li><p>Set up billing for a project.</p></li>
 </ul>
-</div>
-<div class="section" id="browser-still-in-beta">
-<h3>Browser (still in beta)<a class="headerlink" href="#browser-still-in-beta" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="browser-still-in-beta">
+<h3>Browser (still in beta)<a class="headerlink" href="#browser-still-in-beta" title="Permalink to this heading">¶</a></h3>
 <p>Read access to browse the hierarchy for a project, including the folder, organization, and Cloud IAM policies. This role doesn’t include permission to view resources in the project.</p>
-</div>
-</div>
-<div class="section" id="service-accounts">
-<h2>Service Accounts<a class="headerlink" href="#service-accounts" title="Permalink to this headline">¶</a></h2>
-<div class="sidebar">
+</section>
+</section>
+<section id="service-accounts">
+<h2>Service Accounts<a class="headerlink" href="#service-accounts" title="Permalink to this heading">¶</a></h2>
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP&gt; IAM &amp; Admin&gt; Service accounts</p>
-</div>
+</aside>
 <p>Typically we think of identities as belonging to users, that is a person. Sometimes we assign apps or VMs identities to utilise the same IAM system to determine what has access, rather than who.</p>
 <p>A service account can be created and then given access permissions. Because they are linked to a what, such as a VM, they may be considered as assisting a resource. On the other hand they may be as abstracted as providing a user access to a database via a service account that is associated with an app – in this instance it is behaving like IAM acting for a person.</p>
 <p>You may create up to 100 user-defined service accounts.</p>
 <p>Service accounts are often created in the background. For example, if you create an App Engine app, then it is assigned a service account to control what it has access to. This service account will be assigned the editor roles for the project in which it is active.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">So, same as a user, right?</p>
 <p>Service accounts do not have passwords, so authentication can not take the same path as a user.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">iam</span> <span class="n">service</span><span class="o">-</span><span class="n">accounts</span> <span class="n">keys</span> <span class="n">create</span>
@@ -231,12 +231,12 @@ cannot be disabled or overridden by objects lower in the hierarchy, an effective
 <p>A service account can be provided with keys for authentication when it is set up.</p>
 <p>When a JSON key {credentials.json} is generated it can be uploaded into the Cloud Shell environment.</p>
 <p>The following applies the key and authenticates the account:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud auth activate-service-account --key-file credentials.json
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>auth<span class="w"> </span>activate-service-account<span class="w"> </span>--key-file<span class="w"> </span>credentials.json
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-service-accounts">
-<h3>Using Service Accounts<a class="headerlink" href="#using-service-accounts" title="Permalink to this headline">¶</a></h3>
+</aside>
+<section id="using-service-accounts">
+<h3>Using Service Accounts<a class="headerlink" href="#using-service-accounts" title="Permalink to this heading">¶</a></h3>
 <p>Create a service account from IAM &amp; Admin:</p>
 <ul class="simple">
 <li><p>name</p></li>
@@ -245,28 +245,28 @@ cannot be disabled or overridden by objects lower in the hierarchy, an effective
 <li><p>assign roles</p></li>
 <li><p>assign the account to an instance (from CE&gt; stopped VM)</p></li>
 </ul>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Link a service account at creation</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">compute</span> <span class="n">instances</span> <span class="n">create</span> <span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">vm</span><span class="p">}</span> \
 <span class="o">--</span><span class="n">service</span><span class="o">-</span><span class="n">account</span><span class="p">{</span><span class="n">service</span><span class="o">-</span><span class="n">account</span><span class="s1">&#39;s-email}</span>
 </pre></div>
 </div>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">CLI IAM</p>
 <p>As with the other functions, cloud shell supports CLI control of service accounts:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud iam service-accounts create <span class="se">\</span>
-test-service-account2 <span class="se">\</span>
---display-name <span class="s2">&quot;test-service-account2&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+test-service-account2<span class="w"> </span><span class="se">\</span>
+--display-name<span class="w"> </span><span class="s2">&quot;test-service-account2&quot;</span>
 </pre></div>
 </div>
 <p>Of course, a service account is not much use unless it has permission to do something at least!</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud projects add-iam-policy-binding <span class="o">{</span>GOOGLE_CLOUD_PROJECT<span class="o">}</span> --member <span class="se">\</span>
-serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJECT<span class="o">}</span>.iam.gserviceaccount.com <span class="se">\</span>
---role roles/viewer
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="o">{</span>GOOGLE_CLOUD_PROJECT<span class="o">}</span><span class="w"> </span>--member<span class="w"> </span><span class="se">\</span>
+serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJECT<span class="o">}</span>.iam.gserviceaccount.com<span class="w"> </span><span class="se">\</span>
+--role<span class="w"> </span>roles/viewer
 </pre></div>
 </div>
-</div>
+</aside>
 <p>Service accounts provide multiple functions, such as:</p>
 <ul class="simple">
 <li><p>enabling authentication between different components of GCP’s services</p></li>
@@ -277,10 +277,10 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 </pre></div>
 </div>
 <p>Will let you recreate settings from say Development to Staging.</p>
-</div>
-</div>
-<div class="section" id="scopes">
-<h2>Scopes<a class="headerlink" href="#scopes" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="scopes">
+<h2>Scopes<a class="headerlink" href="#scopes" title="Permalink to this heading">¶</a></h2>
 <p>A scope allows a permission to be granted to a VM to perform an operation managed by the GCP API methods. Scopes can be only modified when using Compute Engine’s default service account for the VM, because it is the service account that is assigned the access rights.</p>
 <p>The scope is specified with a URL. Need a VM with rights to view data in Cloud Storage?:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">googleapis</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">auth</span><span class="o">/</span><span class="n">devstorage</span><span class="o">.</span><span class="n">read_only</span>
@@ -291,23 +291,23 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 </pre></div>
 </div>
 <p>Then the VM will <em>Not</em> be able to write.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">best practice for service accounts</p>
 <p>Grant an instance full access to all the GCP APIs <cite>https://www.googleapis.com/auth/cloud-platform</cite> scope. Then set the service account’s IAM permissions, in this way the service account can only execute API methods that are allowed by both the access scope <em>and</em> the service account’s specific IAM roles.</p>
-</div>
-<div class="section" id="using-scopes">
-<h3>Using Scopes<a class="headerlink" href="#using-scopes" title="Permalink to this headline">¶</a></h3>
+</aside>
+<section id="using-scopes">
+<h3>Using Scopes<a class="headerlink" href="#using-scopes" title="Permalink to this heading">¶</a></h3>
 <p>To alter scopes, the VM instance must be stopped. Edit the instance and an “Access Scopes” option is available. NB you can select “Allow Full Access” if you have IAM rules that limit what the instance can do.</p>
-</div>
-</div>
-<div class="section" id="billing-accounts">
-<h2>Billing Accounts<a class="headerlink" href="#billing-accounts" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="billing-accounts">
+<h2>Billing Accounts<a class="headerlink" href="#billing-accounts" title="Permalink to this heading">¶</a></h2>
 <p>These are associated with a Project, allowing an organisation to separate the financials for different activities.</p>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP &gt; Billing</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Manage Billing Accounts</p>
 <p>There are 2 types:</p>
 <blockquote>
@@ -326,10 +326,10 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 </ul>
 </div></blockquote>
 <p>The super user will require account creation rights, whilst the accountant may require user and viewer roles.</p>
-</div>
-</div>
-<div class="section" id="alerts">
-<h2>Alerts<a class="headerlink" href="#alerts" title="Permalink to this headline">¶</a></h2>
+</aside>
+</section>
+<section id="alerts">
+<h2>Alerts<a class="headerlink" href="#alerts" title="Permalink to this heading">¶</a></h2>
 <p>To change a billing account you must be:</p>
 <blockquote>
 <div><ul class="simple">
@@ -337,11 +337,11 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 <li><p>billing administrator on that account</p></li>
 </ul>
 </div></blockquote>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP&gt; Billing&gt; Budgets &amp; alerts</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Setup Alerts</p>
 <p>There are 3 default alert positions for a budget:</p>
 <blockquote>
@@ -351,16 +351,16 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 <li><p>100%</p></li>
 </ul>
 </div></blockquote>
-</div>
+</aside>
 <p>These may be amended.</p>
 <blockquote>
 <div><p>Alerts may be by <em>email</em> or <em>programatically</em> through Pub/Sub</p>
 </div></blockquote>
-<div class="sidebar">
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP&gt; Billing&gt; Billing Export</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Export Billing Data</p>
 <p>Data may be exported to <em>BigQuery</em> or <em>Cloud Storage</em>. This is managed through the Billing export wizard, with cloud storage called “File Export”, with .csv or JSON outputs available.</p>
 <blockquote>
@@ -372,14 +372,14 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 </div>
 <p>gcloud config set compute/zone us-central1-a</p>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="managing-iam-roles">
-<h2>Managing IAM roles<a class="headerlink" href="#managing-iam-roles" title="Permalink to this headline">¶</a></h2>
-<div class="sidebar">
+</aside>
+</section>
+<section id="managing-iam-roles">
+<h2>Managing IAM roles<a class="headerlink" href="#managing-iam-roles" title="Permalink to this heading">¶</a></h2>
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP&gt; IAM &amp; Admin</p>
-</div>
+</aside>
 <ul class="simple">
 <li><dl class="simple">
 <dt>Members</dt><dd><ul>
@@ -409,36 +409,36 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">iam</span> <span class="n">roles</span> <span class="n">describe</span> <span class="n">roles</span><span class="o">/</span><span class="p">{</span><span class="n">role</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
 </pre></div>
 </div>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Setting IAM from the CLI</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">projects</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="p">{</span><span class="n">project</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> \
 <span class="o">--</span><span class="n">member</span> <span class="n">user</span><span class="p">:</span><span class="n">a</span><span class="nd">@a</span><span class="o">.</span><span class="n">com</span> \
 <span class="o">--</span><span class="n">role</span> <span class="n">roles</span><span class="o">/</span><span class="n">appengine</span><span class="o">.</span><span class="n">viewer</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="auditing-iam-roles">
-<h3>Auditing IAM roles<a class="headerlink" href="#auditing-iam-roles" title="Permalink to this headline">¶</a></h3>
+</aside>
+<section id="auditing-iam-roles">
+<h3>Auditing IAM roles<a class="headerlink" href="#auditing-iam-roles" title="Permalink to this heading">¶</a></h3>
 <p>To simplify audits the console provides filters. For example, should you need to see which users were granted IAM roles for Cloud Functions you can filter the admin activity logs for Cloud Functions IAM roles.</p>
-</div>
-<div class="section" id="custom-iam-roles">
-<h3>Custom IAM Roles<a class="headerlink" href="#custom-iam-roles" title="Permalink to this headline">¶</a></h3>
-<div class="sidebar">
+</section>
+<section id="custom-iam-roles">
+<h3>Custom IAM Roles<a class="headerlink" href="#custom-iam-roles" title="Permalink to this heading">¶</a></h3>
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>IAM &amp; Admin&gt; Create Role</p>
-</div>
+</aside>
 <p>The pre-built launch stages are alpha&gt; beta&gt; general availability, and disabled.</p>
 <p>Add permissions lets you do just that, however, not all pre-defined permissions are available for inclusion in a custom role.</p>
-</div>
-<div class="section" id="useful-snippets">
-<h3>Useful Snippets<a class="headerlink" href="#useful-snippets" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="useful-snippets">
+<h3>Useful Snippets<a class="headerlink" href="#useful-snippets" title="Permalink to this heading">¶</a></h3>
 <p>Always good to have a grasp of <em>exactly</em> what project you are using. The console does this in billing, or the CLI:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">services</span> <span class="nb">list</span> <span class="o">--</span><span class="n">project</span> <span class="p">{</span><span class="n">project</span> <span class="n">ID</span><span class="p">}</span> <span class="o">--</span><span class="n">enabled</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -457,7 +457,7 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Accounts &amp; Billing</a><ul>
@@ -480,7 +480,6 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
@@ -503,12 +502,12 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -525,7 +524,7 @@ serviceAccount:test-service-account2@<span class="o">{</span>GOOGLE_CLOUD_PROJEC
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Cloud Functions &#8212; Cloud Notes 0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Cloud Shell" href="cloud-shell.html" />
@@ -32,8 +32,8 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="cloud-functions">
-<h1>Cloud Functions<a class="headerlink" href="#cloud-functions" title="Permalink to this headline">¶</a></h1>
+  <section id="cloud-functions">
+<h1>Cloud Functions<a class="headerlink" href="#cloud-functions" title="Permalink to this heading">¶</a></h1>
 <p>Cloud Functions supports the running of single-purpose functions that behave in isolation. The default time out is 1 minute and the max possible is 9 minutes.</p>
 <p>Cloud Functions is suited for logic tests and small, defined tasks. Have a photosharing tool? Cloud Functions can manage the code to check a user is uploading an image file and pass the T/F answer back to the app as part of the logic before the upload is accepted.</p>
 <p>In this example, an <em>Event</em>, an upload to Cloud Storage, <em>Triggers</em> the <em>Function</em> to create an <em>Event</em> and send a message back to the app system, say via Cloud Pub/Sub’s messaging service.</p>
@@ -44,8 +44,8 @@
 <li><p>Upload, Delete, Update of metadata, and Archive in Cloud Storage</p></li>
 <li><p>Firebase database Events</p></li>
 </ul>
-<div class="section" id="runtime-environments">
-<h2>Runtime Environments<a class="headerlink" href="#runtime-environments" title="Permalink to this headline">¶</a></h2>
+<section id="runtime-environments">
+<h2>Runtime Environments<a class="headerlink" href="#runtime-environments" title="Permalink to this heading">¶</a></h2>
 <p>Currently include:</p>
 <ul class="simple">
 <li><p>Python 3</p></li>
@@ -57,12 +57,12 @@
 <li><p>Go</p></li>
 <li><p>JS / Node.js</p></li>
 </ul>
-<div class="section" id="using-cloud-functions-on-the-gcp">
-<h3>Using Cloud Functions on the GCP<a class="headerlink" href="#using-cloud-functions-on-the-gcp" title="Permalink to this headline">¶</a></h3>
-<div class="sidebar">
+<section id="using-cloud-functions-on-the-gcp">
+<h3>Using Cloud Functions on the GCP<a class="headerlink" href="#using-cloud-functions-on-the-gcp" title="Permalink to this heading">¶</a></h3>
+<aside class="sidebar">
 <p class="sidebar-title">Console</p>
 <p>GCP&gt; Compute&gt; Cloud Functions</p>
-</div>
+</aside>
 <p>Requirements:</p>
 <ol class="arabic simple">
 <li><p>Cloud Functions Engine API</p></li>
@@ -93,12 +93,12 @@
 <li><p>Runtime environment</p></li>
 <li><p>Source Code</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="cloud-functions-from-the-cli">
-<h2>Cloud Functions from the CLI<a class="headerlink" href="#cloud-functions-from-the-cli" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="cloud-functions-from-the-cli">
+<h2>Cloud Functions from the CLI<a class="headerlink" href="#cloud-functions-from-the-cli" title="Permalink to this heading">¶</a></h2>
 <p>The command to deploy is:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud functions deploy <span class="o">{</span><span class="k">function</span>-name<span class="o">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>functions<span class="w"> </span>deploy<span class="w"> </span><span class="o">{</span><span class="k">function</span>-name<span class="o">}</span>
 </pre></div>
 </div>
 <p>The command accepts 3 parameters:</p>
@@ -126,20 +126,20 @@
 </li>
 </ul>
 <p>So the following function:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud functions deploy <span class="o">{</span><span class="k">function</span>-name<span class="o">}</span>
-        --runtime python37
-        --trigger-resource <span class="o">{</span>bucket-name<span class="o">}</span>
-        --trigger-event google.storage.object.delete
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>functions<span class="w"> </span>deploy<span class="w"> </span><span class="o">{</span><span class="k">function</span>-name<span class="o">}</span>
+<span class="w">        </span>--runtime<span class="w"> </span>python37
+<span class="w">        </span>--trigger-resource<span class="w"> </span><span class="o">{</span>bucket-name<span class="o">}</span>
+<span class="w">        </span>--trigger-event<span class="w"> </span>google.storage.object.delete
 </pre></div>
 </div>
 <p>is triggered by a delete occuring on a named bucket.</p>
 <p>As Cloud Function is simply yet another GCP API, it merrily provides a payload upon successful completion. This is presented as a log message.</p>
-</div>
-<div class="section" id="integration-with-cloud-pub-sub">
-<h2>Integration with Cloud Pub/Sub<a class="headerlink" href="#integration-with-cloud-pub-sub" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="integration-with-cloud-pub-sub">
+<h2>Integration with Cloud Pub/Sub<a class="headerlink" href="#integration-with-cloud-pub-sub" title="Permalink to this heading">¶</a></h2>
 <p>If the trigger is to be Cloud Pub/Sub, this can be selected from the console (or coded in the CLI). You will then be prompted to identify the name of the Pub/Sub topic, if this name does not exist it will be automatically created.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -158,7 +158,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">A World of API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
@@ -175,7 +175,6 @@
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stackdriver.html">Stackdriver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
@@ -198,12 +197,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -220,7 +219,7 @@
       &copy;2019, masterbunny.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
