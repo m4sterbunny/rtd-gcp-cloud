@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>GCP Networking &#8212; Cloud Notes 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Virtual Machines" href="VMs.html" />
+    <link rel="prev" title="Storage" href="storage.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="gcp-networking">
+<h1>GCP Networking<a class="headerlink" href="#gcp-networking" title="Permalink to this heading">¶</a></h1>
+<section id="networking-services">
+<h2>Networking Services<a class="headerlink" href="#networking-services" title="Permalink to this heading">¶</a></h2>
+<p>On the GCP networks are global and subnets are regional.</p>
+<aside class="topic">
+<p class="topic-title">Networking on the GCP</p>
+<p>GCP allows for pure cloud networks and linking to on-premises networks.</p>
+<p>The various services include:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference internal" href="#virtual-private-cloud"><span class="std std-ref">Virtual Private Cloud</span></a></dt><dd><ul>
+<li><p>Google’s network (not public internet)</p></li>
+<li><p>No public IP required to connect across VPC</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="load-balancing.html#load-balancing"><span class="std std-ref">Cloud Load Balancing</span></a></dt><dd><ul>
+<li><p>distributes workload across regions</p></li>
+<li><p>can load-balance HTTP, HTTPS, TCP/SSL, and UDP</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Cloud Armor</dt><dd><ul>
+<li><p>protects against denial-of-service attacks (DDoS)</p></li>
+<li><p>works with HTTP/S load-balancing</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Cloud Content Delivery Network (CDN)</dt><dd><ul>
+<li><p>reduces latency with region-based provision</p></li>
+<li><p>ideal for large volumes of static content</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Cloud Interconnect</dt><dd><ul>
+<li><p>connects private networks to Google’s network</p></li>
+<li><p>provides an SLA</p></li>
+<li><p>alternative is VPN with reduced bandwidth</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</aside>
+</section>
+<section id="virtual-private-cloud">
+<h2>Virtual Private Cloud<a class="headerlink" href="#virtual-private-cloud" title="Permalink to this heading">¶</a></h2>
+<p>GCP’s Virtual Private Cloud (VPC) supports networking with VM instances, Kubernetes Engine containers, and the App Engine flexible environment. A VPC network is an essential component of linking with VM instances, containers, or App Engine applications. Therefore, each GCP project creates a default network a soon as any of these services are started.</p>
+<p>The GCP supports 3 different VPC network types:</p>
+<ul class="simple">
+<li><p>Default</p></li>
+<li><p>Auto mode</p></li>
+<li><p>Custom mode</p></li>
+</ul>
+<p>The default setup has one subnet per region and pre-set firewall rules. Subnets have a range of IP addresses associated with them and provide private/internal IP addresses for your devices.</p>
+<p>The Auto mode option includes regional IP allocation and one fixed /20 subnet per region. The custom mode does not setup default subnets, it allows full control of IP ranges as well as regional IP allocation.</p>
+<p>VPCs have global scope. VPC subnets have regional scope, i.e. they can span the zones that make up a region.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Auto mode networks</p>
+<p>Auto mode networks may be upgraded to Custom mode, but this can not be reverted.</p>
+<p>They include routes, subnets, and firewall rules.</p>
+<p>They are not recommended for production environments. The IP ranges are assigned for you.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="nv">$IP</span>-Address
+</pre></div>
+</div>
+<p>Expect positive ping results for internal IPs only if the instance exists on the same network.</p>
+<p>Expect positive ping results for external IPs only if you have a firewall rule that allows ICMP incoming.</p>
+</div>
+<p>You can connect using internal IP addresses from a different network by using options such as VPC peering.</p>
+<section id="networks">
+<h3>Networks<a class="headerlink" href="#networks" title="Permalink to this heading">¶</a></h3>
+<p>Networks allow you to isolate systems. Different VMs, for example may exist on different networks. VMs on the same network can communicate using their internal IPs (which are mapped by <a class="reference internal" href="#dns">DNS</a>), even if they are in different regions. You can ping a VM instance by its name, for example, because VPC networks have an internal DNS service that allows you to address instances by their DNS names rather than their internal IP addresses. This is a very useful feature, because the internal IP address can change when you delete and re-create an instance.</p>
+<p>Conversely, even if VMs are in the same region, if they are on different networks they must use their public/external IPs to communicate.</p>
+<p>VPC networks function as a distributed firewall, with the firewall rules enforced across the entire network unless set to a specific instance only.</p>
+<p>To view your firewall rules use:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>list<span class="w"> </span>--sort-by<span class="o">=</span>NETWORK
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="vpc-networking">
+<h3>VPC Networking<a class="headerlink" href="#vpc-networking" title="Permalink to this heading">¶</a></h3>
+<p>By leveraging VPC networks it becomes possible to connect VMs in different zones with subnets. This supports inter project communications.</p>
+<p>A single firewall rule can apply to all VMs on that subnet, even though they are in different zones.</p>
+<p>Before creating a shared VPC it’s important to assign a member of your organization the <cite>shared VPC admin role</cite>, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>gcloud alpha organizations add-iam-policy-binding {org-id} \
+-- member=`user:{gdomain-email}` \
+-- role=`roles/compute.xpnAdmin`
+</pre></div>
+</div>
+<p>Or all projects can be associated with the VPC from the organisation level:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">compute</span> <span class="n">shared</span><span class="o">-</span><span class="n">vpc</span> <span class="n">associated</span><span class="o">-</span><span class="n">projects</span> <span class="n">add</span> <span class="p">{</span><span class="n">PROJECT_ID</span><span class="p">}</span> \
+<span class="o">--</span><span class="n">host</span><span class="o">-</span><span class="n">project</span><span class="o">=</span><span class="p">{</span><span class="n">HOST_PROJECT_Name</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>If there is no organisation setup, then the VPC is managed from <cite>gcloud compute networks</cite> command set.</p>
+<section id="vpn-networking">
+<h4>VPN Networking<a class="headerlink" href="#vpn-networking" title="Permalink to this heading">¶</a></h4>
+<p>Your VPN (Virtual Private Network) can be connected to securely send network traffic to and from the GCP.</p>
+<aside class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Hybrid Connectivity</p>
+</aside>
+<p>Create a static IP address to allow your VPN to connect with the VPC network. You will need to specify:</p>
+<ul class="simple">
+<li><p>the network</p></li>
+<li><p>region containing the network</p></li>
+<li><p>the static IP for the GCP end</p></li>
+<li><p>the static IP address of the VPN gateway of your network</p></li>
+<li><dl class="simple">
+<dt>security may be implemented with IKE (Internet Key Exchange)</dt><dd><ul>
+<li><p>a shared “secret key” can be used</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>routing may be:</dt><dd><ul>
+<li><p>dynamic</p></li>
+<li><p>route-based</p></li>
+<li><p>policy based</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="hybrid-infrastructure">
+<h4>Hybrid Infrastructure<a class="headerlink" href="#hybrid-infrastructure" title="Permalink to this heading">¶</a></h4>
+<p>Enterprise applications can get big fast. A lift and shift into the cloud is no small task, and so most organizations take a hybrid approach – perhaps by taking a microservice approach and starting with cloud microservices.</p>
+<p>GCP has a service called Anthos to assist with lift and shift transitions.</p>
+</section>
+<section id="subnets">
+<h4>Subnets<a class="headerlink" href="#subnets" title="Permalink to this heading">¶</a></h4>
+<p>Every subnet has 4 reserved IP addresses, the first 2 are assigned to the network and the subnet’s gateway. The final 2 addresses are also reserved, with the last being used as the broadcast address.</p>
+<p>When the GPC sets up a new VPC in auto-subnet mode, then it selects a range of IP addresses for each subnet.</p>
+<p>When creating a custom subnet, be cautious as overly-large subnets can cause conflicts – do not scale a subnet beyond current usage needs. Custom subnets specify the IP range using <a class="reference internal" href="#cidr-notation">CIDR notation</a>.</p>
+</section>
+<section id="using-subnets">
+<h4>Using Subnets<a class="headerlink" href="#using-subnets" title="Permalink to this heading">¶</a></h4>
+<p>To create a subnet from the cloud shell CLI:</p>
+<p>To create a custom network:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>networks<span class="w"> </span>create<span class="w"> </span>mynet<span class="w"> </span>--subnet-mode<span class="o">=</span>custom
+</pre></div>
+</div>
+</div></blockquote>
+<p>To create a custom subnet:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>networks<span class="w"> </span>subnets<span class="w"> </span>create<span class="w"> </span>privatesubnet-us<span class="w"> </span><span class="se">\</span>
+--network<span class="o">=</span>privatenet<span class="w"> </span>--region<span class="o">=</span>us-central1<span class="w"> </span>--range<span class="o">=</span><span class="m">172</span>.16.0.0/24
+</pre></div>
+</div>
+</div></blockquote>
+<p>To create a custom network:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>networks<span class="w"> </span>create<span class="w"> </span><span class="nv">$my</span>-net1<span class="w"> </span><span class="se">\</span>
+--subnet-mode<span class="o">=</span>custom
+</pre></div>
+</div>
+</div></blockquote>
+<p>To provide this network with firewall rules:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span><span class="nv">$my</span>-firewall-custom1<span class="w"> </span><span class="se">\</span>
+--network<span class="w"> </span>my-net1<span class="w"> </span><span class="se">\</span>
+--allow<span class="o">=</span><span class="w"> </span>tcp,<span class="w"> </span>udp,<span class="w"> </span>icmp<span class="w"> </span><span class="se">\</span>
+--<span class="w"> </span><span class="nv">source</span><span class="o">=</span>ranges<span class="w"> </span><span class="nv">$IP</span>-range
+
+
+gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span><span class="nv">$my</span>-firewall-custom2<span class="w"> </span><span class="se">\</span>
+--network<span class="w"> </span>my-net1<span class="w"> </span><span class="se">\</span>
+--allow<span class="o">=</span><span class="w"> </span>tcp:22,<span class="w"> </span>tcp:3389,<span class="w"> </span>icmp
+</pre></div>
+</div>
+</div></blockquote>
+<p>But remember a network is just a collection of subnets. Now you have a network name to group them by, use:</p>
+<p>To create a subnet:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>networks<span class="w"> </span>create<span class="w"> </span><span class="nv">$manage</span>-subnets<span class="w"> </span><span class="se">\</span>
+--region<span class="o">=</span>us-central1<span class="w"> </span>--range<span class="o">=</span><span class="m">10</span>.130.0.0/20
+</pre></div>
+</div>
+</div></blockquote>
+<p>To create a 2nd subnet:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>networks<span class="w"> </span>create<span class="w"> </span><span class="nv">$manage</span>-subnets<span class="w"> </span><span class="se">\</span>
+--region<span class="o">=</span>us-central1<span class="w"> </span>--range<span class="o">=</span><span class="m">10</span>.130.0.0/20
+</pre></div>
+</div>
+</div></blockquote>
+<p>To view these networks:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>networks<span class="w"> </span>list
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="instance-isolation">
+<h3>Instance Isolation<a class="headerlink" href="#instance-isolation" title="Permalink to this heading">¶</a></h3>
+<p>A bastion host acts to isolate an instance for you.</p>
+<img alt="../../_images/bastion-host.PNG" src="../../_images/bastion-host.PNG" />
+</section>
+<section id="dns">
+<h3>DNS<a class="headerlink" href="#dns" title="Permalink to this heading">¶</a></h3>
+<p>A managed zone contains DNS records associated with a DNS name suffix.</p>
+<p>In the Public Internet, a public DNS zone hosts www.example.com and DNS records contain specific details about such named items in a zone. For example, an A record maps a hostname to IP addresses in IPv4. AAAA records are used in IPv6 to map names to IPv6 addresses. (CNAME records hold the canonical name, which contains any alias name/s of a domain).</p>
+<aside class="topic">
+<p class="topic-title">Resolving name to Public IP</p>
+<p>Public DNS zones are accessible from the Internet. This means that to function, they must provide a name server that will resond to queries, i.e. will provide a valid, routable IP in response to a {domain or hostname} query.</p>
+<p>This is the DNS record held for example.com:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="mi">1</span> <span class="n">IPV4</span> <span class="n">RECORD</span> <span class="n">FOUND</span>
+<span class="mf">93.184.216.34</span>
+<span class="mi">1</span> <span class="n">IPV6</span> <span class="n">RECORD</span> <span class="n">FOUND</span>
+<span class="mi">2606</span><span class="p">:</span><span class="mi">2800</span><span class="p">:</span><span class="mi">220</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">248</span><span class="p">:</span><span class="mi">1893</span><span class="p">:</span><span class="mi">25</span><span class="n">c8</span><span class="p">:</span><span class="mi">1946</span>
+</pre></div>
+</div>
+<p>So, if you want to set up a new website (domain) as an A resource record type (IPv4), that anyone in the world can visit, then you need to specify its IPv4 address on the DNS service that maps domains to IPs for the zone your site exists in. (Although, as there are no public IPv4 records left, you are more likely to setup an IPv6 address).</p>
+</aside>
+<p>Private zones provide name services <strong>within</strong> your recognised network. Here IAM matters, only people or services with the accepted permissions, or belonging to recognised access groups, will have their requests accepted and responded to.</p>
+<p>DNS security enforces authentication of clients (users and services) attempting to communicate with the DNS service. Such authentication prevents spoofing (a client pretending to be a user or service) and cache poisoning (a malicious update of the DNS server’s cache).</p>
+<p>A DNS service provides:</p>
+<ul class="simple">
+<li><p>NS name server</p></li>
+<li><p>SOA (start of authority record)- provides authoritative information about the zone.</p></li>
+</ul>
+<p>Then, as devices are added the:</p>
+<ul class="simple">
+<li><p>A (or AAAA) record</p></li>
+<li><p>Mail Exchange (MX) records</p></li>
+<li><p>CName record</p></li>
+</ul>
+<section id="using-dns-on-gcp">
+<h4>Using DNS on GCP<a class="headerlink" href="#using-dns-on-gcp" title="Permalink to this heading">¶</a></h4>
+<p>To create DNS zones the SDK provides:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">beta</span> <span class="n">dns</span> <span class="n">managed</span><span class="o">-</span><span class="n">zones</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">dns</span> <span class="n">record</span><span class="o">-</span><span class="n">sets</span>
+</pre></div>
+</div>
+<p>To setup a new, private zone:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">beta</span> <span class="n">dns</span> <span class="n">managed</span><span class="o">-</span><span class="n">zones</span> <span class="n">create</span> <span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">zone</span><span class="p">}</span> \
+<span class="o">--</span><span class="n">descriptions</span><span class="o">=</span> <span class="o">--</span><span class="n">dns</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="p">{</span><span class="n">new</span><span class="o">-</span><span class="n">zone</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="p">}</span> \
+<span class="o">--</span><span class="n">visibility</span><span class="o">=</span><span class="n">private</span>
+</pre></div>
+</div>
+<p>To add a new record to the name server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">dns</span> <span class="n">record</span><span class="o">-</span><span class="n">sets</span> <span class="n">transaction</span> <span class="n">start</span> \
+<span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">zone</span><span class="p">}</span>
+
+<span class="n">gcloud</span> <span class="n">dns</span> <span class="n">record</span><span class="o">-</span><span class="n">sets</span> <span class="n">transaction</span> <span class="n">add</span> <span class="mf">192.0.2.93</span> \
+<span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="p">{</span><span class="n">new</span><span class="o">-</span><span class="n">zone</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="p">}</span> <span class="o">--</span><span class="n">ttl</span><span class="o">=</span><span class="mi">600</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">A</span>
+\ <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">zone</span><span class="p">}</span>
+
+<span class="n">gcloud</span> <span class="n">dns</span> <span class="n">record</span><span class="o">-</span><span class="n">sets</span> <span class="n">transaction</span> <span class="n">execute</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">zone</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The final statement executes the write to the record set. The ttl (time to live) is the latency until the update goes into effect.</p>
+<aside class="topic">
+<p class="topic-title">TTL</p>
+<p>TTL is used by authoritative DNS servers to know when to return to the record to check for updates. Once your IP is stable, GCP suggests setting TTL = 86400, which tells servers across the Internet to check every 24 hours for updates to the record.</p>
+</aside>
+</section>
+<section id="cidr-notation">
+<h4>CIDR Notation<a class="headerlink" href="#cidr-notation" title="Permalink to this heading">¶</a></h4>
+<p>When setting up a range of IP addresses in a custom subnet, GCP uses classless inter-domain routing (CDIR). This supports variable-length subnet masking, i.e. the ability to choose the size of a range rather than working with fixed allocations.</p>
+<p>The CIDR requires the network address (to id the subnet address), and a host uid. The notation uses /{number} to convey how many bits of an IP address describe the network and how many the host/device.</p>
+<aside class="topic">
+<p class="topic-title">CIDR /</p>
+<p>192.168.0.0/16 conveys that 16 bits (of a possible 32 bits) are used to describe the subnet and 16 the host addresses (i.e. ~65k possible IP addresses).</p>
+</aside>
+<p>The range may be expanded (but not reduced):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">compute</span> <span class="n">networks</span> <span class="n">subnets</span> <span class="n">expand</span><span class="o">-</span><span class="n">ip</span><span class="o">-</span><span class="nb">range</span> <span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">subnet</span><span class="p">}</span> \
+<span class="o">--</span><span class="n">prefix</span><span class="o">-</span><span class="n">length</span> <span class="mi">16</span>
+</pre></div>
+</div>
+</section>
+<section id="vms-with-a-custom-network">
+<h4>VMs with a Custom Network<a class="headerlink" href="#vms-with-a-custom-network" title="Permalink to this heading">¶</a></h4>
+<p>A single instance of a VM may also be configured with a custom network.</p>
+<aside class="sidebar">
+<p>GCP&gt; Compute Engine&gt; Create Instance</p>
+</aside>
+<p>In the VM customisation form, under the Firewall basics (allow HTTP/HTTPS), is a full set of options&gt; “Management, security, disks, networking …”. The link provides access to individual tabs.</p>
+<p>The Networking tab offers “Network Interface” for customisation of the:</p>
+<ul class="simple">
+<li><p>network</p></li>
+<li><p>subnetwork</p></li>
+<li><p>internal IP address</p></li>
+<li><p>external IP address</p></li>
+</ul>
+<p>and more.</p>
+<p>Such settings are also available when creating a VM from the CLI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">compute</span> <span class="n">instances</span> <span class="n">create</span> <span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">vm</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> \
+<span class="o">--</span><span class="n">subnet</span><span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">existing</span><span class="o">-</span><span class="n">subnet</span><span class="p">}</span> <span class="o">--</span><span class="n">zone</span><span class="p">{</span><span class="n">ZONE</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">APPLY</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="firewalls">
+<h4>Firewalls<a class="headerlink" href="#firewalls" title="Permalink to this heading">¶</a></h4>
+<p>Firewalls are applied at the network level and control traffic into and out of VMs.</p>
+<p>They act on a port and traffic type, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">allow</span> <span class="n">tcp</span><span class="p">:</span><span class="mi">80</span>
+</pre></div>
+</div>
+<p>Firewalls have several configuration options:</p>
+<ul class="simple">
+<li><p>direction in/out (ingress vs egress)</p></li>
+<li><dl class="simple">
+<dt>priority (0=highest, 65535=lowest)</dt><dd><ul>
+<li><p>default is allow egress to all destinations (65535)</p></li>
+<li><p>default is deny all incoming traffic from any source (e.g. IP=0.0.0.0/0, also 65535)</p></li>
+<li><p>any rule with a higher rating will supersede these fixed rules</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>allow/deny 0/1 setting</p></li>
+<li><p>target e.g. instance in a network, instance with a specific network tag</p></li>
+<li><dl class="simple">
+<dt>source/destination e.g.:</dt><dd><ul>
+<li><p>whitelisted IP range/addresses</p></li>
+<li><p>service accounts allowed or denied</p></li>
+<li><p>combination of the above and/or network tags</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>protocol and port, if no protocol is specified the rule applies to all</p></li>
+<li><dl class="simple">
+<dt>status enabled/disabled</dt><dd><ul>
+<li><p>i.e. you could have a firewall ready to trigger if a condition is met, such as a DDoS attack</p></li>
+<li><p>or you can disable a rule for troubleshooting</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<aside class="sidebar">
+<p class="sidebar-title">Logging</p>
+<p>Firewall rules may be associated with logging in Stackdriver. The Flow logs must be configured when setting up the subnet.</p>
+</aside>
+<aside class="topic">
+<p class="topic-title">Default firewall on a VPC</p>
+<dl class="simple">
+<dt>The defaults are:</dt><dd><ul class="simple">
+<li><p>incoming traffic allowed for any VM on the same network</p></li>
+<li><p>incoming TCP on port 22 with SSH enabled</p></li>
+<li><p>incoming TCP on port 3389 with Microsoft Remote Desktop Protocol enabled</p></li>
+<li><p>Incoming ICMP for anywhere on the same network</p></li>
+</ul>
+</dd>
+</dl>
+<p>All the defaults are set to 65534</p>
+</aside>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Cloud Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gcp-main.html">Welcome to an Eclectic set of GCP Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html">A World of API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app-engine.html">App Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud-functions.html">Cloud Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-services.html">GCP Data Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment-manager.html">Deployment Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GCP Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react-app.html">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react-app.html#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react-app.html#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcp-main.html#the-google-cloud-engineer-exam">The Google Cloud Engineer Exam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/aws-main.html">Welcome to an Eclectic set of AWS Notes</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="gcp-main.html">Welcome to an Eclectic set of GCP Notes</a><ul>
+      <li>Previous: <a href="storage.html" title="previous chapter">Storage</a></li>
+      <li>Next: <a href="VMs.html" title="next chapter">Virtual Machines</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, masterbunny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/pages/GCP/virtual-networking.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

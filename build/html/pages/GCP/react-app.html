@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Set Up a Ubuntu Environment on GCP &#8212; Cloud Notes 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ACE" href="ace-exam.html" />
+    <link rel="prev" title="Virtual Machines" href="VMs.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="set-up-a-ubuntu-environment-on-gcp">
+<h1>Set Up a Ubuntu Environment on GCP<a class="headerlink" href="#set-up-a-ubuntu-environment-on-gcp" title="Permalink to this heading">¶</a></h1>
+<p>WORK IN PROGRESS</p>
+<section id="ubuntu-vm-setup">
+<h2>1. Ubuntu VM Setup<a class="headerlink" href="#ubuntu-vm-setup" title="Permalink to this heading">¶</a></h2>
+<aside class="topic">
+<p class="topic-title">1.1 Create a Virtual Machine (VM)</p>
+<p>Assuming you have signed up to <a class="reference external" href="https://cloud.google.com/free">GCP</a> and that you are signed in via the <a class="reference external" href="https://console.cloud.google.com/">console</a>, create a new project with a unique name. This demo will use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lottie-1010
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You may use an existing project, however this demo is setup for the novice. Deviate and adjust to your needs.</p>
+</div>
+</aside>
+<aside class="topic">
+<p class="topic-title">1.2 Set up a VM from the CLI</p>
+<p>Download the software development kit (<a class="reference external" href="https://cloud.google.com/sdk/">SDK</a>). Open this up and you will have a CLI (command line interface) with which you can interact with GCP.</p>
+</aside>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Copy/Pasting text into a terminal</p>
+<p>Once you have code copied, you right click with your mouse and the paste executes.</p>
+<p>Now switch to this project using your project id, for this example that means:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project<span class="w"> </span>lottie-1010
+</pre></div>
+</div>
+<p>Then you can initiate and provision a VM using the following code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>--project<span class="o">=</span>lottie-1010<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>development-environ-1<span class="w"> </span>--zone<span class="o">=</span>us-central1-a<span class="w"> </span>--machine-type<span class="o">=</span>n1-standard-1<span class="w"> </span>--subnet<span class="o">=</span>default<span class="w"> </span>--network-tier<span class="o">=</span>PREMIUM<span class="w"> </span>--maintenance-policy<span class="o">=</span>MIGRATE<span class="w"> </span>--service-account<span class="o">=</span><span class="m">123338807608</span>-compute@developer.gserviceaccount.com<span class="w"> </span>--scopes<span class="o">=</span>https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append<span class="w"> </span>--tags<span class="o">=</span>http-server<span class="w"> </span>--image<span class="o">=</span>ubuntu-1604-xenial-v20200317<span class="w"> </span>--image-project<span class="o">=</span>ubuntu-os-cloud<span class="w"> </span>--boot-disk-size<span class="o">=</span>10GB<span class="w"> </span>--boot-disk-type<span class="o">=</span>pd-standard<span class="w"> </span>--boot-disk-device-name<span class="o">=</span>development-environ-1<span class="w"> </span>--no-shielded-secure-boot<span class="w"> </span>--shielded-vtpm<span class="w"> </span>--shielded-integrity-monitoring<span class="w"> </span>--reservation-affinity<span class="o">=</span>any
+gcloud<span class="w"> </span>compute<span class="w"> </span>--project<span class="o">=</span>lottie-1010<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-http<span class="w"> </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span>--network<span class="o">=</span>default<span class="w"> </span>--action<span class="o">=</span>ALLOW<span class="w"> </span>--rules<span class="o">=</span>tcp:3000<span class="w"> </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are warned that you have chosen a small disc size, don’t worry! Press return and continue.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is a very simple-to-use form-interface to set up the VM as an alternative to the CLI.</p>
+<p>hamburger &gt; Compute Engine &gt; VM instances</p>
+<p>If you delete this machine and start again, you will find that the firewall rules you set up are retained. Therefore, this interface is the place to go to edit the VM’s settings and attach firewall rules such as default-allow-http.</p>
+</div>
+<aside class="topic">
+<p class="topic-title">1.3 SH into your VM</p>
+<p>You can SSH from the GCP <a class="reference external" href="https://console.cloud.google.com/">console</a>, but for brevity we will continue to use the CLI. Which means using the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>--project<span class="w"> </span>lottie-1010<span class="w"> </span>--zone<span class="w"> </span>us-central1-a<span class="w"> </span>development-environ-1
+</pre></div>
+</div>
+<p>This will open up a new window which is the SSH terminal communicating directly with your VM.</p>
+<img alt="../../_images/SSH.PNG" src="../../_images/SSH.PNG" />
+</aside>
+</section>
+<section id="set-up-your-development-environment">
+<h2>2.0 Set Up Your Development Environment<a class="headerlink" href="#set-up-your-development-environment" title="Permalink to this heading">¶</a></h2>
+<p>NB we are going to use the terminal connection to your cloud machine. Don’t get this confused with other black screens you have open, such as the SDK! Luckily, there is a visual hint that you are using a tunnel:</p>
+<img alt="../../_images/ssh-source.PNG" src="../../_images/ssh-source.PNG" />
+<aside class="topic">
+<p class="topic-title">1.4 Use this SSH connection to interact with your VM.</p>
+<p>Update this VM’s environment with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+</pre></div>
+</div>
+</aside>
+<aside class="topic">
+<p class="topic-title">1.5 Install Node.js (which will also give you npm).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sL<span class="w"> </span>https://deb.nodesource.com/setup_12.x<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>-E<span class="w"> </span>bash<span class="w"> </span>-
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nodejs
+</pre></div>
+</div>
+</aside>
+<aside class="topic">
+<p class="topic-title">1.6 Update npm</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>npm@latest<span class="w"> </span>-g
+</pre></div>
+</div>
+</aside>
+<aside class="topic">
+<p class="topic-title">1.7 Install React</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>create-react-app
+</pre></div>
+</div>
+</aside>
+<aside class="topic">
+<p class="topic-title">1.8 Create our own React app</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">create</span><span class="o">-</span><span class="n">react</span><span class="o">-</span><span class="n">app</span> <span class="n">test</span><span class="o">-</span><span class="n">lottie</span>
+</pre></div>
+</div>
+</aside>
+<aside class="topic">
+<p class="topic-title">2.0 Serve the React App</p>
+<p>Now you are ready to start your app using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">start</span>
+</pre></div>
+</div>
+<p>test-lottie is now available for viewing, your dev environment will display something like this:</p>
+<img alt="../../_images/test-lottie-links.PNG" src="../../_images/test-lottie-links.PNG" />
+<p>NB neither of these suggested options are easy to use, as we have not installed a browser on our little VM. Rather, go to the GCP console and grab the external IP address for your VM. Add :3000 to the end of this and refresh the page.</p>
+</aside>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To locate your External IP navigate:</p>
+<p>GCP &gt; Compute Engine &gt; VM instances &gt; External IP</p>
+</div>
+<p>You should be able to see the base React App.</p>
+<blockquote>
+<div><img alt="../../_images/base-react.PNG" src="../../_images/base-react.PNG" />
+</div></blockquote>
+<aside class="topic">
+<p class="topic-title">2.1 Stop the React App</p>
+<p>We will want to add our lottie files to this app, so stop the server using:</p>
+</aside>
+</section>
+</section>
+<section id="upload-your-lottie-to-your-vm">
+<h1>3.0 Upload your Lottie to your VM<a class="headerlink" href="#upload-your-lottie-to-your-vm" title="Permalink to this heading">¶</a></h1>
+<aside class="topic">
+<p class="topic-title">Upload a local file to your VM:</p>
+<p>1.1. Return to the SDK window and enter the following to create the bucket:</p>
+<p>1.2 From the CLI use the following (adapted to your file location):</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The GCP interface provides a file picker.</p>
+</div>
+<p>Navigate to the GCP console &gt; Storage &gt; Browser &gt; lottiefile &gt; Upload files and use their file picker.</p>
+<p>5.3 Copy this file onto your VM. Return to your SSH connection and run the following:</p>
+</aside>
+<p>// this does not put the file in the right spot- try again!</p>
+<p>//into the src directory and edit App.js and App.css files. from within nano
+//you use Ctrl + O to save and Ctrl + X to exit.cd</p>
+<p>By setting up in a cloud environment you can follow along using the same development environment as this demo. For this first follow the <a href="#id1"><span class="problematic" id="id2">`Set Up a Common Environment on GCP`_</span></a>, if you already have a React app set up in your own environment, then continue.</p>
+</section>
+<section id="customize-your-app-with-a-lottie">
+<h1>Customize Your App with a Lottie<a class="headerlink" href="#customize-your-app-with-a-lottie" title="Permalink to this heading">¶</a></h1>
+<aside class="topic">
+<p class="topic-title">Get your Lottie code in place.</p>
+<p>With a base React App set up, we are ready to modify it. As the landing page for React helpfully tells us, this means editing the App.js file.</p>
+<ol class="arabic simple">
+<li><p>Go grab your favorite Lottie from the <a class="reference external" href="https://lottiefiles.com/">Lottie library</a></p></li>
+</ol>
+<p>This means signing up using your chosen method and then browsing the available options. The world can always use a little extra love, so we have chosen the <a class="reference external" href="https://lottiefiles.com/18304-kiss-of-the-heart">kiss of the heart</a>. Download this and rename it to lottie.JSON for this demo.</p>
+</aside>
+<aside class="topic">
+<p class="topic-title">Modify your React Appp</p>
+<ol class="arabic" start="2">
+<li><p>Go grab the Lottie library for React using:</p>
+<blockquote>
+<div><p>// Does the user need to be at the test-lottie folder to do this or is this a global install?</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>LottieFiles has produced a webplayer for Lotties, so you don’t have to upload the JSON, but can rather reference the code. This demo, however, includes the upload of code to assist the novice with using their VM.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p>Open the App.js file with the nano editor.</p>
+<blockquote>
+<div><p>Now we can see some of the inners of our React app.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Nano is a neat little text editor.
+Make the edit.
+Crtl 0 writes the change
+Return accepts the offered filename, overwriting the original
+Ctrl X closes the nanocd ..</p>
+</div>
+</div></blockquote>
+</div></blockquote>
+</li>
+</ol>
+<ol class="arabic" start="5">
+<li><p>Edit your App.js file to include a call to the Lottie library</p>
+<blockquote>
+<div><p>Use your SSH connection to the VM to edit App.js using nano:</p>
+<blockquote>
+<div><blockquote>
+<div></div></blockquote>
+<p>Then, at the end of the import list add:</p>
+<blockquote>
+<div><p>..code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Lottie</span> <span class="kn">from</span> <span class="s1">&#39;react-lottie&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<img alt="../../_images/modifyAppCall.PNG" src="../../_images/modifyAppCall.PNG" />
+<p>Set the variable that will be called:</p>
+<p>..code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">animObj</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<p>Now, ask for your Lottie</p>
+</div></blockquote>
+</li>
+</ol>
+</aside>
+<dl>
+<dt>class App extends React.Component {</dt><dd><dl>
+<dt>componentDidMount() {</dt><dd><p>console.log(‘componentDidMount’);</p>
+<p>//call the loadAnimation to start the animation
+animObj = lottie.loadAnimation({
+container: this.animBox, // the dom element that will contain the animation
+renderer: ‘svg’,
+loop: true,
+autoplay: true,
+animationData: animationData // the path to the animation json});</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Nano requires a CTL + O to save your changes
+Return will accept the suggested file name (and overwrite)
+CTL + X exits nano</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Lottie</span> <span class="kn">from</span> <span class="s1">&#39;react-lottie&#39;</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">animationData</span> <span class="kn">from</span> <span class="s1">&#39;./lotties/kiss-of-the-heart&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This worked in Sandbox</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>export default class LottieControl extends React.Component {</p>
+<blockquote>
+<div><dl>
+<dt>render() {</dt><dd><dl>
+<dt>const defaultOptions = {</dt><dd><p>loop: true,
+autoplay: true,
+animationData: animationData,
+rendererSettings: {</p>
+<blockquote>
+<div><p>preserveAspectRatio: ‘xMidYMid slice’</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+<p>};</p>
+<dl class="simple">
+<dt>return &lt;div&gt;</dt><dd><dl class="simple">
+<dt>&lt;Lottie options={defaultOptions}</dt><dd><p>height={400}
+width={400}/&gt;</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>&lt;/div&gt;
+}
+}</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Cloud Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gcp-main.html">Welcome to an Eclectic set of GCP Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html">A World of API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accounts-billing.html">Accounts &amp; Billing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app-engine.html">App Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud-functions.html">Cloud Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud-shell.html">Cloud Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-services.html">GCP Data Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment-manager.html">Deployment Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load-balancing.html">Load-balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtual-networking.html">GCP Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VMs.html">Virtual Machines</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Set Up a Ubuntu Environment on GCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upload-your-lottie-to-your-vm">3.0 Upload your Lottie to your VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customize-your-app-with-a-lottie">Customize Your App with a Lottie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ace-exam.html">ACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcp-main.html#the-google-cloud-engineer-exam">The Google Cloud Engineer Exam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/aws-main.html">Welcome to an Eclectic set of AWS Notes</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="gcp-main.html">Welcome to an Eclectic set of GCP Notes</a><ul>
+      <li>Previous: <a href="VMs.html" title="previous chapter">Virtual Machines</a></li>
+      <li>Next: <a href="ace-exam.html" title="next chapter">ACE</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, masterbunny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/pages/GCP/react-app.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

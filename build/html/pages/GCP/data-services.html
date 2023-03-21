@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>GCP Data Services &#8212; Cloud Notes 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<section id="gcp-data-services">
+<h1>GCP Data Services<a class="headerlink" href="#gcp-data-services" title="Permalink to this heading">¶</a></h1>
+<section id="gcp-database-options">
+<h2>GCP Database Options<a class="headerlink" href="#gcp-database-options" title="Permalink to this heading">¶</a></h2>
+<p>The GCP provides 6 different database options that fit into 4 categories:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Relational Databases (Cloud SQL and Cloud Spanner)</p></li>
+<li><p>Non-relational Databases (Cloud Datastore, Cloud Firestore, and Cloud Bigtable)</p></li>
+<li><p>Object Storage (Cloud Storage)</p></li>
+<li><p>Warehouse (BigQuery)</p></li>
+</ul>
+</div></blockquote>
+<p>Relational databases are restrictive in terms of design. All fields should be identified with the relationships between them established from the outset. Non-relational databases allow for the data types and fields to morph over time, without requiring a redesign of the database.</p>
+<p>The Object storage option, for data such as images or other “blobs” is handled by Cloud Storage.</p>
+<p>The “Warehouse” storage option is in-fact a relational database, with data accessed using SQL. The reason it sits in its own category is that it is specifically set up to manage huge loads such as those created with data streaming, analytics, and reporting.</p>
+<section id="storage-retrieval">
+<h3>Storage &amp; Retrieval<a class="headerlink" href="#storage-retrieval" title="Permalink to this heading">¶</a></h3>
+<section id="bigtable">
+<h4>Bigtable<a class="headerlink" href="#bigtable" title="Permalink to this heading">¶</a></h4>
+<p>Cloud Bigtable is a petabyte-scale, fully-managed NoSQL database service for large analytical and operational workloads. Cloud Bigtable can be considered as a persistent hashtable, i.e. each item in the database can be sparsely populated, and is looked up with a single key. It is a wide column database, which means tables can have a large number of columns (and with no schema, rows do not have to provide data for all columns).</p>
+<p>A use case would be storing large volumes of streamed sensor data from IoT devices.</p>
+<ul class="simple">
+<li><p><strong>NoSQL</strong> Fully-managed NoSQL (think little structure/no schema!) database</p></li>
+<li><p><strong>Analytical data</strong></p></li>
+<li><p><strong>Handles heavy read/write</strong></p></li>
+<li><p><strong>Security</strong> As with cloud storage, data is encrypted in transit and access controlled with IAM. Think Gmail!</p></li>
+<li><p><strong>Capacity</strong> Petabybes+</p></li>
+<li><p><strong>Unit size</strong> 10 + MB</p></li>
+<li><p><strong>Highly scalable</strong></p></li>
+</ul>
+<p>Configuration</p>
+<ul class="simple">
+<li><p>production or development modes (production = 3 nodes minimum)</p></li>
+<li><p>choose persistent disk type (SSD or HDD)</p></li>
+<li><p>supports multiple clusters</p></li>
+</ul>
+</section>
+</section>
+<section id="using-bigtable">
+<h3>Using Bigtable<a class="headerlink" href="#using-bigtable" title="Permalink to this heading">¶</a></h3>
+<aside class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Databases&gt; Bigtable</p>
+</aside>
+<p>When initiating a multiple cluster provide:</p>
+<ul class="simple">
+<li><p>region/zones</p></li>
+<li><p>number of nodes</p></li>
+</ul>
+<p>Bigtable is typically managed through the SDK. In the case of the SQL databases, the cloud shell connection allows SQL commands. In the case of BigTable, the SDK supports connection once the cbt command is installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">components</span> <span class="n">update</span>
+<span class="n">gcloud</span> <span class="n">components</span> <span class="n">install</span> <span class="n">cbt</span>
+</pre></div>
+</div>
+<p>Before interacting with Bigtable, identify the instance you are working with (much like you may identify your project).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">project</span> <span class="o">=</span> <span class="n">project</span><span class="o">-</span><span class="nb">id</span> <span class="o">&gt;</span> <span class="o">~/.</span><span class="n">cbtrc</span>
+<span class="n">echo</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">quickstart</span><span class="o">-</span><span class="n">instance</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">cbtrc</span>
+</pre></div>
+</div>
+<p>To close down an instance and ensure you do not keep incurring charges:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbt</span> <span class="n">deletetable</span> <span class="p">{</span><span class="n">my</span><span class="o">-</span><span class="n">table</span><span class="p">}</span> \
+<span class="n">cbt</span> <span class="n">deleteinstance</span> <span class="p">{</span><span class="n">instance</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> \
+<span class="n">rm</span> <span class="o">~/.</span><span class="n">cbtrc</span>
+</pre></div>
+</div>
+<aside class="topic">
+<p class="topic-title">Import/Export</p>
+<p>Bigtable does not have an import/export feature.
+A Java application may be used using HBase as an interface. Export of a table then produces a JAR file.</p>
+</aside>
+<section id="cloud-datastore">
+<h4>Cloud Datastore<a class="headerlink" href="#cloud-datastore" title="Permalink to this heading">¶</a></h4>
+<p>Use case, storing structured data for App Engine and Compute Engine applications, for a small app, data storage may be free.</p>
+<p>It is a “document database”, i.e. the data is held in key-value pairs (much like a JSON schema). With no database schema forcing entities to be alike, it is a great choice for a product catalog, for example, where items have varying characteristics. A book would rarely come with width, height, and depth, but a cupboard would. The lack of a formal data-structure accommodates this.</p>
+<p>Datastore does not support analytics.</p>
+<ul class="simple">
+<li><p><strong>NoSQL</strong> Fully-managed NoSQL (with SQL-like queries in GQL)</p></li>
+<li><p><strong>Handles transactions</strong></p></li>
+<li><p><strong>Unit size</strong> 1MB</p></li>
+<li><p><strong>Handles sharding and replication</strong></p></li>
+<li><p><strong>Highly scalable</strong></p></li>
+<li><p><strong>Free daily quota</strong></p></li>
+</ul>
+<p>The Datastore console area accommodates the creation of data queries. Once it is installed on your local SDK, you can leverage the datastore emulator.</p>
+</section>
+</section>
+<section id="using-datastore">
+<h3>Using Datastore<a class="headerlink" href="#using-datastore" title="Permalink to this heading">¶</a></h3>
+<aside class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Databases&gt; Datastore</p>
+</aside>
+<p>Setup requires a name/namespace for the entities (think schema for tables). Each entity has a uid (unique identifier) key.</p>
+<p>Backup requires a bucket to hold the file (and of course access permissions set to allow the service/users to edit the bucket). To create backups the Datastore users must have the <cite>datastore.databases.export</cite> permission or the Cloud Datastore Import Export Admin role (which includes <cite>datastore.databases.import</cite> permissions).</p>
+<p>Such a user can now run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">datastore</span> <span class="n">export</span> <span class="o">-</span><span class="n">namespaces</span><span class="o">=</span><span class="s1">&#39;{namespace-name}&#39;</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">bucket</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
+</pre></div>
+</div>
+<aside class="topic">
+<p class="topic-title">Import/Export</p>
+<p>Notice the use of namespace in the command above? The default is ‘(default)’. With high-volume streaming, the data is a snapshot of what the namespace holds at the time of the export, this information will be stored as metadata with the file.</p>
+</aside>
+<section id="cloud-firestore">
+<h4>Cloud Firestore<a class="headerlink" href="#cloud-firestore" title="Permalink to this heading">¶</a></h4>
+<p>Use case is storing, querying, and synchronizing data from across distributed systems, e.g. mobile apps. It supports transactional processing and offers redundancy with multiregional replication.</p>
+<p>Firestore can act like a front end to Datastore or use its own database.</p>
+</section>
+</section>
+<section id="using-firestore">
+<h3>Using Firestore<a class="headerlink" href="#using-firestore" title="Permalink to this heading">¶</a></h3>
+<aside class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Databases&gt; Firestore</p>
+</aside>
+<section id="cloud-storage">
+<h4>Cloud Storage<a class="headerlink" href="#cloud-storage" title="Permalink to this heading">¶</a></h4>
+<p>Think movies or large images. Immutable large stuff. Binary or object data.</p>
+<p><strong>Blob Store</strong>
+<strong>Capacity</strong> Petabybes+
+<strong>Unit size</strong> 5TB</p>
+<p><a class="reference external" href="storage.html">More on Cloud storage</a></p>
+</section>
+</section>
+<section id="searchable">
+<h3>Searchable<a class="headerlink" href="#searchable" title="Permalink to this heading">¶</a></h3>
+<p>All the following have database schemas, i.e. they are relational SQL databases.</p>
+<section id="cloud-sql">
+<h4>Cloud SQL<a class="headerlink" href="#cloud-sql" title="Permalink to this heading">¶</a></h4>
+<p>Relational database with full SQL transaction processing and consistency, think user-credential verification, customer-order processing.</p>
+<p>Scales vertically and horizontally, but limited by the size of the database instance that you choose.</p>
+<p>MySQL configuration:</p>
+<ul class="simple">
+<li><p>version</p></li>
+<li><p>connection (public or private IP)</p></li>
+<li><p>machine type</p></li>
+<li><p>automatic backups</p></li>
+<li><p>failover replicas</p></li>
+<li><p>flags (e.g. read only flag)</p></li>
+<li><p>maintenance slots</p></li>
+<li><p>labels</p></li>
+</ul>
+<p>Accessible by GCP and external services.</p>
+</section>
+</section>
+<section id="using-cloud-sql">
+<h3>Using Cloud SQL<a class="headerlink" href="#using-cloud-sql" title="Permalink to this heading">¶</a></h3>
+<aside class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Databases&gt; SQL&gt;</p>
+</aside>
+<p>You will be presented with the SQL choices:</p>
+<ul class="simple">
+<li><p>MySQL</p></li>
+<li><p>PostgreSQL</p></li>
+<li><p>SQL Server</p></li>
+</ul>
+<p>Once your instance is created Cloud Shell connects you with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>sql<span class="w"> </span>connect<span class="w"> </span><span class="o">{</span>instance-name<span class="o">}</span><span class="w"> </span>-user<span class="o">={</span>optional-username/password<span class="o">}</span>
+</pre></div>
+</div>
+<p>However, you really should not be passing a password unencrypted like that! If you leave it blank, you will be prompted and a measure of security is applied, you will see nothing as you type.</p>
+<p>Success means that a new command-line prompt connected to the SQL instance will open. NB this is a MySQL environment that accepts SQL commands, don’t get it confused with the Cloud Shell SDK!</p>
+</section>
+<section id="backups">
+<h3>Backups<a class="headerlink" href="#backups" title="Permalink to this heading">¶</a></h3>
+<p>Both on-demand and automatic backups are supported. These can be managed from the instance’s details page or from the Cloud Shell environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>sql<span class="w"> </span>backups<span class="w"> </span>create<span class="w"> </span>--instance<span class="w"> </span><span class="o">{</span>instance-name<span class="o">}</span>
+</pre></div>
+</div>
+<aside class="topic">
+<p class="topic-title">Imports/Exports</p>
+<p>The console provides a wizard, which provides/accepts data in .csv or SQL files.</p>
+</aside>
+<aside class="topic">
+<p class="topic-title">CLI Import/Export</p>
+<p>NB if you want to export to a bucket, the SQL instance must have write permissions to the bucket. The instance itself has its own service account name to support IAM:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">sql</span> <span class="n">instances</span> <span class="n">describe</span> <span class="p">{</span><span class="n">instance</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>From the output, find the service account’s email address.</p>
+<p>Provide this “user” (u) access rights (write permissions, W) to the bucket:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gsutil</span> <span class="n">acl</span> <span class="n">ch</span> <span class="o">-</span><span class="n">u</span><span class="p">{</span><span class="n">instance</span><span class="o">-</span><span class="n">email</span><span class="o">-</span><span class="n">address</span><span class="p">}:</span><span class="n">W</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">bucket</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Now, export data (as .csv) to that bucket:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">sql</span> <span class="n">export</span> <span class="n">csv</span> <span class="p">{</span><span class="n">instance</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> \
+<span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">bucket</span><span class="o">-</span><span class="n">name</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">file</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</aside>
+<section id="cloud-spanner">
+<h4>Cloud Spanner<a class="headerlink" href="#cloud-spanner" title="Permalink to this heading">¶</a></h4>
+<p>Relational database with full SQL transaction processing at a global scale. Large database-driven applications, think job board, ecommerce.</p>
+<p>Cloud Spanner provides strong transactional consistency and seamless scaling.</p>
+<ul class="simple">
+<li><p><strong>Capacity &gt;2TB</strong> Petabytes+</p></li>
+<li><p><strong>Horizonal scalability</strong></p></li>
+</ul>
+<p>Configuring:</p>
+<ul class="simple">
+<li><p>instance name and id</p></li>
+<li><p>number of nodes</p></li>
+<li><dl class="simple">
+<dt>regional or multiregional</dt><dd><p>this will determine where the nodes are located</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+<section id="using-cloud-spanner">
+<h3>Using Cloud Spanner<a class="headerlink" href="#using-cloud-spanner" title="Permalink to this heading">¶</a></h3>
+<aside class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Databases&gt; Cloud Spanner&gt; Create Instance options include:</p>
+</aside>
+<p>After the instance is configured, create the database to be managed by this instance. As with Cloud SQL, as soon as you are interacting with the database you use SQL commands.</p>
+<p>As with other services, such as BigQuery, the GCP provides a query form to use from the console.</p>
+<aside class="topic">
+<p class="topic-title">Import/Export</p>
+<p>The console provides a form for import/export of data. This is linked to each instance and requires:</p>
+<ul class="simple">
+<li><p>destination bucket</p></li>
+<li><p>database to export</p></li>
+<li><p>region that applies</p></li>
+</ul>
+<p>As it is Dataflow that manages this process, there is no gcloud command for import/export.</p>
+</aside>
+<section id="gcp-big-data-services">
+<h4>GCP Big Data Services<a class="headerlink" href="#gcp-big-data-services" title="Permalink to this heading">¶</a></h4>
+<p>The GCP provides 5 data handling tools:</p>
+<ul class="simple">
+<li><p>Cloud Dataproc</p></li>
+<li><p>Cloud Dataflow</p></li>
+<li><p>BigQuery</p></li>
+<li><p>Cloud Pub/Sub</p></li>
+<li><p>Cloud Datalab</p></li>
+</ul>
+</section>
+</section>
+<section id="bigquery">
+<h3>BigQuery<a class="headerlink" href="#bigquery" title="Permalink to this heading">¶</a></h3>
+<p>BigQuery is a good choice for data analytics warehousing and supports petabytes of data. It supports:</p>
+<ul class="simple">
+<li><p>fast SQL queries against large datasets</p></li>
+<li><p>statistical tools</p></li>
+<li><p>ML tools</p></li>
+</ul>
+<p>Aces heavy on read/write, able to stream data at 100,000 rows per second.</p>
+<ul class="simple">
+<li><p>Analytics data warehouse</p></li>
+<li><p>supports SQL</p></li>
+<li><p>load or stream data in</p></li>
+<li><p>free monthly quota</p></li>
+<li><p>data can be held regionally for local compliance</p></li>
+<li><p>people you share data with pay for their own queries</p></li>
+</ul>
+<p>Configuration:</p>
+<ul class="simple">
+<li><p>select a region (not all regions support it)</p></li>
+</ul>
+<p>Pricing, if a customer reaches $40,000 per month, there is a flat-pricing model available.</p>
+</section>
+<section id="using-bigquery">
+<h3>Using BigQuery<a class="headerlink" href="#using-bigquery" title="Permalink to this heading">¶</a></h3>
+<p>As a fully-managed service, backups and other admin tasks are automated by the GCP. Tasks that are available include:</p>
+<ul class="simple">
+<li><p>verifying status of a job</p></li>
+<li><p>estimating costs of running a query</p></li>
+</ul>
+<aside class="sidebar">
+<p class="sidebar-title">Verify status of a job</p>
+<p>From Big Data&gt; BigQuery&gt; Job History</p>
+</aside>
+<aside class="topic">
+<p class="topic-title">Estimates</p>
+<p>BigQuery provides an online query editor for SQL queries. In the bottom right of the GUI, the cost estimate is presented.</p>
+<p>Alternatively,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">dry_run</span>
+</pre></div>
+</div>
+<p>provides the same.</p>
+</aside>
+<aside class="topic">
+<p class="topic-title">Create Table</p>
+<ul class="simple">
+<li><p>source table (optional)</p></li>
+<li><dl class="simple">
+<dt>create table from (optional, defaults to empty)</dt><dd><ul>
+<li><dl class="simple">
+<dt>file format</dt><dd><ul>
+<li><p>.csv</p></li>
+<li><p>JSON</p></li>
+<li><p>Avro</p></li>
+<li><p>PRC</p></li>
+<li><p>Cloud Datastore Backup</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>destination project</p></li>
+<li><p>dataset name</p></li>
+<li><p>table name</p></li>
+<li><p>table type</p></li>
+</ul>
+<p>If an external table is selected, the data is accessed from the source table and only metadata stored in BigQuery. This negates the need to import large datasets.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bq</span> <span class="n">load</span> \
+<span class="o">--</span><span class="n">autodetect</span> \
+<span class="o">--</span><span class="n">source_format</span><span class="o">=</span><span class="p">{</span><span class="nb">format</span><span class="p">}</span> <span class="p">{</span><span class="n">dataset</span><span class="o">-</span><span class="n">name</span><span class="p">}</span><span class="o">.</span><span class="p">{</span><span class="n">table</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> <span class="p">{</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">source</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The autodetect switch in the command above asks BigQuery to detect the table’s schema from the source file.</p>
+</aside>
+<aside class="topic">
+<p class="topic-title">Import/Export</p>
+<p>From the console, BigQuery offers two export options, Cloud Storage or Data Studio. File options include:</p>
+<ul class="simple">
+<li><p>.csv (zip option of Gzip)</p></li>
+<li><p>JSON</p></li>
+<li><p>Avro (zip options deflate &amp; snappy)</p></li>
+</ul>
+<p>Avro format stores the data schema in a separate file to the data itself.</p>
+</aside>
+<section id="cloud-dataproc">
+<h4>Cloud Dataproc<a class="headerlink" href="#cloud-dataproc" title="Permalink to this heading">¶</a></h4>
+<p>Dataproc is a data analyses platform that manages Hadoop-based clusters and jobs on GCP. Managed Hadoop, MapReduce, Spark, PySpark, SparkR, Pig, and Hive service for big data batches.</p>
+<ul class="simple">
+<li><p>By-second billing</p></li>
+<li><p>Can take advantage of preemtible VMs</p></li>
+</ul>
+</section>
+</section>
+<section id="using-cloud-dataproc">
+<h3>Using Cloud Dataproc<a class="headerlink" href="#using-cloud-dataproc" title="Permalink to this heading">¶</a></h3>
+<p>GCP has a form to create a cluster, specify:</p>
+<ul class="simple">
+<li><p>name of cluster</p></li>
+<li><p>region &amp; zone</p></li>
+<li><p>nodes (single node for devs), configure machines for master and worker/s</p></li>
+<li><p>availability (standard or high)</p></li>
+</ul>
+<p>The cluster handles the master node, you can set the number of workers. To save costs, preemptible VMs may be selected.</p>
+<p>Or, via the SDK (check the environment has dataproc setup first):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">dataproc</span> <span class="n">clusters</span> <span class="n">create</span> <span class="p">{</span><span class="n">cluster</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> <span class="o">--</span><span class="n">zone</span> <span class="p">{</span><span class="n">zone</span><span class="o">-</span><span class="nb">id</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Once a cluster is running, jobs may be constructed using the GCP’s form accessed via the cluster details page. Setup depends on language. e.g.:</p>
+<ul class="simple">
+<li><p>Python for PySpark</p></li>
+<li><p>R for SparkR</p></li>
+<li><p>Java for those that support it, e.g.:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">dataproc</span> <span class="n">jobs</span> <span class="n">submit</span> <span class="n">spark</span> \
+<span class="o">--</span><span class="n">cluster</span> <span class="p">{</span><span class="n">cluster</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> \
+<span class="o">--</span><span class="n">jar</span> <span class="p">{</span><span class="n">java</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
+</pre></div>
+</div>
+<aside class="topic">
+<p class="topic-title">Import/Export</p>
+<p>Custom configuration files may be saved/uploaded:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">dataproc</span> <span class="n">clusters</span> <span class="n">export</span> <span class="p">{</span><span class="n">cluster</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> \
+<span class="o">--</span><span class="n">destination</span><span class="o">=</span><span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">bucket</span><span class="o">-</span><span class="n">name</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">file</span><span class="o">-</span><span class="n">name</span><span class="o">.</span><span class="n">yaml</span><span class="p">}</span>
+</pre></div>
+</div>
+</aside>
+<section id="cloud-dataflow">
+<h4>Cloud Dataflow<a class="headerlink" href="#cloud-dataflow" title="Permalink to this heading">¶</a></h4>
+<p>Use cases include fraud detection, point of sale segmentation analyses, personalization experiences.</p>
+<ul class="simple">
+<li><p>Streak and batch processing for unified and simplified pipelines</p></li>
+<li><p>For data of unpredictable size and rate</p></li>
+<li><p>ETL</p></li>
+<li><p>Orchestration tasks</p></li>
+<li><p>Each step in the pipeline is elastically scaled (i.e. all resources are by demand)</p></li>
+</ul>
+</section>
+<section id="cloud-pub-sub">
+<h4>Cloud Pub/Sub<a class="headerlink" href="#cloud-pub-sub" title="Permalink to this heading">¶</a></h4>
+<p>Flexible, scalable enterprise messaging. Operates in a decoupled way. A use case is email or IOT data analyses as the data streams. Another is to use Pub/Sub as an asynchronous interface between systems. For example a retail UI needs to update the invoice stock as customers shop, however, not at the cost of the shopper’s experience. A Pub/Sub topic could act as a store of items removed from stock (and added if a shopping cart is emptied). The inventory system would subscribe to the service and receive asynchronous updates.</p>
+<ul class="simple">
+<li><p>Supports many-to-many asynchronous messaging</p></li>
+<li><p>Offline support</p></li>
+<li><p>“at least once delivery”</p></li>
+<li><p>1 million+ messages per second</p></li>
+<li><p>pairs well with Dataflow</p></li>
+<li><p>push OR pull messages</p></li>
+</ul>
+</section>
+</section>
+<section id="using-cloud-pub-sub">
+<h3>Using Cloud Pub/Sub<a class="headerlink" href="#using-cloud-pub-sub" title="Permalink to this heading">¶</a></h3>
+<aside class="sidebar">
+<p class="sidebar-title">Console</p>
+<p>GCP&gt; Big Data&gt; Pub/Sub</p>
+</aside>
+<p>The console provides a simple form to complete. Two parameters must be defined:</p>
+<ul class="simple">
+<li><p>topic</p></li>
+<li><dl class="simple">
+<dt>subscription</dt><dd><ul>
+<li><p>name</p></li>
+<li><p>delivery type</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>A topic receives messages from applications. Applications read messages by creating a subscription. Subscriptions can be push or pull. Pulled implies that the application reads from a topic. Pushed implied that the subscription writes the messages to an endpoint, i.e. the webhook/URL capable of receiving the message must be provided.</p>
+<p>Various configurations are possible:</p>
+<ul class="simple">
+<li><p>acknowledgment deadline (10–600 seconds)</p></li>
+<li><p>retention period, i.e. the length of time to keep a message that was not delivered</p></li>
+</ul>
+<p>The SDK also supports CLI, e.g.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>pubsub<span class="w"> </span>topics<span class="w"> </span>create<span class="w"> </span><span class="o">{</span>your-topic-name<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">pubsum</span> <span class="n">subscriptions</span> <span class="n">create</span> \
+<span class="o">--</span><span class="n">topic</span> <span class="p">{</span><span class="n">topic</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> <span class="p">{</span><span class="n">new</span><span class="o">-</span><span class="n">subscription</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
+</pre></div>
+</div>
+<aside class="topic">
+<p class="topic-title">Streaming Data</p>
+<p>It helps to test your message que with a test message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="n">pubsub</span> <span class="n">publish</span> <span class="p">{</span><span class="n">your</span><span class="o">-</span><span class="n">topic</span><span class="o">-</span><span class="n">name</span><span class="p">}</span> \
+<span class="o">--</span><span class="n">message</span><span class="p">:{</span><span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">test</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="n">subsub</span> <span class="n">subsciptions</span> <span class="n">pull</span> \
+<span class="o">--</span><span class="n">auto</span><span class="o">-</span><span class="n">ack</span><span class="p">{</span><span class="n">subscription</span><span class="o">-</span><span class="n">name</span><span class="p">}</span>
+</pre></div>
+</div>
+</aside>
+<aside class="topic">
+<p class="topic-title">Integrating Pub/Sub</p>
+<p>A use case for decoupled Pub/Sub could be a Python App that is triggered by Pub/Sub messages.</p>
+<p>Consider the IAM for this:</p>
+<ul class="simple">
+<li><p>Assign the roles/run.invoker to your Python App (whether it be in App Engine, Cloud Run if containerised, or apply this to the service account if it runs on a VM).</p></li>
+<li><p>Set up the Pub/Sub subscription to the topic and use the service account to push those messages to.</p></li>
+</ul>
+</aside>
+<section id="cloud-datalab">
+<h4>Cloud Datalab<a class="headerlink" href="#cloud-datalab" title="Permalink to this heading">¶</a></h4>
+<p>Data exploration in Python.</p>
+<ul class="simple">
+<li><p>Notebooks and comments supported e.g. Jupyter Notebook</p></li>
+</ul>
+</section>
+<section id="gcp-machine-learning">
+<h4>GCP Machine Learning<a class="headerlink" href="#gcp-machine-learning" title="Permalink to this heading">¶</a></h4>
+<p>The ML platform is used for:</p>
+<ul class="simple">
+<li><p>content personalisation</p></li>
+<li><p>fraud detection</p></li>
+<li><p>sentiment analyses</p></li>
+</ul>
+<p>TensorFlow is an opensource ML software library. It links with dedicated hardware for large workloads.</p>
+<p>CloudVision API classifies images by category, it can provide the metadata on your image catalog, filter offensive material, or provide sentiment analysis.</p>
+<p>Cloud Natural Language API recognises 80+languages. It can transcribe audio into text.</p>
+<p>Cloud Video Intelligence API identifies nouns in video content to make it searchable.</p>
+<p>Dataproc supports MLLib for retail recommendation analyses</p>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Cloud Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gcp-main.html">Welcome to an Eclectic set of GCP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gcp-main.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/aws-main.html">Welcome to an Eclectic set of GCP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/aws-main.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, masterbunny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/pages/GCP/data-services.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
